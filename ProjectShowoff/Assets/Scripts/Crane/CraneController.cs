@@ -4,43 +4,44 @@ using UnityEngine;
 
 public class CraneController : MonoBehaviour
 {
-	[SerializeField] private CraneHook hook;
-	[SerializeField] private LayerMask hookableMask;
-	[SerializeField] private float craneHeight;
+	[SerializeField, Tooltip("The hook of this crane.")]
+	private CraneHook hook;
+	[SerializeField, Tooltip("Which objects (by LayerMask) should be able to be hooked")]
+	private LayerMask hookableMask;
+	[SerializeField, Tooltip("The height of this train")]
+	private float craneHeight;
 	private Vector3 desiredPosition = Vector3.zero;
 
 	private Plane cranePlane;
 
-	// Start is called before the first frame update
 	void Start()
 	{
 		cranePlane = new Plane(Vector3.up, new Vector3(0, craneHeight, 0));
+		Vector3 p = hook.transform.position;
+		p.y = craneHeight;
+		hook.transform.position = p;
 	}
 
-	// Update is called once per frame
+	private void UpdateDesiredPosition()
+	{
+		Vector3 mousePos = Input.mousePosition;
+		Ray ray = Camera.main.ScreenPointToRay(mousePos);
+		if (cranePlane.Raycast(ray, out float dist))
+		{
+			desiredPosition = ray.GetPoint(dist);
+		}
+	}
+
 	void Update()
 	{
 		if (Input.GetMouseButton(0))
-		{
-			// Update hook position
-			Vector3 mousePos = Input.mousePosition;
-			Ray ray = Camera.main.ScreenPointToRay(mousePos);
-			if (cranePlane.Raycast(ray, out float dist))
-			{
-				desiredPosition = ray.GetPoint(dist);
-			}
-		}
-		if (Input.GetMouseButtonDown(0))
-		{
-			// TODO set desired pos here at least once
-			// Get target
-			hook.Hook(GetTarget(Input.mousePosition));
-		}
-		if (Input.GetMouseButtonUp(0))
-		{
-			hook.Unhook();
-		}
+			UpdateDesiredPosition();
 
+		if (Input.GetMouseButtonDown(0))
+			hook.Hook(GetTarget(Input.mousePosition));
+
+		if (Input.GetMouseButtonUp(0))
+			hook.Unhook();
 	}
 
 	private Rigidbody GetTarget(Vector3 mousePos)

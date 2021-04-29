@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * A CraneHook using the builting SpringJoint component.
+ */
 [RequireComponent(typeof(SpringJoint))]
 public class BuiltinSpringGrabber : CraneHook
 {

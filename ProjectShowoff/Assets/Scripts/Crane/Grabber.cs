@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * A CraneHook using the custom "Spring" implementation <see cref="BetterSpring"/>
+ */
 [RequireComponent(typeof(BetterSpring))]
 public class Grabber : CraneHook
 {
