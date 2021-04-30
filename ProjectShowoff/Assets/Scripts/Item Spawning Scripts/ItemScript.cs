@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//item script to show debug info in the inspector
 [RequireComponent(typeof(Rigidbody), typeof(Renderer))]
 public class ItemScript : MonoBehaviour
 {

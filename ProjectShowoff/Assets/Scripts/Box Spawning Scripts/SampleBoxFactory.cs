@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// box factory inherited from BoxFactory
 public class SampleBoxFactory : MonoBehaviour, BoxFactory
 {
     [SerializeField] private GameObject[] boxPrefabs;
