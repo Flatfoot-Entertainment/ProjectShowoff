@@ -16,7 +16,8 @@ public class BoxSpawner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            boxFactory.CreateRandomBox();
+            Box newBox = boxFactory.CreateRandomBox();
+            Debug.Log(newBox.Type);
         }
     }
 }
