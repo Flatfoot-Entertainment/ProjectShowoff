@@ -10,19 +10,22 @@ public class SpringlessGrabber : CraneHook
 	[SerializeField] private float leniancy;
 	private Rigidbody target;
 
+	private Vector3 slowMoveVelocity = Vector3.zero;
+	private bool shouldUnhook = false;
+
 	public override void Hook(Rigidbody hooked)
 	{
 		target = hooked;
+		slowMoveVelocity = Vector3.zero;
+		shouldUnhook = false;
 	}
 
 	public override bool Unhook()
 	{
-		if (target)
-		{
-			target = null;
-			return true;
-		}
-		return false;
+		// Only set a flag -> We still need the target in the next FixedUpdate
+		shouldUnhook = true;
+		// Return if we have a target
+		return target;
 	}
 
 	protected override void OnAwake() { }
@@ -34,15 +37,38 @@ public class SpringlessGrabber : CraneHook
 		float dist = delta.magnitude;
 		if (dist < leniancy)
 		{
-			target.velocity = Vector3.zero;
+			Vector3 oldPos = target.position;
 			target.MovePosition(transform.position);
+			// Check how much the target has been moved to reach the grabber
+			slowMoveVelocity = (target.position - oldPos);
+			target.velocity = shouldUnhook
+				// If we should unhook, we set the velocity to the last one we recorded
+				? target.velocity = slowMoveVelocity * maxVelocity
+				// ...otherwise we set it to zero
+				: target.velocity = Vector3.zero;
 		}
 		else
 		{
-			float smoothingFactor = Mathf.Clamp(dist, 0, maxDistance);
-			float lookup = smoothing.Evaluate(smoothingFactor);
-			// Somehow make it not constant speed -> some smoothing
-			target.velocity = (transform.position - target.position).normalized * maxVelocity * lookup;
+			slowMoveVelocity = Vector3.zero;
+			float velocityMultiplier = smoothing.Evaluate(Mathf.Clamp(dist, 0, maxDistance));
+			target.velocity = (delta).normalized * maxVelocity * velocityMultiplier;
 		}
+		// If the flag was set, we unhook the target finally.
+		// After this iteration we don't need it anymore
+		if (shouldUnhook)
+			LateUnhook();
+	}
+
+	private void LateUnhook()
+	{
+		// Set target velocity.y to zero
+		// Prevent stuff from flying
+		Vector3 v = target.velocity;
+		v.y = 0;
+		target.velocity = v;
+		// Reset all the values
+		target = null;
+		shouldUnhook = false;
+		slowMoveVelocity = Vector3.zero;
 	}
 }
