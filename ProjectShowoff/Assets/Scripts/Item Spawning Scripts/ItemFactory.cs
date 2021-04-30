@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemFactory : MonoBehaviour
+public interface ItemFactory
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Item CreateRandomItem();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public ConsumerGoods CreateConsumerGoods();
+    public Food CreateFood();
+    public Fuel CreateFuel();
+    public MechanicalParts CreateMechanicalParts();
+    public Medicine CreateMedicine();
+    public People CreatePeople();
 }

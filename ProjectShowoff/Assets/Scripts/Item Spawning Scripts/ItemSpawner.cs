@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxSpawner : MonoBehaviour
+public class ItemSpawner : MonoBehaviour
 {
-    private BoxFactory boxFactory;
+    ItemFactory itemFactory;
     // Start is called before the first frame update
     void Start()
     {
-        boxFactory = new SampleBoxFactory();
+        itemFactory = new SampleItemFactory();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            Box newBox = boxFactory.CreateRandomBox();
-            Debug.Log(newBox.Type);
+            Item item = itemFactory.CreateRandomItem();
+            Debug.Log(item);
         }
     }
 }
