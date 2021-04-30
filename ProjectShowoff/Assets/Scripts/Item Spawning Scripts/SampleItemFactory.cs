@@ -43,31 +43,31 @@ public class SampleItemFactory : ItemFactory
 
     public ConsumerGoods CreateConsumerGoods()
     {
-        return new ConsumerGoods(45f);
+        return new ConsumerGoods(45f, 100);
     }
 
     public Food CreateFood()
     {
-        return new Food(45f);
+        return new Food(45f, 100);
     }
 
     public Fuel CreateFuel()
     {
-        return new Fuel(45f);
+        return new Fuel(45f, 100);
     }
 
     public MechanicalParts CreateMechanicalParts()
     {
-        return new MechanicalParts(45f);
+        return new MechanicalParts(45f, 100);
     }
 
     public Medicine CreateMedicine()
     {
-        return new Medicine(45f);
+        return new Medicine(45f, 100);
     }
 
     public People CreatePeople()
     {
-        return new People(45f);
+        return new People(45f, 100);
     }
 }

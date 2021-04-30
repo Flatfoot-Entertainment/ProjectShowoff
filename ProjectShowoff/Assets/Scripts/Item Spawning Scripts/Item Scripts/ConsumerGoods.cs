@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConsumerGoods : Item
 {
-    public ConsumerGoods(float pValue) : base(ItemType.ConsumerGoods, pValue, false)
+    public ConsumerGoods(float pValue, int pPrice) : base(ItemType.ConsumerGoods, pValue, false, pPrice)
     {
 
     }

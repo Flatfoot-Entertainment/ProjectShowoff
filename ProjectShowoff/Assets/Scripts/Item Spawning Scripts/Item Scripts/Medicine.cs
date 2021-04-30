@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Medicine : Item
 {
-    public Medicine(float pValue) : base(ItemType.Medicine, pValue, true)
+    public Medicine(float pValue, int pPrice) : base(ItemType.Medicine, pValue, true, pPrice)
     {
 
     }

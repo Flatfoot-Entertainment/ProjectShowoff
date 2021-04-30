@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MechanicalParts : Item
 {
-    public MechanicalParts(float pValue) : base(ItemType.MechanicalParts, pValue, true)
+    public MechanicalParts(float pValue, int pPrice) : base(ItemType.MechanicalParts, pValue, true, pPrice)
     {
 
     }

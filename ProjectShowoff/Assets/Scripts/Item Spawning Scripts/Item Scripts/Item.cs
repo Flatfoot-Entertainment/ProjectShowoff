@@ -16,20 +16,23 @@ public class Item
 {
     public ItemType Type => type;
     public float Value => value;
+    public int Price => price;
     //additional properties to add: sprite representation, change the isFragile to additional states?
     private readonly ItemType type;
     private readonly float value;
     private readonly bool isFragile;
+    private readonly int price;
 
-    public Item(ItemType pType, float pValue, bool pIsFragile)
+    public Item(ItemType pType, float pValue, bool pIsFragile, int pPrice)
     {
         type = pType;
         value = pValue;
         isFragile = pIsFragile;
+        price = pPrice;
     }
 
     public override string ToString()
     {
-        return $"Item: {type}, value: {value}, isFragile: {isFragile}";
+        return $"Item: {type}, value: {value}, isFragile: {isFragile}, price: {price}";
     }
 }
