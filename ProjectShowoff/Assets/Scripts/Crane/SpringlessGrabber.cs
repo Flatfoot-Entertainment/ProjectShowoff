@@ -17,6 +17,7 @@ public class SpringlessGrabber : CraneHook
 	{
 		target = hooked;
 		slowMoveVelocity = Vector3.zero;
+		shouldUnhook = false;
 	}
 
 	public override bool Unhook()
@@ -60,6 +61,11 @@ public class SpringlessGrabber : CraneHook
 
 	private void LateUnhook()
 	{
+		// Set target velocity.y to zero
+		// Prevent stuff from flying
+		Vector3 v = target.velocity;
+		v.y = 0;
+		target.velocity = v;
 		// Reset all the values
 		target = null;
 		shouldUnhook = false;
