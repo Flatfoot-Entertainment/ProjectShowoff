@@ -17,11 +17,14 @@ public class Item
     public ItemType Type => type;
     public float Value => value;
     public int Price => price;
+
+    public GameObject ItemPrefab { get => itemPrefab; set => itemPrefab = value; }
     //additional properties to add: sprite representation, change the isFragile to additional states?
     private readonly ItemType type;
     private readonly float value;
     private readonly bool isFragile;
     private readonly int price;
+    private GameObject itemPrefab;
 
     public Item(ItemType pType, float pValue, bool pIsFragile, int pPrice)
     {
