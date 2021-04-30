@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public abstract class CraneHook : MonoBehaviour
 {
 	// TODO why is this a Rigidbody? => Nothing uses it as a Rigidbody
-	private Rigidbody rb;
+	// private Rigidbody rb;
 
 	protected abstract void OnAwake();
 
 	private void Awake()
 	{
 		OnAwake();
-		rb = GetComponent<Rigidbody>();
+		// rb = GetComponent<Rigidbody>();
 	}
 
 	/**
@@ -32,6 +31,7 @@ public abstract class CraneHook : MonoBehaviour
 	 */
 	public void MovePosition(Vector3 pos)
 	{
-		rb.MovePosition(pos);
+		transform.position = pos;
+		// rb.MovePosition(pos);
 	}
 }
