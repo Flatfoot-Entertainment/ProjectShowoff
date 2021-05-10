@@ -25,7 +25,7 @@ public class ReadonlyHack : UnityEditor.AssetModificationProcessor
 		foreach (string path in paths)
 		{
 			FileInfo info = new FileInfo(path);
-			if (!(IsForbiddenExtension(info.Extension) && info.IsReadOnly))
+			if (!(info.Exists && IsForbiddenExtension(info.Extension) && info.IsReadOnly))
 			{
 				saveable.Add(path);
 			}
