@@ -29,7 +29,7 @@ public class BoxContainer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-			OnBoxDelivered();
+			OnBoxDelivered?.Invoke();
         }
 	}
 

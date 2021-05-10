@@ -28,6 +28,11 @@ public abstract class BaseGame : MonoBehaviour
     {      
     }
 
+    protected virtual void OnDestroy()
+    {
+        BoxContainer.OnBoxDelivered -= AddMoney;
+    }
+
     private void AddMoney()
     {
         money++;

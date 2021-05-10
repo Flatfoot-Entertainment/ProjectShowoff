@@ -16,6 +16,7 @@ public class TimeTrialScript : BaseGame
     // Start is called before the first frame update
     protected override void Start()
     {
+        base.Start();
         timeText.text = "Time: " + timeLeft;
         BoxContainer.OnBoxDelivered += AddTime;
         InvokeRepeating("UpdateTime", 1f, 1f);
@@ -25,6 +26,12 @@ public class TimeTrialScript : BaseGame
     protected override void Update()
     {
         
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        BoxContainer.OnBoxDelivered -= AddTime;
     }
 
     private void AddTime()
