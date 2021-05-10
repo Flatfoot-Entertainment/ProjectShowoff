@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//sample factory inherited from ItemFactory
 public class SampleItemFactory : ItemFactory
 {
     public const int NUMBER_OF_UNIQUE_ITEMS = 6;
-
+    //implement item prefab spawning here by using scriptable objects
     public Item CreateRandomItem()
     {
         Item item = null;
