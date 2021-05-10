@@ -4,6 +4,7 @@ public class TimeTrialScript : BaseGame
 {
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private int timeLeft;
+    [SerializeField] private int timeToAdd;
 
     public int TimeLeft
     {
@@ -16,6 +17,7 @@ public class TimeTrialScript : BaseGame
     protected override void Start()
     {
         timeText.text = "Time: " + timeLeft;
+        BoxContainer.OnBoxDelivered += AddTime;
         InvokeRepeating("UpdateTime", 1f, 1f);
     }
 
@@ -23,6 +25,12 @@ public class TimeTrialScript : BaseGame
     protected override void Update()
     {
         
+    }
+
+    private void AddTime()
+    {
+        timeLeft+=timeToAdd;
+        timeText.text = "Time: " + timeLeft;
     }
 
     private void UpdateTime()

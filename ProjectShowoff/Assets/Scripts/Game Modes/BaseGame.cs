@@ -20,13 +20,16 @@ public abstract class BaseGame : MonoBehaviour
     protected virtual void Start()
     {
         moneyText.text = "Money: " + money;
+        BoxContainer.OnBoxDelivered += AddMoney;
     }
 
     // Update is called once per frame
     protected virtual void Update()
-    {
+    {      
+    }
 
-        //put in a seperate method later on (check the todo above)
+    private void AddMoney()
+    {
         money++;
         moneyText.text = "Money: " + money;
     }

@@ -15,10 +15,5 @@ public class BoxSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Box newBox = boxFactory.CreateRandomBox();
-            Debug.Log(newBox.Type);
-        }
     }
 }
