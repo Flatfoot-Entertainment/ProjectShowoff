@@ -16,7 +16,8 @@ public class Box
     private readonly BoxType type;
 
     //sorting items by their item type
-    Dictionary<ItemType, float> boxContents;
+    private Dictionary<ItemType, float> boxContents;
+    public Dictionary<ItemType, float> BoxContents => boxContents;
 
     public Box(BoxType pBoxType)
     {
@@ -33,6 +34,20 @@ public class Box
         else
         {
             boxContents[item.Type] += item.Value;
+        }
+    }
+
+    public void RemoveItemFromBox(Item item)
+    {
+        boxContents.Remove(item.Type);
+    }
+
+    public void ShowBoxContents()
+    {
+        Debug.Log("Contents: ");
+        foreach (ItemType itemType in boxContents.Keys.ToList())
+        {
+            Debug.Log(itemType.ToString() + ": " + boxContents[itemType]);
         }
     }
 }
