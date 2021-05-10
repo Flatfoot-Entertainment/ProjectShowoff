@@ -35,7 +35,9 @@ public class BoxCreator : MonoBehaviour
 		BoxParts instantiated = parent ?
 			Instantiate<BoxParts>(box, parent) :
 			Instantiate<BoxParts>(box, position, Quaternion.identity);
+
 		instantiated.BodyObject.transform.localScale = dimensions;
+
 		instantiated.RightWall.transform.position = new Vector3(
 			dimensions.x / 2f, dimensions.y / 2f, 0f
 		);
@@ -68,12 +70,16 @@ public class BoxCreator : MonoBehaviour
 			0f, dimensions.y / 2f, dimensions.z / 2f
 		);
 		instantiated.BackWall.transform.localScale = new Vector3(
-			dimensions.z,
+			dimensions.x,
 			instantiated.RightWall.transform.localScale.y,
 			instantiated.RightWall.transform.localScale.z
 		);
 
-		// instantiated.LidObject.transform.localScale =
+		instantiated.LidObject.transform.localScale = new Vector3(
+			dimensions.x,
+			instantiated.LidObject.transform.localScale.y,
+			dimensions.z
+		);
 
 		return instantiated.gameObject;
 	}
