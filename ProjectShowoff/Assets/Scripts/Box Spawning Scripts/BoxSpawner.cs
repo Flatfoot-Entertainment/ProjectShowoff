@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//spawner for boxes (still needs visualization)
 public class BoxSpawner : MonoBehaviour
 {
     private BoxFactory boxFactory;

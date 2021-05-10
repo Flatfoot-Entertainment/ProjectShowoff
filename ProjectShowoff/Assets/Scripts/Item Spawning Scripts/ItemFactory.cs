@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//item factory to inherit from
+
 public interface ItemFactory
 {
     public Item CreateRandomItem();

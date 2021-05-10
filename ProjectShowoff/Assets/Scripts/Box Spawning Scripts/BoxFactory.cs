@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+
+//box factory to inherit from
 public interface BoxFactory
 {
     public Box CreateRandomBox();

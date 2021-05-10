@@ -14,7 +14,8 @@ public class Box
 {
     public BoxType Type => type;
     private readonly BoxType type;
-    //something to do when putting items - dictionary<itemtype, value>?
+
+    //sorting items by their item type
     Dictionary<ItemType, float> boxContents;
 
     public Box(BoxType pBoxType)
@@ -25,7 +26,7 @@ public class Box
 
     public void AddItemToBox(Item item)
     {
-        if (!boxContents.ContainsKey(item.Type))
+        if (!boxContents.ContainsKey(item.Type)) //does the box already contain the item type?
         {
             boxContents.Add(item.Type, item.Value);
         }
