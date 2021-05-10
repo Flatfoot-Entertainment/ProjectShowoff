@@ -12,12 +12,16 @@ public class BoxParts : MonoBehaviour
 	[SerializeField] private GameObject floor;
 	public GameObject Floor => floor;
 	[SerializeField] private GameObject leftWall;
+	// Negative X
 	public GameObject LeftWall => leftWall;
 	[SerializeField] private GameObject rightWall;
+	// Positive X
 	public GameObject RightWall => rightWall;
 	[SerializeField] private GameObject frontWall;
+	// Negative X
 	public GameObject FrontWall => frontWall;
 	[SerializeField] private GameObject backWall;
+	// Positive Z
 	public GameObject BackWall => backWall;
 	[SerializeField] private BoxBody body;
 	public BoxBody Body => body;
