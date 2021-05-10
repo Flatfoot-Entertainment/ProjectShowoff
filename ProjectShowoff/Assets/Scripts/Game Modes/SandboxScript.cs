@@ -1,6 +1,7 @@
 
 public class SandboxScript : BaseGame
 {
+    //todo events and some stuff
     //// Start is called before the first frame update
     //protected override void Start()
     //{
