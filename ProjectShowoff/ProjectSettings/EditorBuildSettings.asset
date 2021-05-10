@@ -5,13 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 37114b5914a757746a85202a1c0fd29b
   - enabled: 1
-    path: Assets/Scenes/Conveyors.unity
-    guid: 290f7eec0db82844880443cf3af8eca2
+    path: Assets/Scenes/Game Modes/Campaign.unity
+    guid: 0dd41b27ec5bb27409103a16f340abe4
+  - enabled: 1
+    path: Assets/Scenes/Game Modes/Sandbox.unity
+    guid: c8d0cfa6bae63284ba216e30b3e7970a
+  - enabled: 1
+    path: Assets/Scenes/Game Modes/TimeTrial.unity
+    guid: ed2574cefabe9ec409e96f073156b9d9
   m_configObjects: {}
