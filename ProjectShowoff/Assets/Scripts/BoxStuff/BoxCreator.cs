@@ -37,44 +37,69 @@ public class BoxCreator : MonoBehaviour
 			Instantiate<BoxParts>(box, position, Quaternion.identity);
 
 		instantiated.BodyObject.transform.localScale = dimensions;
+		instantiated.BodyObject.transform.localPosition = new Vector3(
+			0f,
+			dimensions.y / 2f,
+			0f
+		);
 
-		instantiated.RightWall.transform.position = new Vector3(
-			dimensions.x / 2f, dimensions.y / 2f, 0f
+		float wallThickness = instantiated.RightWall.transform.localScale.x / 2f;
+		instantiated.RightWall.transform.localPosition = new Vector3(
+			dimensions.x / 2f + wallThickness, dimensions.y / 2f, 0f
 		);
 		instantiated.RightWall.transform.localScale = new Vector3(
 			instantiated.RightWall.transform.localScale.x,
-			instantiated.RightWall.transform.localScale.y,
+			dimensions.y,
 			dimensions.z
 		);
 
-		instantiated.LeftWall.transform.position = new Vector3(
-			-dimensions.x / 2f, dimensions.y / 2f, 0f
+		wallThickness = instantiated.LeftWall.transform.localScale.x / 2f;
+		instantiated.LeftWall.transform.localPosition = new Vector3(
+			-dimensions.x / 2f - wallThickness, dimensions.y / 2f, 0f
 		);
 		instantiated.LeftWall.transform.localScale = new Vector3(
-			instantiated.RightWall.transform.localScale.x,
-			instantiated.RightWall.transform.localScale.y,
+			instantiated.LeftWall.transform.localScale.x,
+			dimensions.y,
 			dimensions.z
 		);
 
-		instantiated.FrontWall.transform.position = new Vector3(
-			0f, dimensions.y / 2f, -dimensions.z / 2f
+		wallThickness = instantiated.FrontWall.transform.localScale.z / 2f;
+		instantiated.FrontWall.transform.localPosition = new Vector3(
+			0f, dimensions.y / 2f, -dimensions.z / 2f - wallThickness
 		);
-
 		instantiated.FrontWall.transform.localScale = new Vector3(
 			dimensions.x,
-			instantiated.RightWall.transform.localScale.y,
-			instantiated.RightWall.transform.localScale.z
+			dimensions.y,
+			instantiated.FrontWall.transform.localScale.z
 		);
 
-		instantiated.BackWall.transform.position = new Vector3(
-			0f, dimensions.y / 2f, dimensions.z / 2f
+		wallThickness = instantiated.BackWall.transform.localScale.z / 2f;
+		instantiated.BackWall.transform.localPosition = new Vector3(
+			0f, dimensions.y / 2f, dimensions.z / 2f + wallThickness
 		);
 		instantiated.BackWall.transform.localScale = new Vector3(
 			dimensions.x,
-			instantiated.RightWall.transform.localScale.y,
-			instantiated.RightWall.transform.localScale.z
+			dimensions.y,
+			instantiated.BackWall.transform.localScale.z
 		);
 
+		float floorThickness = instantiated.Floor.transform.localScale.y / 2f;
+		instantiated.Floor.transform.localPosition = new Vector3(
+			instantiated.Floor.transform.localPosition.x,
+			-floorThickness,
+			instantiated.Floor.transform.localPosition.z
+		);
+		instantiated.Floor.transform.localScale = new Vector3(
+			dimensions.x,
+			instantiated.Floor.transform.localScale.y,
+			dimensions.z
+		);
+
+		instantiated.LidObject.transform.localPosition = new Vector3(
+			instantiated.Floor.transform.localPosition.x,
+			dimensions.y,
+			instantiated.Floor.transform.localPosition.z
+		);
 		instantiated.LidObject.transform.localScale = new Vector3(
 			dimensions.x,
 			instantiated.LidObject.transform.localScale.y,
