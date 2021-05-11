@@ -36,6 +36,8 @@ public class BoxCreator : MonoBehaviour
 			Instantiate<BoxParts>(box, parent) :
 			Instantiate<BoxParts>(box, position, Quaternion.identity);
 
+		instantiated.SetDimensions(dimensions);
+
 		instantiated.BodyObject.transform.localScale = dimensions;
 		instantiated.BodyObject.transform.localPosition = new Vector3(
 			0f,

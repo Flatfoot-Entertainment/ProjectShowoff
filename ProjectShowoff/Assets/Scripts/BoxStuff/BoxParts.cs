@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class BoxParts : MonoBehaviour
 {
+	private Vector3 dimensions;
+	public Vector3 Dimensions => dimensions;
+
+	public void SetDimensions(Vector3 dim)
+	{
+		dimensions = dim;
+	}
+
 	[SerializeField] private BoxContainer container;
 	public BoxContainer Container => container;
 
