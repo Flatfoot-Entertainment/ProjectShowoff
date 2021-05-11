@@ -19,6 +19,8 @@ public class Box
     private Dictionary<ItemType, float> boxContents;
     public Dictionary<ItemType, float> BoxContents => boxContents;
 
+    //cost for the box?
+
     public Box(BoxType pBoxType)
     {
         type = pBoxType;
@@ -40,6 +42,16 @@ public class Box
     public void RemoveItemFromBox(Item item)
     {
         boxContents.Remove(item.Type);
+    }
+
+    public float GetBoxContentsValue()
+    {
+        float contentsSum = 0f;
+        foreach(ItemType itemType in boxContents.Keys.ToList())
+        {
+            contentsSum += boxContents[itemType];
+        }
+        return contentsSum;
     }
 
     public void ShowBoxContents()

@@ -4,7 +4,7 @@ public class TimeTrialScript : BaseGame
 {
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private int timeLeft;
-    [SerializeField] private int timeToAdd;
+    [SerializeField] private int timeModifier; //to not make the time adding too op (probably to be deprecated)
 
     public int TimeLeft
     {
@@ -34,9 +34,9 @@ public class TimeTrialScript : BaseGame
         BoxContainer.OnBoxDelivered -= AddTime;
     }
 
-    private void AddTime()
+    private void AddTime(float timeToAdd)
     {
-        timeLeft+=timeToAdd;
+        timeLeft+=(int)timeToAdd / timeModifier;
         timeText.text = "Time: " + timeLeft;
     }
 
