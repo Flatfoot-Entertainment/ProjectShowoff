@@ -46,8 +46,9 @@ public class BoxContainer : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			OnBoxSent?.Invoke(sampleBoxCost);
-			ShippableBox shippable = Instantiate<ShippableBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
+			ShippableBox shippable = Instantiate<ShippableBox>(shippableBoxPrefab, transform.position + Vector3.up, transform.rotation, transform.parent);
 			shippable.Init(GetComponent<BoxParts>().Dimensions, box);
+			shippable.gameObject.layer = LayerMask.NameToLayer("Hookable"); //remove later on
 			box = null;
 			shippable.gameObject.SetActive(true);
 			Destroy(gameObject);

@@ -15,7 +15,7 @@ public class ShippableBox : MonoBehaviour
 		transform.localScale = dimentions;
 	}
 
-	private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision other)
 	{
 		if (!delivered && InMask(other.gameObject.layer))
 		{
