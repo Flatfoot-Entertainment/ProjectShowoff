@@ -35,7 +35,7 @@ namespace DG.Tweening
         #region Graphic
 
         /// <summary>Tweens an Graphic's color to the given value.
-        /// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+        /// Also stores the sprite as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<Color, Color, ColorOptions> DOColor(this Graphic target, Color endValue, float duration)
         {
@@ -45,7 +45,7 @@ namespace DG.Tweening
         }
 
         /// <summary>Tweens an Graphic's alpha color to the given value.
-        /// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+        /// Also stores the sprite as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<Color, Color, ColorOptions> DOFade(this Graphic target, float endValue, float duration)
         {
@@ -59,7 +59,7 @@ namespace DG.Tweening
         #region Image
 
         /// <summary>Tweens an Image's color to the given value.
-        /// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+        /// Also stores the sprite as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<Color, Color, ColorOptions> DOColor(this Image target, Color endValue, float duration)
         {
@@ -69,7 +69,7 @@ namespace DG.Tweening
         }
 
         /// <summary>Tweens an Image's alpha color to the given value.
-        /// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+        /// Also stores the sprite as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<Color, Color, ColorOptions> DOFade(this Image target, float endValue, float duration)
         {
@@ -79,7 +79,7 @@ namespace DG.Tweening
         }
 
         /// <summary>Tweens an Image's fillAmount to the given value.
-        /// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+        /// Also stores the sprite as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach (0 to 1)</param><param name="duration">The duration of the tween</param>
         public static TweenerCore<float, float, FloatOptions> DOFillAmount(this Image target, float endValue, float duration)
         {
@@ -92,7 +92,7 @@ namespace DG.Tweening
 
         /// <summary>Tweens an Image's colors using the given gradient
         /// (NOTE 1: only uses the colors of the gradient, not the alphas - NOTE 2: creates a Sequence, not a Tweener).
-        /// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+        /// Also stores the sprite as the tween's target so it can be used for filtered operations</summary>
         /// <param name="gradient">The gradient to use</param><param name="duration">The duration of the tween</param>
         public static Sequence DOGradientColor(this Image target, Gradient gradient, float duration)
         {

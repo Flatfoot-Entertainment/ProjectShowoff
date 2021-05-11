@@ -4,10 +4,20 @@ using UnityEngine;
 using TMPro;
 
 //the base game class, don't even know what to put in here yet
+
+public enum GameState
+{
+    PackageView,
+    Paused,
+    Upgrade,
+    PlanetView
+}
+
 public abstract class BaseGame : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private float money;
+    [SerializeField] private GameState gameState;
     public float Money
     {
         get => money;
@@ -20,13 +30,15 @@ public abstract class BaseGame : MonoBehaviour
     protected virtual void Start()
     {
         moneyText.text = "Money: " + money;
+        UpgradeContainer.OnUpgradeBought += RemoveMoney;
         BoxContainer.OnBoxSent += RemoveMoney;
         BoxContainer.OnBoxDelivered += AddMoney;
     }
 
 	private void OnDestroy()
 	{
-		BoxContainer.OnBoxDelivered -= AddMoney;
+        UpgradeContainer.OnUpgradeBought -= RemoveMoney;
+        BoxContainer.OnBoxDelivered -= AddMoney;
 		BoxContainer.OnBoxSent -= RemoveMoney;
 		OnDestroyCallback();
 	}

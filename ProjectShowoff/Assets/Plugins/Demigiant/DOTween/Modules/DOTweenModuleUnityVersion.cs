@@ -25,7 +25,7 @@ namespace DG.Tweening
 
         /// <summary>Tweens a Material's color using the given gradient
         /// (NOTE 1: only uses the colors of the gradient, not the alphas - NOTE 2: creates a Sequence, not a Tweener).
-        /// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+        /// Also stores the sprite as the tween's target so it can be used for filtered operations</summary>
         /// <param name="gradient">The gradient to use</param><param name="duration">The duration of the tween</param>
         public static Sequence DOGradientColor(this Material target, Gradient gradient, float duration)
         {
@@ -48,7 +48,7 @@ namespace DG.Tweening
         }
         /// <summary>Tweens a Material's named color property using the given gradient
         /// (NOTE 1: only uses the colors of the gradient, not the alphas - NOTE 2: creates a Sequence, not a Tweener).
-        /// Also stores the image as the tween's target so it can be used for filtered operations</summary>
+        /// Also stores the sprite as the tween's target so it can be used for filtered operations</summary>
         /// <param name="gradient">The gradient to use</param>
         /// <param name="property">The name of the material property to tween (like _Tint or _SpecColor)</param>
         /// <param name="duration">The duration of the tween</param>
