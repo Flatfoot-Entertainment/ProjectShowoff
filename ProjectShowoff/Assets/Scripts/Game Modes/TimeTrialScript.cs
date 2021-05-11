@@ -6,11 +6,11 @@ public class TimeTrialScript : BaseGame
     [SerializeField] private int timeLeft;
     [SerializeField] private int timeModifier; //to not make the time adding too op (probably to be deprecated)
 
-    public int TimeLeft
-    {
-        get => timeLeft;
-        set => timeLeft = value;
-    }
+	public int TimeLeft
+	{
+		get => timeLeft;
+		set => timeLeft = value;
+	}
 
     //TODO update with events through
     // Start is called before the first frame update
@@ -22,27 +22,21 @@ public class TimeTrialScript : BaseGame
         InvokeRepeating("UpdateTime", 1f, 1f);
     }
 
-    // Update is called once per frame
-    protected override void Update()
+	protected override void OnDestroyCallback()
     {
-        
-    }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
+        base.OnDestroyCallback();
         BoxContainer.OnBoxDelivered -= AddTime;
     }
 
-    private void AddTime(float timeToAdd)
+	private void AddTime(float timeToAdd)
     {
         timeLeft+=(int)timeToAdd / timeModifier;
         timeText.text = "Time: " + timeLeft;
     }
 
-    private void UpdateTime()
-    {
-        timeLeft--;
-        timeText.text = "Time: " + timeLeft;
-    }
+	private void UpdateTime()
+	{
+		timeLeft--;
+		timeText.text = "Time: " + timeLeft;
+	}
 }

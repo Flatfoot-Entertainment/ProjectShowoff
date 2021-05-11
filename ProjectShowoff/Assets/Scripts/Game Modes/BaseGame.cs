@@ -24,18 +24,14 @@ public abstract class BaseGame : MonoBehaviour
         BoxContainer.OnBoxDelivered += AddMoney;
     }
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {      
-    }
+	private void OnDestroy()
+	{
+		BoxContainer.OnBoxDelivered -= AddMoney;
+		BoxContainer.OnBoxSent -= RemoveMoney;
+		OnDestroyCallback();
+	}
 
-    protected virtual void OnDestroy()
-    {
-        BoxContainer.OnBoxSent -= RemoveMoney;
-        BoxContainer.OnBoxDelivered -= AddMoney;
-    }
-
-    private void AddMoney(float moneyToAdd)
+	private void AddMoney(float moneyToAdd)
     {
         money+=moneyToAdd;
         moneyText.text = "Money: " + money;
@@ -46,4 +42,11 @@ public abstract class BaseGame : MonoBehaviour
         money -= moneyToRemove;
         moneyText.text = "Money: " + money;
     }
+
+	protected virtual void OnDestroyCallback() { }
+
+	// Update is called once per frame
+	protected virtual void Update()
+	{
+	}
 }
