@@ -106,6 +106,7 @@ public class BoxCreator : MonoBehaviour
 			dimensions.z
 		);
 
+		instantiated.gameObject.SetActive(true);
 		return instantiated.gameObject;
 	}
 }

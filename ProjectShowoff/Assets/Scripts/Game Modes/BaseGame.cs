@@ -6,31 +6,39 @@ using TMPro;
 //the base game class, don't even know what to put in here yet
 public abstract class BaseGame : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI moneyText;
-    [SerializeField] private int money;
-    public int Money
-    {
-        get => money;
-        set => money = value;
-    }
-    //TODO trigger money update when sending boxes/whatever other things money is used for (events)
+	[SerializeField] private TextMeshProUGUI moneyText;
+	[SerializeField] private int money;
+	public int Money
+	{
+		get => money;
+		set => money = value;
+	}
+	//TODO trigger money update when sending boxes/whatever other things money is used for (events)
 
 
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        moneyText.text = "Money: " + money;
-        BoxContainer.OnBoxDelivered += AddMoney;
-    }
+	// Start is called before the first frame update
+	protected virtual void Start()
+	{
+		moneyText.text = "Money: " + money;
+		BoxContainer.OnBoxDelivered += AddMoney;
+	}
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {      
-    }
+	private void OnDestroy()
+	{
+		BoxContainer.OnBoxDelivered -= AddMoney;
+		OnDestroyCallback();
+	}
 
-    private void AddMoney()
-    {
-        money++;
-        moneyText.text = "Money: " + money;
-    }
+	protected virtual void OnDestroyCallback() { }
+
+	// Update is called once per frame
+	protected virtual void Update()
+	{
+	}
+
+	private void AddMoney(Box box)
+	{
+		money += box.MoneyValue;
+		moneyText.text = "Money: " + money;
+	}
 }
