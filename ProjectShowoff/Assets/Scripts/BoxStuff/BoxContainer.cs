@@ -18,6 +18,7 @@ public class BoxContainer : MonoBehaviour
 	private BoxLid lid;
 	private BoxBody body;
 	private Box box;
+	public Box Box => box;
 
 	[SerializeField] private float finalPositionThreshold = 0.1f;
 	[SerializeField] private float sampleBoxCost = 50.0f;

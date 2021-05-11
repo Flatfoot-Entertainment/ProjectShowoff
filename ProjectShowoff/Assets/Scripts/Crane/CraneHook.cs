@@ -4,9 +4,6 @@ using UnityEngine;
 
 public abstract class CraneHook : MonoBehaviour
 {
-	// TODO why is this a Rigidbody? => Nothing uses it as a Rigidbody
-	// private Rigidbody rb;
-
 	protected abstract void OnAwake();
 
 	private void Awake()
