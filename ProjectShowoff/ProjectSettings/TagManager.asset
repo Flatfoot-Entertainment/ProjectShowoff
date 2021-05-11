@@ -33,9 +33,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - DeliveryConveyor
+  - Box
+  - Item
   - Hookable
   m_SortingLayers:
   - name: Default

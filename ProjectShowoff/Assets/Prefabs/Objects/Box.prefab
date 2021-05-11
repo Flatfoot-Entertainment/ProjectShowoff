@@ -256,6 +256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0a62717a38fb44fabde8cd326371fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finalPositionThreshold: 0.1
+  sampleBoxCost: 50
+  shippableBoxPrefab: {fileID: 8677081705330404108, guid: eff46667a675cc043bf973de56201be6, type: 3}
 --- !u!114 &1225139272901922830
 MonoBehaviour:
   m_ObjectHideFlags: 0
