@@ -12,7 +12,7 @@ public class BoxParts : MonoBehaviour
 		dimensions = dim;
 	}
 
-	public Box Box => Container.Box;
+	public ItemBox Box => Container.Box;
 
 	[SerializeField] private BoxContainer container;
 	public BoxContainer Container => container;

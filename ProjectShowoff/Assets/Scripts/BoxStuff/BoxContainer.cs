@@ -4,7 +4,7 @@ using UnityEngine;
 
 public delegate void BoxDeliveredCallback(float value);
 public delegate void BoxSentCallback(float value);
-public class BoxContainer : MonoBehaviour
+public abstract class BoxContainer<BoxT, Contained, ValType> : MonoBehaviour where BoxT : IBox<Contained, ValType>
 {
 	// TODO maybe make this in some way generic
 	// -> This way we could store a smaller Box in a bigger box
@@ -17,22 +17,22 @@ public class BoxContainer : MonoBehaviour
 	//private List<GameObject> containing = new List<GameObject>();
 	private BoxLid lid;
 	private BoxBody body;
-	private Box box;
-	public Box Box => box;
+	private ItemBox box;
+	public abstract BoxT Box { get; }
 
 	[SerializeField] private float finalPositionThreshold = 0.1f;
 	[SerializeField] private float sampleBoxCost = 50.0f;
 	[SerializeField] private ShippableBox shippableBoxPrefab;
 
-	private Vector3 samplePositionToMoveBoxToToSimulateMovingBox; //only for testing stuff, pls remove this later on
-
 	private void Awake()
 	{
-		samplePositionToMoveBoxToToSimulateMovingBox = new Vector3(8.0f, transform.position.y, transform.position.z);
 		lid = GetComponentInChildren<BoxLid>();
 		body = GetComponentInChildren<BoxBody>();
-		box = new Box(BoxType.Type1);
+		// box = new ItemBox(BoxType.Type1);
+		OnAwake();
 	}
+
+	protected virtual void OnAwake() { }
 
 	private void Start()
 	{
@@ -63,7 +63,7 @@ public class BoxContainer : MonoBehaviour
 	private void DestroyBox(float value)
 	{
 		Debug.Log("Contents sent...");
-		box.ShowBoxContents();
+		// box.ShowBoxContents();
 		Destroy(gameObject);
 	}
 
@@ -75,7 +75,7 @@ public class BoxContainer : MonoBehaviour
 			//containing.Add(subject);
 			subject.transform.SetParent(transform);
 			box.AddItemToBox(subject.Item);
-			box.ShowBoxContents();
+			// box.ShowBoxContents();
 		}
 	}
 
@@ -86,15 +86,9 @@ public class BoxContainer : MonoBehaviour
 		{
 			subject.transform.parent = null;
 			box.RemoveItemFromBox(subject.Item);
-			box.ShowBoxContents();
+			// TODO call functions in child classes
+			// box.ShowBoxContents();
 		}
-	}
-
-	private float GetFinalPositionDifference(Vector3 endPoint)
-	{
-		float magnitudeDiff = transform.position.magnitude - endPoint.magnitude;
-		Debug.Log("Magnitude diff: " + magnitudeDiff);
-		return Mathf.Abs(magnitudeDiff);
 	}
 
 	// TODO I hate this very much xD

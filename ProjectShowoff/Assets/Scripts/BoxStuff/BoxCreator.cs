@@ -30,6 +30,12 @@ public class BoxCreator : MonoBehaviour
 		}
 	}
 
+	public GameObject CreateGeneric<BoxT>(Vector3 position, Vector3 dimensions, Transform parent)
+	{
+		// TODO
+		return null;
+	}
+
 	public GameObject Create(Vector3 position, Vector3 dimensions, Transform parent)
 	{
 		BoxParts instantiated = parent ?
