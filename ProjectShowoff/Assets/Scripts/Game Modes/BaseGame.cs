@@ -7,8 +7,8 @@ using TMPro;
 public abstract class BaseGame : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI moneyText;
-    [SerializeField] private int money;
-    public int Money
+    [SerializeField] private float money;
+    public float Money
     {
         get => money;
         set => money = value;
@@ -20,17 +20,33 @@ public abstract class BaseGame : MonoBehaviour
     protected virtual void Start()
     {
         moneyText.text = "Money: " + money;
+        BoxContainer.OnBoxSent += RemoveMoney;
         BoxContainer.OnBoxDelivered += AddMoney;
     }
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {      
-    }
+	private void OnDestroy()
+	{
+		BoxContainer.OnBoxDelivered -= AddMoney;
+		BoxContainer.OnBoxSent -= RemoveMoney;
+		OnDestroyCallback();
+	}
 
-    private void AddMoney()
+	private void AddMoney(float moneyToAdd)
     {
-        money++;
+        money+=moneyToAdd;
         moneyText.text = "Money: " + money;
     }
+
+    private void RemoveMoney(float moneyToRemove)
+    {
+        money -= moneyToRemove;
+        moneyText.text = "Money: " + money;
+    }
+
+	protected virtual void OnDestroyCallback() { }
+
+	// Update is called once per frame
+	protected virtual void Update()
+	{
+	}
 }
