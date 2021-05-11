@@ -10,6 +10,7 @@ public enum BoxType
 	Type3
 }
 
+// TODO maybe call it BoxData or something?
 public class Box
 {
 	public int MoneyValue => 1; // TODO calculate
@@ -54,22 +55,22 @@ public class Box
 		}
 	}
 
-    public float GetBoxContentsValue()
-    {
-        float contentsSum = 0f;
-        foreach(ItemType itemType in boxContents.Keys.ToList())
-        {
-            contentsSum += boxContents[itemType];
-        }
-        return contentsSum;
-    }
+	public float GetBoxContentsValue()
+	{
+		float contentsSum = 0f;
+		foreach (ItemType itemType in boxContents.Keys.ToList())
+		{
+			contentsSum += boxContents[itemType];
+		}
+		return contentsSum;
+	}
 
-    public void ShowBoxContents()
-    {
-        Debug.Log("Contents: ");
-        foreach (ItemType itemType in boxContents.Keys.ToList())
-        {
-            Debug.Log(itemType.ToString() + ": " + boxContents[itemType]);
-        }
-    }
+	public void ShowBoxContents()
+	{
+		Debug.Log("Contents: ");
+		foreach (ItemType itemType in boxContents.Keys.ToList())
+		{
+			Debug.Log(itemType.ToString() + ": " + boxContents[itemType]);
+		}
+	}
 }

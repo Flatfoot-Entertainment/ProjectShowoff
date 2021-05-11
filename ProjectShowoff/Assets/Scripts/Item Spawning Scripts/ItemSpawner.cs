@@ -24,7 +24,7 @@ public class ItemSpawner : MonoBehaviour
 		spawnedItemObject.GetComponent<Renderer>().material = materials[Random.Range(0, materials.Length)];
 		ItemScript itemScript = spawnedItemObject.AddComponent<ItemScript>();
 		itemScript.Item = item;
-		Debug.Log(item);
+		// Debug.Log(item);
 	}
 
 	public void Spawn()

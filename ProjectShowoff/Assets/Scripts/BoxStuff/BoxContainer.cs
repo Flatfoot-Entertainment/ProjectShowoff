@@ -6,6 +6,10 @@ public delegate void BoxDeliveredCallback(float value);
 public delegate void BoxSentCallback(float value);
 public class BoxContainer : MonoBehaviour
 {
+	// TODO maybe make this in some way generic
+	// -> This way we could store a smaller Box in a bigger box
+	//    -> This is useful for the collective shipments (1. load in box -> 2. load in truck -> ship off)
+
 	// TODO maybe in the future have a class that handles shipments.
 	// That way, we don't have a static event, which might mess with lifetimes, etc.
 	public static event BoxDeliveredCallback OnBoxDelivered;
@@ -14,12 +18,11 @@ public class BoxContainer : MonoBehaviour
 	private BoxLid lid;
 	private BoxBody body;
 	private Box box;
+	public Box Box => box;
 
-
-	[SerializeField] private bool isMoving;
-	[SerializeField] private float moveSpeed = 1.5f;
 	[SerializeField] private float finalPositionThreshold = 0.1f;
 	[SerializeField] private float sampleBoxCost = 50.0f;
+	[SerializeField] private ShippableBox shippableBoxPrefab;
 
 	private Vector3 samplePositionToMoveBoxToToSimulateMovingBox; //only for testing stuff, pls remove this later on
 
@@ -35,36 +38,30 @@ public class BoxContainer : MonoBehaviour
 	{
 		lid.OnExitCallback += LidExit;
 		lid.OnEnterCallback += LidEnter;
-		OnBoxDelivered += DestroyBox;
 	}
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-			isMoving = true;	//eww
+	private void Update()
+	{
+		// TODO other thing than space
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
 			OnBoxSent?.Invoke(sampleBoxCost);
-        }
-        if (isMoving)
-        {
-			transform.position = Vector3.Lerp(transform.position, samplePositionToMoveBoxToToSimulateMovingBox, moveSpeed * Time.deltaTime);
-            if (GetFinalPositionDifference(samplePositionToMoveBoxToToSimulateMovingBox) < finalPositionThreshold)
-            {
-				OnBoxDelivered?.Invoke(box.GetBoxContentsValue());
-				isMoving = false;
-            }
-        }
+			ShippableBox shippable = Instantiate<ShippableBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
+			shippable.Init(GetComponent<BoxParts>().Dimensions, box);
+			box = null;
+			shippable.gameObject.SetActive(true);
+			Destroy(gameObject);
+		}
 	}
 
 	private void OnDestroy()
 	{
 		lid.OnExitCallback -= LidExit;
 		lid.OnEnterCallback -= LidEnter;
-		OnBoxDelivered -= DestroyBox;
 	}
 
 	private void DestroyBox(float value)
-    {
+	{
 		Debug.Log("Contents sent...");
 		box.ShowBoxContents();
 		Destroy(gameObject);
@@ -94,10 +91,15 @@ public class BoxContainer : MonoBehaviour
 	}
 
 	private float GetFinalPositionDifference(Vector3 endPoint)
-    {
+	{
 		float magnitudeDiff = transform.position.magnitude - endPoint.magnitude;
 		Debug.Log("Magnitude diff: " + magnitudeDiff);
 		return Mathf.Abs(magnitudeDiff);
-    }
+	}
 
+	// TODO I hate this very much xD
+	public static void Deliver(float value)
+	{
+		OnBoxDelivered?.Invoke(value);
+	}
 }
