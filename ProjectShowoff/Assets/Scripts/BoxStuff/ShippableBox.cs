@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShippableBox : MonoBehaviour
 {
+	public Box Box => box;
 	[SerializeField] private LayerMask deliveringCollisionMask;
 	private Box box;
 	private bool delivered;
@@ -13,13 +14,15 @@ public class ShippableBox : MonoBehaviour
 		delivered = false;
 		this.box = box;
 		transform.localScale = dimentions;
+		EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(box.GetBoxContentsValue()));
 	}
 
-	private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter(Collision other)
 	{
 		if (!delivered && InMask(other.gameObject.layer))
 		{
-			BoxContainer.Deliver(box.GetBoxContentsValue());
+			//BoxContainer.Deliver(box.GetBoxContentsValue());
+			EventScript.Instance.EventQueue.Update();
 			delivered = true;
 		}
 	}
@@ -28,7 +31,8 @@ public class ShippableBox : MonoBehaviour
 	{
 		if (!delivered)
 		{
-			BoxContainer.Deliver(box.GetBoxContentsValue());
+			//BoxContainer.Deliver(box.GetBoxContentsValue());
+			EventScript.Instance.EventQueue.Update();
 			delivered = true;
 		}
 	}

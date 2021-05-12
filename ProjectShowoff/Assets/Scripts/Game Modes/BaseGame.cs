@@ -23,42 +23,67 @@ public abstract class BaseGame : MonoBehaviour
         get => money;
         set => money = value;
     }
-    //TODO trigger money update when sending boxes/whatever other things money is used for (events)
-
+    //TODO use event queue to decouple game modes from game events
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        //box creation stuff
+        BoxCreator.Instance.Create(
+            new Vector3(0f, 0.5f, 0f),
+            new Vector3(
+                Random.Range(0.5f, 3f),
+                Random.Range(0.5f, 1.5f),
+                Random.Range(0.5f, 3f)
+            ),
+            null
+        );
+
+        EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, OnBoxSent);
+        EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, OnBoxDelivered);
+        EventScript.Instance.EventQueue.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
+        //EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, OnUpgradeBought);
         moneyText.text = "Money: " + money;
-        UpgradeContainer.OnUpgradeBought += RemoveMoney;
-        BoxContainer.OnBoxSent += RemoveMoney;
-        BoxContainer.OnBoxDelivered += AddMoney;
     }
 
 	private void OnDestroy()
 	{
-        UpgradeContainer.OnUpgradeBought -= RemoveMoney;
-        BoxContainer.OnBoxDelivered -= AddMoney;
-		BoxContainer.OnBoxSent -= RemoveMoney;
-		OnDestroyCallback();
+       
+        //EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnUpgradeBought);
+        OnDestroyCallback();
 	}
 
-	private void AddMoney(float moneyToAdd)
+    private void ManageMoney(Event e)
     {
-        money+=moneyToAdd;
+        ManageMoneyEvent manageEvent = e as ManageMoneyEvent;
+        money += manageEvent.Amount;
         moneyText.text = "Money: " + money;
     }
 
-    private void RemoveMoney(float moneyToRemove)
+    private void ManageUpgrade(Event e)
     {
-        money -= moneyToRemove;
-        moneyText.text = "Money: " + money;
+        ManageUpgradeEvent upgradeEvent = e as ManageUpgradeEvent;
+        money -= upgradeEvent.Upgrade.Cost;
     }
 
-	protected virtual void OnDestroyCallback() { }
+	protected virtual void OnDestroyCallback() {
+        EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnBoxSent);
+        EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnBoxDelivered);
+        EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageUpgrade, OnUpgradeBought);
+    }
 
-	// Update is called once per frame
-	protected virtual void Update()
-	{
-	}
+    protected virtual void OnBoxDelivered(Event e)
+    {
+        ManageMoney(e);
+    }
+
+    protected virtual void OnBoxSent(Event e)
+    {
+        ManageMoney(e);
+    }
+
+    protected virtual void OnUpgradeBought(Event e)
+    {
+        ManageUpgrade(e);
+    }
 }

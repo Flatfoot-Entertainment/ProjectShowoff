@@ -41,6 +41,7 @@ public class UpgradeContainer : MonoBehaviour
             default:
                 break;
         }
+        EventScript.Instance.EventQueue.AddEvent(new ManageUpgradeEvent(upgrade));
         image.sprite = upgrade.Sprite;
         levelText.text = upgrade.Level.ToString();
         costText.text = upgrade.Cost.ToString();
@@ -48,7 +49,7 @@ public class UpgradeContainer : MonoBehaviour
 
     public void UpdateUpgrade() //such name very read
     {
-        OnUpgradeBought?.Invoke(upgrade.Cost);
+        EventScript.Instance.EventQueue.Update();
         upgrade.ApplyUpgrade();
         upgrade.IncreaseLevel();
         levelText.text = upgrade.Level.ToString();
