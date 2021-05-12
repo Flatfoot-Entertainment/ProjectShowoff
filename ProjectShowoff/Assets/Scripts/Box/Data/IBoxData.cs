@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public interface IBox<Contained>
+public interface IBoxData<Contained>
 {
 	float MoneyValue { get; }
 	List<Contained> Contents { get; }

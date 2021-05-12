@@ -53,7 +53,7 @@ public class BoxCreator : MonoBehaviour
 		BoxParts<BoxT, Contained> prefab,
 		Vector3 position, Vector3 dimensions,
 		Transform parent)
-		where BoxT : IBox<Contained>
+		where BoxT : IBoxData<Contained>
 	{
 		BoxParts<BoxT, Contained> instantiated = parent ?
 			Instantiate<BoxParts<BoxT, Contained>>(prefab, parent) :

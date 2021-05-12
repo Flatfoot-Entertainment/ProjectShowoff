@@ -13,7 +13,6 @@ public class ItemScript : PropertyHolder<Item>
 	[SerializeField] private float itemValue;
 	[SerializeField] private int price;
 
-
 	private void Start()
 	{
 		itemType = item.Type;

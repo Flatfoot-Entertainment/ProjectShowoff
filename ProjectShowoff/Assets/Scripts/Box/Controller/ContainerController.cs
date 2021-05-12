@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxBoxContainer : BoxContainer<BoxBox, ItemBox>
+public class BoxBoxContainer : BoxController<BoxBox, ItemBox>
 {
 	public override BoxBox Box
 	{

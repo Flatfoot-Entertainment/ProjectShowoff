@@ -4,7 +4,7 @@ using UnityEngine;
 
 public delegate void BoxDeliveredCallback(float value);
 public delegate void BoxSentCallback(float value);
-public abstract class BoxContainer<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Contained>
+public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
 	// TODO maybe make this in some way generic
 	// -> This way we could store a smaller Box in a bigger box

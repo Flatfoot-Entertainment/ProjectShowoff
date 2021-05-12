@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Contained>
+public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
 	[SerializeField] private LayerMask deliveringCollisionMask;
 	private BoxT box;
@@ -20,7 +20,7 @@ public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Con
 	{
 		if (!delivered && InMask(other.gameObject.layer))
 		{
-			BoxContainer<BoxT, Contained>.Deliver(box.MoneyValue);
+			BoxController<BoxT, Contained>.Deliver(box.MoneyValue);
 			delivered = true;
 		}
 	}
@@ -29,7 +29,7 @@ public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Con
 	{
 		if (!delivered)
 		{
-			BoxContainer<BoxT, Contained>.Deliver(box.MoneyValue);
+			BoxController<BoxT, Contained>.Deliver(box.MoneyValue);
 			delivered = true;
 		}
 	}

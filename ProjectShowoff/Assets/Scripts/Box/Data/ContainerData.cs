@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class BoxBox : IBox<ItemBox>
+public class BoxBox : IBoxData<ItemBox>
 {
 	public float MoneyValue
 	{

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxParts<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Contained>
+public class BoxParts<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
 	private Vector3 dimensions;
 	public Vector3 Dimensions => dimensions;
@@ -14,8 +14,8 @@ public class BoxParts<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Contain
 
 	public BoxT Box => Container.Box;
 
-	[SerializeField] private BoxContainer<BoxT, Contained> container;
-	public BoxContainer<BoxT, Contained> Container => container;
+	[SerializeField] private BoxController<BoxT, Contained> container;
+	public BoxController<BoxT, Contained> Container => container;
 
 	public GameObject MainObject => gameObject;
 
