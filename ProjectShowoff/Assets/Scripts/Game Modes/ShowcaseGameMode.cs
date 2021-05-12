@@ -9,16 +9,16 @@ public class ShowcaseGameMode : BaseGame
 	protected override void Start()
 	{
 		base.Start();
-		ItemBoxController.OnBoxDelivered += OnBoxDelivered;
-		ContainerController.OnBoxDelivered += OnContainerDelivered;
-		OnBoxDelivered(float.MinValue); // To lazy to copy paste
-		OnContainerDelivered(float.MinValue);
+		// ItemBoxController.OnBoxDelivered += OnBoxDelivered;
+		// ContainerController.OnBoxDelivered += OnContainerDelivered;
+		// OnBoxDelivered(float.MinValue); // To lazy to copy paste
+		// OnContainerDelivered(float.MinValue);
 	}
 
 	protected override void OnDestroyCallback()
 	{
-		ItemBoxController.OnBoxDelivered -= OnBoxDelivered;
-		ContainerController.OnBoxDelivered -= OnContainerDelivered;
+		// ItemBoxController.OnBoxDelivered -= OnBoxDelivered;
+		// ContainerController.OnBoxDelivered -= OnContainerDelivered;
 	}
 
 	private void OnBoxDelivered(float value)

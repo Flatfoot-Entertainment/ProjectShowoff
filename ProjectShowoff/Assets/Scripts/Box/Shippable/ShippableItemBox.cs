@@ -9,4 +9,14 @@ public class ShippableItemBox : ShippableBox<ItemBoxData, Item>
 		ItemBoxScript data = gameObject.AddComponent<ItemBoxScript>();
 		data.contained = Box;
 	}
+
+	private void OnTransformParentChanged()
+	{
+		if (transform.parent.GetComponent<ContainerController>())
+		{
+			// TODO filthy hack (for now)
+			// Function gets called, if it gets added to the box
+			Deliver();
+		}
+	}
 }

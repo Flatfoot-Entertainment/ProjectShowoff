@@ -17,7 +17,6 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 
 	[SerializeField] private float finalPositionThreshold = 0.1f;
 	[SerializeField] private float sampleBoxCost = 50.0f;
-	[SerializeField] private ShippableBox<BoxT, Contained> shippableBoxPrefab;
 
 	private void Awake()
 	{
@@ -35,18 +34,17 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		lid.OnEnterCallback += LidEnter;
 	}
 
-	private void Update()
+	protected abstract ShippableBox<BoxT, Contained> InstantiateShipped();
+
+	public ShippableBox<BoxT, Contained> Ship()
 	{
-		// TODO other thing than space
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			OnBoxSent?.Invoke(sampleBoxCost);
-			var shippable = Instantiate<ShippableBox<BoxT, Contained>>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
-			shippable.Init(GetComponent<BoxParts<BoxT, Contained>>().Dimensions, Box);
-			Box = default(BoxT);
-			shippable.gameObject.SetActive(true);
-			Destroy(gameObject);
-		}
+		OnBoxSent?.Invoke(sampleBoxCost);
+		var shippable = InstantiateShipped();
+		shippable.Init(GetComponent<BoxParts<BoxT, Contained>>().Dimensions, Box);
+		Box = default(BoxT);
+		shippable.gameObject.SetActive(true);
+		Destroy(gameObject);
+		return shippable;
 	}
 
 	private void OnDestroy()
@@ -67,11 +65,11 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		// If the thing exiting the lid is in the body, it is fully in the box
 		if (body.Has(subject.gameObject))
 		{
-			Debug.Log("Box box box box");
 			//containing.Add(subject);
 			subject.transform.SetParent(transform);
 			Box.AddToBox(subject.contained);
 			// box.ShowBoxContents();
+			OnObjectAdded();
 		}
 	}
 
@@ -80,13 +78,16 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		if (body.Has(subject.gameObject))
 		{
-			Debug.Log("Not Box box Box box");
 			subject.transform.parent = null;
 			Box.RemoveFromBox(subject.contained);
 			// TODO call functions in child classes
 			// box.ShowBoxContents();
+			OnObjectRemoved();
 		}
 	}
+
+	protected virtual void OnObjectAdded() { }
+	protected virtual void OnObjectRemoved() { }
 
 	// TODO I hate this very much xD
 	public static void Deliver(float value)

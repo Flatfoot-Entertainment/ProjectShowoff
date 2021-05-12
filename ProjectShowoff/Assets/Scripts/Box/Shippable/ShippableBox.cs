@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
-	[SerializeField] private LayerMask deliveringCollisionMask;
+	public delegate void ShipmentCallback();
+	public event ShipmentCallback OnShipment;
 	public BoxT Box => box;
 	private BoxT box;
 	private bool delivered;
@@ -19,26 +20,21 @@ public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData
 		OnInit();
 	}
 
-	private void OnCollisionEnter(Collision other)
+	protected void Deliver()
 	{
-		if (!delivered && InMask(other.gameObject.layer))
-		{
-			BoxController<BoxT, Contained>.Deliver(box.MoneyValue);
-			delivered = true;
-		}
+		if (delivered) return;
+		OnShipment?.Invoke();
+		delivered = true;
 	}
 
 	private void OnDestroy()
 	{
-		if (!delivered)
-		{
-			BoxController<BoxT, Contained>.Deliver(box.MoneyValue);
-			delivered = true;
-		}
+		OnShipment = null;
+		// if (!delivered)
+		// {
+		// 	BoxController<BoxT, Contained>.Deliver(box.MoneyValue);
+		// 	delivered = true;
+		// }
 	}
 
-	private bool InMask(int layer)
-	{
-		return (deliveringCollisionMask == (deliveringCollisionMask | (1 << layer)));
-	}
 }

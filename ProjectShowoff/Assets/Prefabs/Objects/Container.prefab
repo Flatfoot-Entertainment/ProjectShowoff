@@ -258,7 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finalPositionThreshold: 0.1
   sampleBoxCost: 50
-  shippableBoxPrefab: {fileID: 2584160028941679748, guid: dbed95aa42063f142aa0ab9b163defd7, type: 3}
+  shippableContainerPrefab: {fileID: 2584160028941679748, guid: dbed95aa42063f142aa0ab9b163defd7, type: 3}
 --- !u!114 &5840086452090345803
 MonoBehaviour:
   m_ObjectHideFlags: 0
