@@ -14,32 +14,26 @@ public class TimeTrialScript : BaseGame
 
     //TODO update with events through
     // Start is called before the first frame update
+
+
     protected override void Start()
     {
         base.Start();
         timeText.text = "Time: " + timeLeft;
-        BoxContainer.OnBoxDelivered += AddTime;
-        BoxCreator.Instance.Create(
-            new Vector3(0f, 0.5f, 0f),
-            new Vector3(
-                Random.Range(0.5f, 3f),
-                Random.Range(0.5f, 1.5f),
-                Random.Range(0.5f, 3f)
-            ),
-            null
-        );
         InvokeRepeating("UpdateTime", 1f, 1f);
+        EventScript.Instance.EventQueue.Subscribe(EventType.ManageTime, ManageTime);
     }
 
 	protected override void OnDestroyCallback()
     {
         base.OnDestroyCallback();
-        BoxContainer.OnBoxDelivered -= AddTime;
+        EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageTime, ManageTime);
     }
 
-	private void AddTime(float timeToAdd)
+	private void ManageTime(Event e)
     {
-        timeLeft+=(int)timeToAdd / timeModifier;
+        ManageTimeEvent manageTimeEvent = e as ManageTimeEvent;
+        timeLeft+=(int)manageTimeEvent.TimeAmount / timeModifier;
         timeText.text = "Time: " + timeLeft;
     }
 
@@ -49,16 +43,10 @@ public class TimeTrialScript : BaseGame
 		timeText.text = "Time: " + timeLeft;
 	}
 
-    private void OnBoxDelivered(float value)
+    protected override void OnBoxDelivered(Event e)
     {
-        BoxCreator.Instance.Create(
-            new Vector3(0f, 0.5f, 0f),
-            new Vector3(
-                Random.Range(0.5f, 3f),
-                Random.Range(0.5f, 1.5f),
-                Random.Range(0.5f, 3f)
-            ),
-            null
-        );
+        base.OnBoxDelivered(e);
     }
+
+
 }
