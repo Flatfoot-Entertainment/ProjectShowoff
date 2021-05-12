@@ -6,10 +6,6 @@ public delegate void BoxDeliveredCallback(float value);
 public delegate void BoxSentCallback(float value);
 public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
-	// TODO maybe make this in some way generic
-	// -> This way we could store a smaller Box in a bigger box
-	//    -> This is useful for the collective shipments (1. load in box -> 2. load in truck -> ship off)
-
 	// TODO maybe in the future have a class that handles shipments.
 	// That way, we don't have a static event, which might mess with lifetimes, etc.
 	public static event BoxDeliveredCallback OnBoxDelivered;
@@ -71,6 +67,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		// If the thing exiting the lid is in the body, it is fully in the box
 		if (body.Has(subject.gameObject))
 		{
+			Debug.Log("Box box box box");
 			//containing.Add(subject);
 			subject.transform.SetParent(transform);
 			Box.AddToBox(subject.contained);
@@ -83,6 +80,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		if (body.Has(subject.gameObject))
 		{
+			Debug.Log("Not Box box Box box");
 			subject.transform.parent = null;
 			Box.RemoveFromBox(subject.contained);
 			// TODO call functions in child classes

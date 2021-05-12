@@ -32,14 +32,15 @@ public abstract class BaseGame : MonoBehaviour
 		moneyText.text = "Money: " + money;
 		UpgradeContainer.OnUpgradeBought += RemoveMoney;
 		ItemBoxController.OnBoxSent += RemoveMoney;
-		ItemBoxController.OnBoxDelivered += AddMoney;
+		ContainerController.OnBoxSent += RemoveMoney;
+		ContainerController.OnBoxDelivered += AddMoney;
 	}
 
 	private void OnDestroy()
 	{
 		UpgradeContainer.OnUpgradeBought -= RemoveMoney;
-		ItemBoxController.OnBoxDelivered -= AddMoney;
-		ItemBoxController.OnBoxSent -= RemoveMoney;
+		ContainerController.OnBoxDelivered -= AddMoney;
+		ContainerController.OnBoxSent -= RemoveMoney;
 		OnDestroyCallback();
 	}
 

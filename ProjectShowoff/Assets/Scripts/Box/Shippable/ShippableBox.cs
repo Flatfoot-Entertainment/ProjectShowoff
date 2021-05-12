@@ -5,15 +5,18 @@ using UnityEngine;
 public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
 	[SerializeField] private LayerMask deliveringCollisionMask;
+	public BoxT Box => box;
 	private BoxT box;
 	private bool delivered;
 
+	protected virtual void OnInit() { }
+
 	public void Init(Vector3 dimentions, BoxT box)
 	{
-		// TODO add BoxScript to this gameobject with the correct box in it
 		delivered = false;
 		this.box = box;
 		transform.localScale = dimentions;
+		OnInit();
 	}
 
 	private void OnCollisionEnter(Collision other)

@@ -1,5 +1,5 @@
 
-public class ContainerScript : BoxScript<ItemBoxData>
+public class ItemBoxScript : BoxScript<ItemBoxData>
 {
 	public override ItemBoxData contained
 	{
