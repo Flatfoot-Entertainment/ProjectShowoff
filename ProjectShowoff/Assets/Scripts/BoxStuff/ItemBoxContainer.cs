@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemBoxContainer : BoxContainer<ItemBox, Item, float>
+public class ItemBoxContainer : BoxContainer<ItemBox, Item>
 {
 	private ItemBox box;
 	protected override void OnAwake()
@@ -11,5 +11,9 @@ public class ItemBoxContainer : BoxContainer<ItemBox, Item, float>
 		box = new ItemBox(BoxType.Type1); // TODO multiple types
 	}
 
-	public override ItemBox Box => box;
+	public override ItemBox Box
+	{
+		get => box;
+		protected set => box = value;
+	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public delegate void BoxDeliveredCallback(float value);
 public delegate void BoxSentCallback(float value);
-public abstract class BoxContainer<BoxT, Contained, ValType> : MonoBehaviour where BoxT : IBox<Contained, ValType>
+public abstract class BoxContainer<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Contained>
 {
 	// TODO maybe make this in some way generic
 	// -> This way we could store a smaller Box in a bigger box
@@ -15,18 +15,17 @@ public abstract class BoxContainer<BoxT, Contained, ValType> : MonoBehaviour whe
 	public static event BoxDeliveredCallback OnBoxDelivered;
 	public static event BoxSentCallback OnBoxSent;
 	//private List<GameObject> containing = new List<GameObject>();
-	private BoxLid lid;
+	private BoxLid<Contained> lid;
 	private BoxBody body;
-	private ItemBox box;
-	public abstract BoxT Box { get; }
+	public abstract BoxT Box { get; protected set; }
 
 	[SerializeField] private float finalPositionThreshold = 0.1f;
 	[SerializeField] private float sampleBoxCost = 50.0f;
-	[SerializeField] private ShippableBox shippableBoxPrefab;
+	[SerializeField] private ShippableBox<BoxT, Contained> shippableBoxPrefab;
 
 	private void Awake()
 	{
-		lid = GetComponentInChildren<BoxLid>();
+		lid = GetComponentInChildren<BoxLid<Contained>>();
 		body = GetComponentInChildren<BoxBody>();
 		// box = new ItemBox(BoxType.Type1);
 		OnAwake();
@@ -46,9 +45,9 @@ public abstract class BoxContainer<BoxT, Contained, ValType> : MonoBehaviour whe
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			OnBoxSent?.Invoke(sampleBoxCost);
-			ShippableBox shippable = Instantiate<ShippableBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
-			shippable.Init(GetComponent<BoxParts>().Dimensions, box);
-			box = null;
+			var shippable = Instantiate<ShippableBox<BoxT, Contained>>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
+			shippable.Init(GetComponent<BoxParts<BoxT, Contained>>().Dimensions, Box);
+			Box = default(BoxT);
 			shippable.gameObject.SetActive(true);
 			Destroy(gameObject);
 		}
@@ -67,25 +66,25 @@ public abstract class BoxContainer<BoxT, Contained, ValType> : MonoBehaviour whe
 		Destroy(gameObject);
 	}
 
-	private void LidExit(ItemScript subject)
+	private void LidExit(PropertyHolder<Contained> subject)
 	{
 		// If the thing exiting the lid is in the body, it is fully in the box
 		if (body.Has(subject.gameObject))
 		{
 			//containing.Add(subject);
 			subject.transform.SetParent(transform);
-			box.AddItemToBox(subject.Item);
+			Box.AddToBox(subject.contained);
 			// box.ShowBoxContents();
 		}
 	}
 
 	// If something intersects with the Lid, it is not completely in the box anymore
-	private void LidEnter(ItemScript subject)
+	private void LidEnter(PropertyHolder<Contained> subject)
 	{
 		if (body.Has(subject.gameObject))
 		{
 			subject.transform.parent = null;
-			box.RemoveItemFromBox(subject.Item);
+			Box.RemoveFromBox(subject.contained);
 			// TODO call functions in child classes
 			// box.ShowBoxContents();
 		}

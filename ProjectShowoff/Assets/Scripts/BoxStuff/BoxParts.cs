@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxParts : MonoBehaviour
+public class BoxParts<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Contained>
 {
 	private Vector3 dimensions;
 	public Vector3 Dimensions => dimensions;
@@ -12,10 +12,10 @@ public class BoxParts : MonoBehaviour
 		dimensions = dim;
 	}
 
-	public ItemBox Box => Container.Box;
+	public BoxT Box => Container.Box;
 
-	[SerializeField] private BoxContainer container;
-	public BoxContainer Container => container;
+	[SerializeField] private BoxContainer<BoxT, Contained> container;
+	public BoxContainer<BoxT, Contained> Container => container;
 
 	public GameObject MainObject => gameObject;
 
@@ -36,6 +36,6 @@ public class BoxParts : MonoBehaviour
 	[SerializeField] private BoxBody body;
 	public BoxBody Body => body;
 	public GameObject BodyObject => body.gameObject;
-	[SerializeField] private BoxLid lid;
+	[SerializeField] private BoxLid<Contained> lid;
 	public GameObject LidObject => lid.gameObject;
 }

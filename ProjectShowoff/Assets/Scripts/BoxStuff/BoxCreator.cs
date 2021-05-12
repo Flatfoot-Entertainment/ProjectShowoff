@@ -5,7 +5,8 @@ using UnityEngine;
 public class BoxCreator : MonoBehaviour
 {
 	// TODO singletons are scummy
-	[SerializeField] private BoxParts box;
+	[SerializeField] private ItemBoxParts itemBox;
+	[SerializeField] private BoxBoxParts boxBox;
 
 	public static BoxCreator Instance { get; private set; }
 
@@ -30,17 +31,33 @@ public class BoxCreator : MonoBehaviour
 		}
 	}
 
-	public GameObject CreateGeneric<BoxT>(Vector3 position, Vector3 dimensions, Transform parent)
+	public GameObject Create<BoxT>(Vector3 position, Vector3 dimensions, Transform parent)
 	{
+		switch (typeof(BoxT))
+		{
+			// Nice syntax xD
+			case var cls when cls == typeof(ItemBox):
+				{
+					return CreateGenericHelper<ItemBox, Item>(itemBox, position, dimensions, parent);
+				}
+			case var cls when cls == typeof(BoxBox):
+				{
+					return CreateGenericHelper<BoxBox, ItemBox>(boxBox, position, dimensions, parent);
+				}
+		}
 		// TODO
 		return null;
 	}
 
-	public GameObject Create(Vector3 position, Vector3 dimensions, Transform parent)
+	private GameObject CreateGenericHelper<BoxT, Contained>(
+		BoxParts<BoxT, Contained> prefab,
+		Vector3 position, Vector3 dimensions,
+		Transform parent)
+		where BoxT : IBox<Contained>
 	{
-		BoxParts instantiated = parent ?
-			Instantiate<BoxParts>(box, parent) :
-			Instantiate<BoxParts>(box, position, Quaternion.identity);
+		BoxParts<BoxT, Contained> instantiated = parent ?
+			Instantiate<BoxParts<BoxT, Contained>>(prefab, parent) :
+			Instantiate<BoxParts<BoxT, Contained>>(prefab, position, Quaternion.identity);
 
 		instantiated.SetDimensions(dimensions);
 

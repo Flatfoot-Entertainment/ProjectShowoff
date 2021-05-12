@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-public interface IBox<Contained, ValType>
+public interface IBox<Contained>
 {
-	ValType MoneyValue { get; }
+	float MoneyValue { get; }
 	List<Contained> Contents { get; }
 
 	void AddToBox(Contained contained);

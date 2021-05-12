@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShippableBox : MonoBehaviour
+public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBox<Contained>
 {
 	[SerializeField] private LayerMask deliveringCollisionMask;
-	private ItemBox box;
+	private BoxT box;
 	private bool delivered;
 
-	public void Init(Vector3 dimentions, ItemBox box)
+	public void Init(Vector3 dimentions, BoxT box)
 	{
+		// TODO add BoxScript to this gameobject with the correct box in it
 		delivered = false;
 		this.box = box;
 		transform.localScale = dimentions;
@@ -19,7 +20,7 @@ public class ShippableBox : MonoBehaviour
 	{
 		if (!delivered && InMask(other.gameObject.layer))
 		{
-			BoxContainer.Deliver(box.GetBoxContentsValue());
+			BoxContainer<BoxT, Contained>.Deliver(box.MoneyValue);
 			delivered = true;
 		}
 	}
@@ -28,7 +29,7 @@ public class ShippableBox : MonoBehaviour
 	{
 		if (!delivered)
 		{
-			BoxContainer.Deliver(box.GetBoxContentsValue());
+			BoxContainer<BoxT, Contained>.Deliver(box.MoneyValue);
 			delivered = true;
 		}
 	}

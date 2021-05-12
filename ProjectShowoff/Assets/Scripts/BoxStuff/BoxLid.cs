@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class BoxLid : MonoBehaviour
+public class BoxLid<Contained> : MonoBehaviour
 {
-	public Action<ItemScript> OnExitCallback;
-	public Action<ItemScript> OnEnterCallback;
+	public Action<PropertyHolder<Contained>> OnExitCallback;
+	public Action<PropertyHolder<Contained>> OnEnterCallback;
 
 	private void OnTriggerExit(Collider other)
 	{
-		OnExitCallback?.Invoke(other.gameObject.GetComponent<ItemScript>());
+		var comp = other.gameObject.GetComponent<PropertyHolder<Contained>>();
+		if (comp) OnExitCallback?.Invoke(comp);
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		OnEnterCallback?.Invoke(other.gameObject.GetComponent<ItemScript>());
+		var comp = other.gameObject.GetComponent<PropertyHolder<Contained>>();
+		if (comp) OnEnterCallback?.Invoke(comp);
 	}
 }

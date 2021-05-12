@@ -7,53 +7,53 @@ using TMPro;
 
 public enum GameState
 {
-    PackageView,
-    Paused,
-    Upgrade,
-    PlanetView
+	PackageView,
+	Paused,
+	Upgrade,
+	PlanetView
 }
 
 public abstract class BaseGame : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI moneyText;
-    [SerializeField] private float money;
-    [SerializeField] private GameState gameState;
-    public float Money
-    {
-        get => money;
-        set => money = value;
-    }
-    //TODO trigger money update when sending boxes/whatever other things money is used for (events)
+	[SerializeField] private TextMeshProUGUI moneyText;
+	[SerializeField] private float money;
+	[SerializeField] private GameState gameState;
+	public float Money
+	{
+		get => money;
+		set => money = value;
+	}
+	//TODO trigger money update when sending boxes/whatever other things money is used for (events)
 
 
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        moneyText.text = "Money: " + money;
-        UpgradeContainer.OnUpgradeBought += RemoveMoney;
-        BoxContainer.OnBoxSent += RemoveMoney;
-        BoxContainer.OnBoxDelivered += AddMoney;
-    }
+	// Start is called before the first frame update
+	protected virtual void Start()
+	{
+		moneyText.text = "Money: " + money;
+		UpgradeContainer.OnUpgradeBought += RemoveMoney;
+		ItemBoxContainer.OnBoxSent += RemoveMoney;
+		ItemBoxContainer.OnBoxDelivered += AddMoney;
+	}
 
 	private void OnDestroy()
 	{
-        UpgradeContainer.OnUpgradeBought -= RemoveMoney;
-        BoxContainer.OnBoxDelivered -= AddMoney;
-		BoxContainer.OnBoxSent -= RemoveMoney;
+		UpgradeContainer.OnUpgradeBought -= RemoveMoney;
+		ItemBoxContainer.OnBoxDelivered -= AddMoney;
+		ItemBoxContainer.OnBoxSent -= RemoveMoney;
 		OnDestroyCallback();
 	}
 
 	private void AddMoney(float moneyToAdd)
-    {
-        money+=moneyToAdd;
-        moneyText.text = "Money: " + money;
-    }
+	{
+		money += moneyToAdd;
+		moneyText.text = "Money: " + money;
+	}
 
-    private void RemoveMoney(float moneyToRemove)
-    {
-        money -= moneyToRemove;
-        moneyText.text = "Money: " + money;
-    }
+	private void RemoveMoney(float moneyToRemove)
+	{
+		money -= moneyToRemove;
+		moneyText.text = "Money: " + money;
+	}
 
 	protected virtual void OnDestroyCallback() { }
 
