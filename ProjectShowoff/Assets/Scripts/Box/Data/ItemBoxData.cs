@@ -11,18 +11,21 @@ public enum BoxType
 }
 
 // TODO maybe call it BoxData or something?
-public class Box
+public class ItemBoxData : IBoxData<Item>
 {
-	public int MoneyValue => 1; // TODO calculate
+	public float MoneyValue => GetBoxContentsValue();
 	public BoxType Type => type;
 	private readonly BoxType type;
 
 	//sorting items by their item type
 	private Dictionary<ItemType, float> boxContents;
 	public Dictionary<ItemType, float> BoxContents => boxContents;
+
+	public List<Item> Contents => lookUp;
+
 	private List<Item> lookUp;
 
-	public Box(BoxType pBoxType)
+	public ItemBoxData(BoxType pBoxType)
 	{
 		type = pBoxType;
 		boxContents = new Dictionary<ItemType, float>();
@@ -31,6 +34,7 @@ public class Box
 
 	public void AddItemToBox(Item item)
 	{
+		// TODO move to AddToBox
 		if (!boxContents.ContainsKey(item.Type)) //does the box already contain the item type?
 		{
 			boxContents.Add(item.Type, item.Value);
@@ -44,6 +48,7 @@ public class Box
 
 	public void RemoveItemFromBox(Item item)
 	{
+		// TODO move to RemoveFromBox
 		if (lookUp.Contains(item))
 		{
 			boxContents[item.Type] -= item.Value;
@@ -72,5 +77,15 @@ public class Box
 		{
 			Debug.Log(itemType.ToString() + ": " + boxContents[itemType]);
 		}
+	}
+
+	public void AddToBox(Item contained)
+	{
+		AddItemToBox(contained);
+	}
+
+	public void RemoveFromBox(Item contained)
+	{
+		RemoveItemFromBox(contained);
 	}
 }

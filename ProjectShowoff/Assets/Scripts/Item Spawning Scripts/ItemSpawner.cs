@@ -15,7 +15,7 @@ public class ItemSpawner : MonoBehaviour
 		GameObject spawnedItemObject = Instantiate(item.ItemPrefab, transform.position, Quaternion.identity);
 		spawnedItemObject.GetComponent<Renderer>().material = item.ItemMaterial;
 		ItemScript itemScript = spawnedItemObject.AddComponent<ItemScript>();
-		itemScript.Item = item;
+		itemScript.contained = item;
 		// Debug.Log(item);
 	}
 

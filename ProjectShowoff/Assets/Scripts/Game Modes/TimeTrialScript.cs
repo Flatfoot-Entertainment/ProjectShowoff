@@ -2,40 +2,39 @@ using TMPro;
 using UnityEngine;
 public class TimeTrialScript : BaseGame
 {
-    [SerializeField] private TextMeshProUGUI timeText;
-    [SerializeField] private int timeLeft;
-    [SerializeField] private int timeModifier; //to not make the time adding too op (probably to be deprecated)
+	[SerializeField] private TextMeshProUGUI timeText;
+	[SerializeField] private int timeLeft;
+	[SerializeField] private int timeModifier; //to not make the time adding too op (probably to be deprecated)
 
 	public int TimeLeft
 	{
 		get => timeLeft;
 		set => timeLeft = value;
 	}
+	//TODO update with events through
+	// Start is called before the first frame update
 
-    //TODO update with events through
-    // Start is called before the first frame update
 
-
-    protected override void Start()
-    {
-        base.Start();
-        timeText.text = "Time: " + timeLeft;
-        InvokeRepeating("UpdateTime", 1f, 1f);
-        EventScript.Instance.EventQueue.Subscribe(EventType.ManageTime, ManageTime);
-    }
+	protected override void Start()
+	{
+		base.Start();
+		timeText.text = "Time: " + timeLeft;
+		InvokeRepeating("UpdateTime", 1f, 1f);
+		EventScript.Instance.EventQueue.Subscribe(EventType.ManageTime, ManageTime);
+	}
 
 	protected override void OnDestroyCallback()
-    {
-        base.OnDestroyCallback();
-        EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageTime, ManageTime);
-    }
+	{
+		base.OnDestroyCallback();
+		EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageTime, ManageTime);
+	}
 
 	private void ManageTime(Event e)
-    {
-        ManageTimeEvent manageTimeEvent = e as ManageTimeEvent;
-        timeLeft+=(int)manageTimeEvent.TimeAmount / timeModifier;
-        timeText.text = "Time: " + timeLeft;
-    }
+	{
+		ManageTimeEvent manageTimeEvent = e as ManageTimeEvent;
+		timeLeft += (int)manageTimeEvent.TimeAmount / timeModifier;
+		timeText.text = "Time: " + timeLeft;
+	}
 
 	private void UpdateTime()
 	{
@@ -43,10 +42,10 @@ public class TimeTrialScript : BaseGame
 		timeText.text = "Time: " + timeLeft;
 	}
 
-    protected override void OnBoxDelivered(Event e)
-    {
-        base.OnBoxDelivered(e);
-    }
+	protected override void OnBoxDelivered(Event e)
+	{
+		base.OnBoxDelivered(e);
+	}
 
 
 }

@@ -105,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9028013330616108599}
   - component: {fileID: 9028013330616108598}
-  - component: {fileID: 9028013330616108601}
+  - component: {fileID: 3188105774418902085}
   m_Layer: 0
   m_Name: Lid
   m_TagString: Untagged
@@ -140,7 +140,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &9028013330616108601
+--- !u!114 &3188105774418902085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9028013330616108596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db1f81a0fe379e348844cbb2d8d8e76e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8407b1fbcc721294f8d1cedc691ccfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9028013330788080865
@@ -218,10 +218,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9028013331057377280}
-  - component: {fileID: 1225139272901922830}
-  - component: {fileID: 7530387162705005266}
+  - component: {fileID: -2440278625522285538}
+  - component: {fileID: 5840086452090345803}
   m_Layer: 0
-  m_Name: Box
+  m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,7 +244,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1225139272901922830
+--- !u!114 &-2440278625522285538
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,32 +253,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 9028013331057377281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d8d442537bdcb4eb527a1260b669d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e84f3984c8f29f4b945508762775e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  container: {fileID: 7530387162705005266}
+  finalPositionThreshold: 0.1
+  sampleBoxCost: 50
+  shippableContainerPrefab: {fileID: 2584160028941679748, guid: dbed95aa42063f142aa0ab9b163defd7, type: 3}
+--- !u!114 &5840086452090345803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9028013331057377281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fbc2dad515f3864d82b92ba6dbd1fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: -2440278625522285538}
   floor: {fileID: 9028013331103172746}
   leftWall: {fileID: 9028013331656138078}
   rightWall: {fileID: 9028013331333885915}
   frontWall: {fileID: 9028013331695430956}
   backWall: {fileID: 9028013330122324118}
   body: {fileID: 9028013330788080866}
-  lid: {fileID: 9028013330616108601}
---- !u!114 &7530387162705005266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9028013331057377281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27a5f0e291e30554fad748b3de501427, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  finalPositionThreshold: 0.1
-  sampleBoxCost: 50
-  shippableBoxPrefab: {fileID: 8677081705330404108, guid: eff46667a675cc043bf973de56201be6, type: 3}
+  lid: {fileID: 3188105774418902085}
 --- !u!1 &9028013331103172746
 GameObject:
   m_ObjectHideFlags: 0
