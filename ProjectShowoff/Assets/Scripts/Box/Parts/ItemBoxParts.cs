@@ -1,5 +1,5 @@
 
-public class ItemBoxParts : BoxParts<ItemBox, Item>
+public class ItemBoxParts : BoxParts<ItemBoxData, Item>
 {
 
 }

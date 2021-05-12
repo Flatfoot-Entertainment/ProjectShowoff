@@ -1,3 +1,3 @@
 
-public class BoxBoxParts : BoxParts<BoxBox, ItemBox>
+public class ContainerParts : BoxParts<ContainerData, ItemBoxData>
 { }

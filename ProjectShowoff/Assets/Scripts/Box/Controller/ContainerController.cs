@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxBoxContainer : BoxController<BoxBox, ItemBox>
+public class ContainerController : BoxController<ContainerData, ItemBoxData>
 {
-	public override BoxBox Box
+	public override ContainerData Box
 	{
 		get => box;
 		protected set => box = value;
 	}
-	private BoxBox box;
+	private ContainerData box;
 
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		box = new BoxBox();
+		box = new ContainerData();
 	}
 }

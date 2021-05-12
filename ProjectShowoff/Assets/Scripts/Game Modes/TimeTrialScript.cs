@@ -18,14 +18,14 @@ public class TimeTrialScript : BaseGame
 	{
 		base.Start();
 		timeText.text = "Time: " + timeLeft;
-		ItemBoxContainer.OnBoxDelivered += AddTime;
+		ItemBoxController.OnBoxDelivered += AddTime;
 		InvokeRepeating("UpdateTime", 1f, 1f);
 	}
 
 	protected override void OnDestroyCallback()
 	{
 		base.OnDestroyCallback();
-		ItemBoxContainer.OnBoxDelivered -= AddTime;
+		ItemBoxController.OnBoxDelivered -= AddTime;
 	}
 
 	private void AddTime(float timeToAdd)

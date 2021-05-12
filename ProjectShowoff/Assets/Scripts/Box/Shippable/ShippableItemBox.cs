@@ -1,3 +1,3 @@
 
-public class ShippableItemBox : ShippableBox<ItemBox, Item>
+public class ShippableItemBox : ShippableBox<ItemBoxData, Item>
 { }

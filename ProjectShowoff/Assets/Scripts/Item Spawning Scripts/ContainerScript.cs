@@ -1,11 +1,11 @@
 
-public class ContainerScript : BoxScript<ItemBox>
+public class ContainerScript : BoxScript<ItemBoxData>
 {
-	public override ItemBox contained
+	public override ItemBoxData contained
 	{
 		get => box;
 		set => box = value;
 	}
 
-	private ItemBox box;
+	private ItemBoxData box;
 }

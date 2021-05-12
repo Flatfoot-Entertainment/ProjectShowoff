@@ -16,7 +16,7 @@ public class BoxCreatorTest : MonoBehaviour
 			{
 				Destroy(currentGameObject);
 			}
-			currentGameObject = BoxCreator.Instance.Create<ItemBox>(
+			currentGameObject = BoxCreator.Instance.Create<ItemBoxData>(
 				new Vector3(0f, 1f, 0f),
 				new Vector3(
 					Random.Range(0.5f, 3f),

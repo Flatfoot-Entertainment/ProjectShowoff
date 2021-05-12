@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 
-public class BoxBox : IBoxData<ItemBox>
+public class ContainerData : IBoxData<ItemBoxData>
 {
 	public float MoneyValue
 	{
 		get
 		{
 			float val = 0f;
-			foreach (ItemBox box in Contents)
+			foreach (ItemBoxData box in Contents)
 			{
 				val += box.MoneyValue;
 			}
@@ -15,15 +15,15 @@ public class BoxBox : IBoxData<ItemBox>
 		}
 	}
 
-	public BoxBox()
+	public ContainerData()
 	{
 
 	}
 
-	public List<ItemBox> Contents => contents;
-	private List<ItemBox> contents = new List<ItemBox>();
+	public List<ItemBoxData> Contents => contents;
+	private List<ItemBoxData> contents = new List<ItemBoxData>();
 
-	public void AddToBox(ItemBox contained)
+	public void AddToBox(ItemBoxData contained)
 	{
 		if (!contents.Contains(contained))
 		{
@@ -31,7 +31,7 @@ public class BoxBox : IBoxData<ItemBox>
 		}
 	}
 
-	public void RemoveFromBox(ItemBox contained)
+	public void RemoveFromBox(ItemBoxData contained)
 	{
 		contents.Remove(contained);
 	}

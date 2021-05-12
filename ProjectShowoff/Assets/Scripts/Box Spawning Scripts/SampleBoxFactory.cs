@@ -9,9 +9,9 @@ public class SampleBoxFactory : MonoBehaviour, BoxFactory
 {
 	[SerializeField] private GameObject[] boxPrefabs;
 
-	public ItemBox CreateRandomBox()
+	public ItemBoxData CreateRandomBox()
 	{
-		ItemBox box = null;
+		ItemBoxData box = null;
 		int rand = UnityEngine.Random.Range(0, 3);
 		switch (rand)
 		{
@@ -34,18 +34,18 @@ public class SampleBoxFactory : MonoBehaviour, BoxFactory
 		return box;
 	}
 
-	public ItemBox CreateBox1()
+	public ItemBoxData CreateBox1()
 	{
-		return new ItemBox(BoxType.Type1);
+		return new ItemBoxData(BoxType.Type1);
 	}
 
-	public ItemBox CreateBox2()
+	public ItemBoxData CreateBox2()
 	{
-		return new ItemBox(BoxType.Type2);
+		return new ItemBoxData(BoxType.Type2);
 	}
 
-	public ItemBox CreateBox3()
+	public ItemBoxData CreateBox3()
 	{
-		return new ItemBox(BoxType.Type3);
+		return new ItemBoxData(BoxType.Type3);
 	}
 }

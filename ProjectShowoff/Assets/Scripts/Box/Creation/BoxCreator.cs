@@ -6,7 +6,7 @@ public class BoxCreator : MonoBehaviour
 {
 	// TODO singletons are scummy
 	[SerializeField] private ItemBoxParts itemBox;
-	[SerializeField] private BoxBoxParts boxBox;
+	[SerializeField] private ContainerParts boxBox;
 
 	public static BoxCreator Instance { get; private set; }
 
@@ -36,13 +36,13 @@ public class BoxCreator : MonoBehaviour
 		switch (typeof(BoxT))
 		{
 			// Nice syntax xD
-			case var cls when cls == typeof(ItemBox):
+			case var cls when cls == typeof(ItemBoxData):
 				{
-					return CreateGenericHelper<ItemBox, Item>(itemBox, position, dimensions, parent);
+					return CreateGenericHelper<ItemBoxData, Item>(itemBox, position, dimensions, parent);
 				}
-			case var cls when cls == typeof(BoxBox):
+			case var cls when cls == typeof(ContainerData):
 				{
-					return CreateGenericHelper<BoxBox, ItemBox>(boxBox, position, dimensions, parent);
+					return CreateGenericHelper<ContainerData, ItemBoxData>(boxBox, position, dimensions, parent);
 				}
 		}
 		// TODO

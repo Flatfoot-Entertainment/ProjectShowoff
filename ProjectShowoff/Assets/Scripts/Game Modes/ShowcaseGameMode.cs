@@ -7,8 +7,8 @@ public class ShowcaseGameMode : BaseGame
 	protected override void Start()
 	{
 		base.Start();
-		ItemBoxContainer.OnBoxDelivered += OnBoxDelivered;
-		BoxCreator.Instance.Create<ItemBox>(
+		ItemBoxController.OnBoxDelivered += OnBoxDelivered;
+		BoxCreator.Instance.Create<ItemBoxData>(
 			new Vector3(0f, 0.5f, 0f),
 			new Vector3(
 				Random.Range(0.5f, 3f),
@@ -21,12 +21,12 @@ public class ShowcaseGameMode : BaseGame
 
 	protected override void OnDestroyCallback()
 	{
-		ItemBoxContainer.OnBoxDelivered -= OnBoxDelivered;
+		ItemBoxController.OnBoxDelivered -= OnBoxDelivered;
 	}
 
 	private void OnBoxDelivered(float value)
 	{
-		BoxCreator.Instance.Create<ItemBox>(
+		BoxCreator.Instance.Create<ItemBoxData>(
 			new Vector3(0f, 0.5f, 0f),
 			new Vector3(
 				Random.Range(0.5f, 3f),

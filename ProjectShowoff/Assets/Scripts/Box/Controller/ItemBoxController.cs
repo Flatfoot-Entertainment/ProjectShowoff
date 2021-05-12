@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemBoxContainer : BoxController<ItemBox, Item>
+public class ItemBoxController : BoxController<ItemBoxData, Item>
 {
-	private ItemBox box;
+	private ItemBoxData box;
 	protected override void OnAwake()
 	{
 		base.OnAwake();
-		box = new ItemBox(BoxType.Type1); // TODO multiple types
+		box = new ItemBoxData(BoxType.Type1); // TODO multiple types
 	}
 
-	public override ItemBox Box
+	public override ItemBoxData Box
 	{
 		get => box;
 		protected set => box = value;

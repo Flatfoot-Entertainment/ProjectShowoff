@@ -11,7 +11,7 @@ public enum BoxType
 }
 
 // TODO maybe call it BoxData or something?
-public class ItemBox : IBoxData<Item>
+public class ItemBoxData : IBoxData<Item>
 {
 	public float MoneyValue => GetBoxContentsValue();
 	public BoxType Type => type;
@@ -25,7 +25,7 @@ public class ItemBox : IBoxData<Item>
 
 	private List<Item> lookUp;
 
-	public ItemBox(BoxType pBoxType)
+	public ItemBoxData(BoxType pBoxType)
 	{
 		type = pBoxType;
 		boxContents = new Dictionary<ItemType, float>();

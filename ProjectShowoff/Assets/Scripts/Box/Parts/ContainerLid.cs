@@ -1,5 +1,5 @@
 
-public class BoxBoxLid : BoxLid<ItemBox>
+public class ContainerLid : BoxLid<ItemBoxData>
 {
 
 }
