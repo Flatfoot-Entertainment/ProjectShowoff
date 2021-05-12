@@ -66,7 +66,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		Destroy(gameObject);
 	}
 
-	private void LidExit(PropertyHolder<Contained> subject)
+	private void LidExit(BoxScript<Contained> subject)
 	{
 		// If the thing exiting the lid is in the body, it is fully in the box
 		if (body.Has(subject.gameObject))
@@ -79,7 +79,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	}
 
 	// If something intersects with the Lid, it is not completely in the box anymore
-	private void LidEnter(PropertyHolder<Contained> subject)
+	private void LidEnter(BoxScript<Contained> subject)
 	{
 		if (body.Has(subject.gameObject))
 		{

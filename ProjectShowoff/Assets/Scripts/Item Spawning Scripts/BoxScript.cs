@@ -1,11 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class BoxScript : PropertyHolder<ItemBox>
+
+//item script to show debug info in the inspector
+[RequireComponent(typeof(Rigidbody), typeof(Renderer))]
+public abstract class BoxScript<Contained> : MonoBehaviour
 {
-	public override ItemBox contained
+	public abstract Contained contained { get; set; }
+
+	private void Start()
 	{
-		get => box;
-		set => box = value;
+		OnStart();
 	}
 
-	private ItemBox box;
+	protected virtual void OnStart() { }
 }

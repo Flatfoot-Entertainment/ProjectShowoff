@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ItemScript : PropertyHolder<Item>
+public class ItemScript : BoxScript<Item>
 {
 	public override Item contained
 	{
