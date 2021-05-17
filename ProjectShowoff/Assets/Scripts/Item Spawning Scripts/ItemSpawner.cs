@@ -13,7 +13,7 @@ public class ItemSpawner : MonoBehaviour
 		Item item = itemFactory.CreateRandomItem();
 		//instantiates the item, sets material and adds the item script needed for info
 		GameObject spawnedItemObject = Instantiate(item.ItemPrefab, transform.position, Quaternion.identity);
-		spawnedItemObject.GetComponent<Renderer>().material = item.ItemMaterial;
+		if (item.ItemMaterial != null) spawnedItemObject.GetComponent<Renderer>().material = item.ItemMaterial;
 		ItemScript itemScript = spawnedItemObject.AddComponent<ItemScript>();
 		itemScript.contained = item;
 		// Debug.Log(item);
