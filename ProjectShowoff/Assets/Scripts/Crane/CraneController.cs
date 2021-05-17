@@ -48,7 +48,10 @@ public class CraneController : MonoBehaviour
 			UpdateDesiredPosition();
 
 		if (Input.GetMouseButtonDown(0))
-			hook.Hook(GetTarget(Input.mousePosition));
+		{
+			Rigidbody target = GetTarget(Input.mousePosition);
+			if (target) hook.Hook(target);
+		}
 
 		if (Input.GetMouseButtonUp(0))
 			hook.Unhook();

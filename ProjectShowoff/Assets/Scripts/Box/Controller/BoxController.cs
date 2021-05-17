@@ -30,6 +30,16 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		lid.OnExitCallback += LidExit;
 		lid.OnEnterCallback += LidEnter;
+		body.OnContentsUpdated += UpdateShippable;
+		UpdateShippable();
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			UpdateShippable();
+		}
 	}
 
 	protected abstract ShippableBox<BoxT, Contained> InstantiateShipped();
@@ -47,13 +57,16 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 
 	private void UpdateShippable()
 	{
-		foreach (GameObject go in lid.inLid)
+		foreach (BoxScript<Contained> s in lid.inLid)
 		{
-			if (body.Has(go))
+			if (body.Has(s.gameObject))
 			{
+				Debug.Log($"Cannot be shipped (LID: {lid.inLid.Count} body: {body.intersecting.Count})");
 				Shippable = false;
+				return;
 			}
 		}
+		Debug.Log($"Can be shipped (LID: {lid.inLid.Count} body: {body.intersecting.Count})");
 		Shippable = true;
 	}
 
@@ -61,6 +74,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		lid.OnExitCallback -= LidExit;
 		lid.OnEnterCallback -= LidEnter;
+		body.OnContentsUpdated -= UpdateShippable;
 	}
 
 	private void DestroyBox(float value)

@@ -17,6 +17,16 @@ public class FulfillmentCenter : MonoBehaviour
 		SpawnBox();
 	}
 
+	public bool CanShipBox()
+	{
+		return fillableBox && fillableBox.Shippable;
+	}
+
+	public bool CanShipContainer()
+	{
+		return fillableContainer && fillableContainer.Shippable;
+	}
+
 	public void CloseContainer()
 	{
 		// TODO ship the container, if money is available (and if theres a non shipped container)
