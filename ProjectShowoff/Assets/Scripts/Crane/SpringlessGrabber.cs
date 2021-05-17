@@ -9,6 +9,10 @@ public class SpringlessGrabber : CraneHook
 	[SerializeField] private AnimationCurve smoothing;
 	[SerializeField] private float maxVelocity;
 	[SerializeField] private float leniancy;
+
+	[Header("Tweening")]
+	[SerializeField] private float rotationTime = 0.5f;
+	[SerializeField] private Ease easingMode = Ease.InOutElastic;
 	private Rigidbody target;
 	private RigidbodyConstraints oldTargetConstraints;
 	private Tweener tweener;
@@ -25,7 +29,7 @@ public class SpringlessGrabber : CraneHook
 		shouldUnhook = false;
 		oldTargetConstraints = target.constraints;
 		target.constraints = oldTargetConstraints | RigidbodyConstraints.FreezeRotation;
-		tweener = target.DORotate(Vector3.zero, 0.5f);
+		tweener = target.DORotate(Vector3.zero, rotationTime).SetEase(Ease.InOutQuint);
 	}
 
 	public override bool Unhook()
