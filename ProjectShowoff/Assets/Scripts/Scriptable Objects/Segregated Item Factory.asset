@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ea732b4906de44ead12f2e1dd5ad5a, type: 3}
+  m_Name: Segregated Item Factory
+  m_EditorClassIdentifier: 
+  fuelPrefabs:
+  - {fileID: 3691944070847650753, guid: d75603f5c31107041935671d8dcb1bb4, type: 3}
+  consumerGoodsPrefabs:
+  - {fileID: 3691944070847650753, guid: d0790637a10965f4abeafa4f94deb5c4, type: 3}
+  foodPrefabs:
+  - {fileID: 3691944070847650753, guid: 5882c06eed4be844f85d0043a88da113, type: 3}
+  mechanicalPartsPrefabs:
+  - {fileID: 3691944070847650753, guid: a6c780bc75afc074b8cc6677a10b6305, type: 3}
+  medicinePrefabs:
+  - {fileID: 3691944070847650753, guid: 9b86e0f7b92f45c4d95758746f6d3fb5, type: 3}
+  peoplePrefabs:
+  - {fileID: 3691944070847650753, guid: ea12b4fd22b44bd49b7547951bef90ff, type: 3}
+  - {fileID: 3691944070847650753, guid: bfa790869b4484d429afb5532d85d6aa, type: 3}
+  - {fileID: 3691944070847650753, guid: 80346b5a12ce7b14cb88cd0f5b1696e7, type: 3}
+  - {fileID: 3691944070847650753, guid: 8b9295294a2525644978cb2927236e7c, type: 3}
