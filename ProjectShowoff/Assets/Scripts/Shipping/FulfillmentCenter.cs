@@ -14,7 +14,7 @@ public class FulfillmentCenter : MonoBehaviour
 	private void Start()
 	{
 		SpawnContainer();
-		SpawnBox();
+		//SpawnBox();
 	}
 
 	public bool CanShipBox()
@@ -80,7 +80,17 @@ public class FulfillmentCenter : MonoBehaviour
 		).GetComponent<ItemBoxController>();
 	}
 
-	private void SpawnContainer()
+    public void SpawnBox(Vector3 size)
+    {
+        if (fillableBox) return;
+        fillableBox = BoxCreator.Instance.Create<ItemBoxData>(
+            boxPos.position,
+            size,
+            null
+        ).GetComponent<ItemBoxController>();
+    }
+
+    private void SpawnContainer()
 	{
 		if (fillableContainer) return;
 		fillableContainer = BoxCreator.Instance.Create<ContainerData>(
