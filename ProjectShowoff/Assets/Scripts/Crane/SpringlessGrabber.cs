@@ -81,7 +81,7 @@ public class SpringlessGrabber : CraneHook
 		// For now unhook in this method
 		target.constraints = oldTargetConstraints;
 		// For safety, abort the tween
-		tweener.Kill();
+		if (tweener.IsActive()) tweener.Kill();
 		tweener = null;
 		// Reset all the values
 		target = null;
