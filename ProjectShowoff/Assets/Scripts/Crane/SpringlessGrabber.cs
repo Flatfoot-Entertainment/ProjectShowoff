@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SpringlessGrabber : CraneHook
 {
@@ -9,15 +10,22 @@ public class SpringlessGrabber : CraneHook
 	[SerializeField] private float maxVelocity;
 	[SerializeField] private float leniancy;
 	private Rigidbody target;
+	private RigidbodyConstraints oldTargetConstraints;
+	private Tweener tweener;
 
 	private Vector3 slowMoveVelocity = Vector3.zero;
 	private bool shouldUnhook = false;
 
 	public override void Hook(Rigidbody hooked)
 	{
+		// Another idea would be to disable the collider while carrying it
+		// -> You wouldn't throw stuff around
 		target = hooked;
 		slowMoveVelocity = Vector3.zero;
 		shouldUnhook = false;
+		oldTargetConstraints = target.constraints;
+		target.constraints = oldTargetConstraints | RigidbodyConstraints.FreezeRotation;
+		tweener = target.DORotate(Vector3.zero, 0.5f);
 	}
 
 	public override bool Unhook()
@@ -66,6 +74,11 @@ public class SpringlessGrabber : CraneHook
 		Vector3 v = target.velocity;
 		v.y = 0;
 		target.velocity = v;
+		// For now unhook in this method
+		target.constraints = oldTargetConstraints;
+		// For safety, abort the tween
+		tweener.Kill();
+		tweener = null;
 		// Reset all the values
 		target = null;
 		shouldUnhook = false;
