@@ -14,6 +14,7 @@ public class TransportObjectScript : MonoBehaviour
             if (transportTo != null)
             {
                 other.transform.position = transportTo.position;
+                other.GetComponent<Rigidbody>().velocity = Vector3.zero;
             }
         }
     }
