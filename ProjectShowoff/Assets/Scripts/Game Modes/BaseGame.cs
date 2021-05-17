@@ -7,58 +7,72 @@ using TMPro;
 
 public enum GameState
 {
-    PackageView,
-    Paused,
-    Upgrade,
-    PlanetView
+	PackageView,
+	Paused,
+	Upgrade,
+	PlanetView
 }
 
 public abstract class BaseGame : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI moneyText;
-    [SerializeField] private float money;
-    [SerializeField] private GameState gameState;
-    public float Money
-    {
-        get => money;
-        set => money = value;
-    }
-    //TODO trigger money update when sending boxes/whatever other things money is used for (events)
+	[SerializeField] private TextMeshProUGUI moneyText;
+	[SerializeField] private float money;
+	[SerializeField] private GameState gameState;
+	public float Money
+	{
+		get => money;
+		set => money = value;
+	}
+	//TODO use event queue to decouple game modes from game events
 
-
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        moneyText.text = "Money: " + money;
-        UpgradeContainer.OnUpgradeBought += RemoveMoney;
-        BoxContainer.OnBoxSent += RemoveMoney;
-        BoxContainer.OnBoxDelivered += AddMoney;
-    }
+	// Start is called before the first frame update
+	protected virtual void Start()
+	{
+		EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, ManageMoney);
+		EventScript.Instance.EventQueue.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
+		//EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, OnUpgradeBought);
+		moneyText.text = "Money: " + money;
+	}
 
 	private void OnDestroy()
 	{
-        UpgradeContainer.OnUpgradeBought -= RemoveMoney;
-        BoxContainer.OnBoxDelivered -= AddMoney;
-		BoxContainer.OnBoxSent -= RemoveMoney;
+
+		//EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnUpgradeBought);
 		OnDestroyCallback();
 	}
 
-	private void AddMoney(float moneyToAdd)
-    {
-        money+=moneyToAdd;
-        moneyText.text = "Money: " + money;
-    }
-
-    private void RemoveMoney(float moneyToRemove)
-    {
-        money -= moneyToRemove;
-        moneyText.text = "Money: " + money;
-    }
-
-	protected virtual void OnDestroyCallback() { }
-
-	// Update is called once per frame
-	protected virtual void Update()
+	private void ManageMoney(Event e)
 	{
+		ManageMoneyEvent manageEvent = e as ManageMoneyEvent;
+		money += manageEvent.Amount;
+		moneyText.text = "Money: " + money;
+	}
+
+	private void ManageUpgrade(Event e)
+	{
+		ManageUpgradeEvent upgradeEvent = e as ManageUpgradeEvent;
+		money -= upgradeEvent.Upgrade.Cost;
+	}
+
+	protected virtual void OnDestroyCallback()
+	{
+		EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnBoxSent);
+		EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnBoxDelivered);
+		EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageUpgrade, OnUpgradeBought);
+	}
+
+	protected virtual void OnBoxDelivered(Event e)
+	{
+		ManageMoney(e);
+	}
+
+	protected virtual void OnBoxSent(Event e)
+	{
+		ManageMoney(e);
+	}
+
+	protected virtual void OnUpgradeBought(Event e)
+	{
+		ManageUpgrade(e);
 	}
 }

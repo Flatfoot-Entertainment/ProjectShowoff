@@ -48,7 +48,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7231377493417587247}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -139,3 +139,5 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxVelocity: 50
   leniancy: 1
+  rotationTime: 0.5
+  easingMode: 25

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 //box factory to inherit from
 public interface BoxFactory
 {
-    public Box CreateRandomBox();
-    public Box CreateBox1();
-    public Box CreateBox2();
-    public Box CreateBox3();
+	public ItemBoxData CreateRandomBox();
+	public ItemBoxData CreateBox1();
+	public ItemBoxData CreateBox2();
+	public ItemBoxData CreateBox3();
 }

@@ -4,14 +4,15 @@ using UnityEngine;
 
 //item factory to inherit from
 
-public interface ItemFactory
+[CreateAssetMenu(menuName = "Scriptable Objects/Item Factory")]
+public abstract class ItemFactory : ScriptableObject
 {
-    public Item CreateRandomItem();
+    public abstract Item CreateRandomItem();
 
-    public ConsumerGoods CreateConsumerGoods();
-    public Food CreateFood();
-    public Fuel CreateFuel();
-    public MechanicalParts CreateMechanicalParts();
-    public Medicine CreateMedicine();
-    public People CreatePeople();
+    public abstract ConsumerGoods CreateConsumerGoods();
+    public abstract Food CreateFood();
+    public abstract Fuel CreateFuel();
+    public abstract MechanicalParts CreateMechanicalParts();
+    public abstract Medicine CreateMedicine();
+    public abstract People CreatePeople();
 }
