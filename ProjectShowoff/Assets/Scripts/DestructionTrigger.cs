@@ -6,15 +6,15 @@ public class DestructionTrigger : MonoBehaviour
 {
 	[SerializeField] private LayerMask destructionLayer;
 
-	private void OnCollisionEnter(Collision other)
-	{
+    private void OnTriggerEnter(Collider other)
+    {
 		if (InMask(other.gameObject.layer))
-		{
-			Destroy(other.gameObject);
-		}
-	}
+        {
+            Destroy(other.gameObject);
+        }
+    }
 
-	private bool InMask(int layer)
+    private bool InMask(int layer)
 	{
 		return (destructionLayer == (destructionLayer | (1 << layer)));
 	}
