@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class TransportTrigger : MonoBehaviour
 {
-    //probably to be integrated as an event, but for now here's an easy copy-paste
+    //probably to be integrated as an event, but for now here's an easy copy-paste from DestructionTrigger
     [SerializeField] private Transform pointToMoveCameraTo;
     [SerializeField] private Transform pointToTransportTo;
     [SerializeField] private LayerMask transportationLayer;

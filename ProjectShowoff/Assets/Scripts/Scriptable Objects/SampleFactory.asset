@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ebd56347ab2a14b9f7fd2bc7573cda, type: 3}
   m_Name: SampleFactory
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 3691944070847650753, guid: cd7f900be940a4742ade4c05c0e6530d, type: 3}
+  itemPrefabs:
+  - {fileID: 3691944070847650753, guid: cd7f900be940a4742ade4c05c0e6530d, type: 3}
   materials:
   - {fileID: 2100000, guid: a1049898b5d60284b9aafc9e6435403e, type: 2}
   - {fileID: 2100000, guid: 85f9e90e25354a14dbf852d81f74c7bf, type: 2}

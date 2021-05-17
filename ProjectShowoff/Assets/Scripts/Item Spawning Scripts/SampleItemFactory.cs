@@ -7,7 +7,7 @@ using UnityEngine;
 //a lot of fixed numbers used, must be made random/"procedurally generated"
 public class SampleItemFactory : ItemFactory
 {
-    public GameObject itemPrefab;
+    public GameObject[] itemPrefabs;
     public Material[] materials;
     public const int NUMBER_OF_UNIQUE_ITEMS = 6;
     //implement item prefab spawning here by using scriptable objects
@@ -43,7 +43,7 @@ public class SampleItemFactory : ItemFactory
             throw new NullReferenceException("dafuq is this item it doesnt exist");
         }
         //to be moved to each specific item later on, but now its only one item prefab and random material assigned so yeah
-        item.ItemPrefab = itemPrefab;
+        item.ItemPrefab = itemPrefabs[UnityEngine.Random.Range(0, itemPrefabs.Length)];
         item.ItemMaterial = materials[UnityEngine.Random.Range(0, materials.Length)];
         return item;
     }
