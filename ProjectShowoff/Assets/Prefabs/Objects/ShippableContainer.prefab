@@ -127,4 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deliveringCollisionMask:
     serializedVersion: 2
-    m_Bits: 268435456
+    m_Bits: 402653184
