@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
@@ -12,6 +13,8 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 
 	[SerializeField] private float finalPositionThreshold = 0.1f;
 	[SerializeField] private float sampleBoxCost = 50.0f;
+
+	public bool Shippable { get; private set; }
 
 	private void Awake()
 	{
@@ -42,6 +45,18 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		return shippable;
 	}
 
+	private void UpdateShippable()
+	{
+		foreach (GameObject go in lid.inLid)
+		{
+			if (body.Has(go))
+			{
+				Shippable = false;
+			}
+		}
+		Shippable = true;
+	}
+
 	private void OnDestroy()
 	{
 		lid.OnExitCallback -= LidExit;
@@ -66,6 +81,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 			// box.ShowBoxContents();
 			OnObjectAdded();
 		}
+		UpdateShippable();
 	}
 
 	// If something intersects with the Lid, it is not completely in the box anymore
@@ -79,6 +95,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 			// box.ShowBoxContents();
 			OnObjectRemoved();
 		}
+		UpdateShippable();
 	}
 
 	protected virtual void OnObjectAdded() { }
