@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CraneController : MonoBehaviour
 {
@@ -13,6 +14,15 @@ public class CraneController : MonoBehaviour
 	private Vector3 desiredPosition = Vector3.zero;
 
 	private Plane cranePlane;
+
+	private void Awake()
+	{
+#if UNITY_EDITOR
+		DOTween.Init(false, true, LogBehaviour.Verbose);
+#else
+		DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
+#endif
+	}
 
 	void Start()
 	{
