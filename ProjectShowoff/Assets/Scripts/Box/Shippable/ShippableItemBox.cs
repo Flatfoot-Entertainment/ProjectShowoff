@@ -12,7 +12,7 @@ public class ShippableItemBox : ShippableBox<ItemBoxData, Item>
 
 	private void OnTransformParentChanged()
 	{
-		if (transform.parent.GetComponent<ContainerController>())
+		if (transform.parent && transform.parent.GetComponent<ContainerController>())
 		{
 			// TODO filthy hack (for now)
 			// Function gets called, if it gets added to the box
