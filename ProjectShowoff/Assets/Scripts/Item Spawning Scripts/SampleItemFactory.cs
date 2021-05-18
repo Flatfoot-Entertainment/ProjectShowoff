@@ -15,24 +15,24 @@ public class SampleItemFactory : ItemFactory
     {
         Item item = null;
         int rand = UnityEngine.Random.Range(0, NUMBER_OF_UNIQUE_ITEMS);
-        switch (rand)
+        switch (Extensions.RandomEnumValue<ItemType>())
         {
-            case 0:
+            case ItemType.ConsumerGoods:
                 item = CreateConsumerGoods();
                 break;
-            case 1:
+            case ItemType.Food:
                 item = CreateFood();
                 break;
-            case 2:
+            case ItemType.Fuel:
                 item = CreateFuel();
                 break;
-            case 3:
+            case ItemType.MechanicalParts:
                 item = CreateMechanicalParts();
                 break;
-            case 4:
+            case ItemType.Medicine:
                 item = CreateMedicine();
                 break;
-            case 5:
+            case ItemType.People:
                 item = CreatePeople();
                 break;
             default:
@@ -43,8 +43,8 @@ public class SampleItemFactory : ItemFactory
             throw new NullReferenceException("dafuq is this item it doesnt exist");
         }
         //to be moved to each specific item later on, but now its only one item prefab and random material assigned so yeah
-        item.ItemPrefab = itemPrefabs[UnityEngine.Random.Range(0, itemPrefabs.Length)];
-        item.ItemMaterial = materials[UnityEngine.Random.Range(0, materials.Length)];
+        item.ItemPrefab = itemPrefabs.Random();
+        item.ItemMaterial = materials.Random();
         return item;
     }
 
