@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
+	public bool CanSpawn
+    {
+		get => canSpawn;
+		set => canSpawn = value;
+    }
+
 	[SerializeField] private ItemFactory itemFactory;
+	[SerializeField] private bool canSpawn = true;
 	// Start is called before the first frame update
 
 	private void InstantiateItem()
@@ -21,7 +28,10 @@ public class ItemSpawner : MonoBehaviour
 
 	public void Spawn()
 	{
-		InstantiateItem();
+		if (canSpawn)
+		{
+			InstantiateItem();
+		}
 	}
 
 	// Update is called once per frame

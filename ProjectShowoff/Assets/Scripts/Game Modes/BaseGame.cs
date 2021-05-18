@@ -18,15 +18,33 @@ public abstract class BaseGame : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI moneyText;
 	[SerializeField] private float money;
 	[SerializeField] private GameState gameState;
+
+	[SerializeField] private GameObject[] conveyorStopButtons;
+
+	public static BaseGame Instance;
+
 	public float Money
 	{
 		get => money;
 		set => money = value;
 	}
-	//TODO use event queue to decouple game modes from game events
+    //TODO use event queue to decouple game modes from game events
 
-	// Start is called before the first frame update
-	protected virtual void Start()
+    private void Awake()
+    {
+		if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+    }
+
+    // Start is called before the first frame update
+    protected virtual void Start()
 	{
 		EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, ManageMoney);
 		EventScript.Instance.EventQueue.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
@@ -75,4 +93,14 @@ public abstract class BaseGame : MonoBehaviour
 	{
 		ManageUpgrade(e);
 	}
+
+
+	//pls refactor into smth else
+	public void EnableConveyorButton()
+    {
+		foreach(GameObject conveyorButton in conveyorStopButtons)
+        {
+			conveyorButton.SetActive(true);
+        }
+    }
 }
