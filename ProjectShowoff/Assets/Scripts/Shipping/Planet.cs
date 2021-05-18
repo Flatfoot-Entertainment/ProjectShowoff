@@ -39,9 +39,20 @@ public class Planet : MonoBehaviour
 		ui.Contents = needs;
 	}
 
+	public void Deselect()
+	{
+		GetComponent<Renderer>().material.color = Color.white;
+	}
+
+	public void Select()
+	{
+		GetComponent<Renderer>().material.color = Color.red;
+	}
+
 	private void OnMouseDown()
 	{
 		OnClick?.Invoke(this);
+		Select();
 	}
 
 	private void InitRandom()

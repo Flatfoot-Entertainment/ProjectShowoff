@@ -24,6 +24,11 @@ public class PlanetaryShipmentCenterUI : MonoBehaviour
 		lookup.Add(ship, ui);
 	}
 
+	public void DeselectButton(Ship ship)
+	{
+		if (lookup.ContainsKey(ship)) lookup[ship].Deselect();
+	}
+
 	public void RemoveButton(Ship ship)
 	{
 		if (lookup.ContainsKey(ship))

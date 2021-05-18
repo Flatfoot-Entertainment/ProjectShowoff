@@ -8,6 +8,7 @@ public class ShipSelectionUI : MonoBehaviour
 {
 	public event System.Action OnSelect;
 	[SerializeField] private TMP_Text propertyText;
+	[SerializeField] private Image uiImage;
 
 	public Ship Ship
 	{
@@ -20,5 +21,11 @@ public class ShipSelectionUI : MonoBehaviour
 	public void ButtonCallback()
 	{
 		OnSelect?.Invoke();
+		uiImage.color = Color.red;
+	}
+
+	public void Deselect()
+	{
+		uiImage.color = Color.white;
 	}
 }

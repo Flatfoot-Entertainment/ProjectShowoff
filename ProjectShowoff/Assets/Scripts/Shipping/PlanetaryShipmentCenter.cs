@@ -34,7 +34,11 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 		shipsOnStandby.Remove(selectedShip);
 		selectedShip.DeliverTo(selectedPlanet);
 
+		selectedPlanet.Deselect();
+
 		// Once shipped, you shouldn't be able to resend it again
+		// No need to deselect, as it gets removed afterwards, but better safe than sorry
+		ui.DeselectButton(selectedShip);
 		ui.RemoveButton(selectedShip);
 
 		selectedPlanet = null;
@@ -46,12 +50,14 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	public void OnPlanetClicked(Planet planet)
 	{
 		Debug.Log($"Selected Planet --- {planet.gameObject.name}");
+		if (selectedPlanet) selectedPlanet.Deselect();
 		selectedPlanet = planet;
 	}
 
 	public void OnShipSelected(Ship ship)
 	{
 		Debug.Log($"Selected Ship --- {ship.gameObject.name}");
+		if (selectedShip) ui.DeselectButton(selectedShip);
 		selectedShip = ship;
 	}
 
