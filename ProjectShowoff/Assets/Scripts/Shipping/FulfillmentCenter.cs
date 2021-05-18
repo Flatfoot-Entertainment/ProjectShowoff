@@ -90,6 +90,13 @@ public class FulfillmentCenter : MonoBehaviour
         ).GetComponent<ItemBoxController>();
     }
 
+	public void SpawnBox(GameObject boxPrefab)
+    {
+		//tobias help
+		if (fillableBox) return;
+		fillableBox = Instantiate(boxPrefab, boxPos.position, Quaternion.identity).GetComponent<ItemBoxController>();
+    }
+
     private void SpawnContainer()
 	{
 		if (fillableContainer) return;
