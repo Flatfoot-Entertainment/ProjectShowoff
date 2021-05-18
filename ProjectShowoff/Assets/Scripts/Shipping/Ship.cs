@@ -5,11 +5,16 @@ using DG.Tweening;
 
 public class Ship : MonoBehaviour
 {
+	[HideInInspector]
 	public event System.Action<Ship> OnArrival;
 	public ContainerData box { get; set; }
 	private Planet target;
 	private Vector3 startPos;
+	private Vector3 startForward;
 	private Sequence sequence;
+
+	[SerializeField] private float travelTime;
+	[SerializeField] private float turnTime;
 
 	// TODO variable speed, etc.
 
@@ -19,9 +24,8 @@ public class Ship : MonoBehaviour
 	{
 		target = planet;
 		startPos = transform.position;
-		sequence = DOTween.Sequence();
-		sequence.Append(transform.DOLookAt(target.transform.position, 1f));
-		sequence.Append(transform.DOMove(target.transform.position, 5f));
+		startForward = transform.forward;
+		sequence = TravelSequenceTowards(target.transform.position);
 	}
 
 	// I somehow really don't want the planets to be triggers
@@ -38,10 +42,17 @@ public class Ship : MonoBehaviour
 
 	private IEnumerator Return()
 	{
-		sequence = DOTween.Sequence();
-		sequence.Append(transform.DOLookAt(startPos, 1f));
-		sequence.Append(transform.DOMove(startPos, 5f));
+		sequence = TravelSequenceTowards(startPos);
+		sequence.Insert(travelTime, transform.DOLookAt(startPos + startForward, turnTime));
 		yield return new WaitWhile(() => { return sequence.IsActive() && sequence.IsPlaying(); });
 		OnArrival?.Invoke(this);
+	}
+
+	private Sequence TravelSequenceTowards(Vector3 pos)
+	{
+		sequence = DOTween.Sequence();
+		sequence.Append(transform.DOLookAt(pos, turnTime));
+		sequence.Append(transform.DOMove(pos, travelTime));
+		return sequence;
 	}
 }
