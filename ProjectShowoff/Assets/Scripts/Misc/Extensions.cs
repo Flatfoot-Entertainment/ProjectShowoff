@@ -29,4 +29,9 @@ public static class Extensions
 		}
 		return ret;
 	}
+
+	public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
+	{
+		return gameObject.GetComponent<T>() ?? gameObject.AddComponent<T>();
+	}
 }
