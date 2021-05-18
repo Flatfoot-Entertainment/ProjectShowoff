@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(TMP_Text))]
 public class PlanetUI : MonoBehaviour
 {
-	[SerializeField] private TMP_Text text;
+	private TMP_Text text;
+
+	private void Awake()
+	{
+		text = GetComponent<TMP_Text>();
+	}
+
 	public Dictionary<ItemType, float> Contents
 	{
 		set
