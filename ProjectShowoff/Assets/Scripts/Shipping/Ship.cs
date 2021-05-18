@@ -9,35 +9,39 @@ public class Ship : MonoBehaviour
 	public ContainerData box { get; set; }
 	private Planet target;
 	private Vector3 startPos;
-	private Tweener tweener;
+	private Sequence sequence;
 
 	// TODO variable speed, etc.
+
+	private bool delivered = false;
 
 	public void DeliverTo(Planet planet)
 	{
 		target = planet;
 		startPos = transform.position;
-		tweener = transform.DOMove(target.transform.position, 5f);
+		sequence = DOTween.Sequence();
+		sequence.Append(transform.DOLookAt(target.transform.position, 1f));
+		sequence.Append(transform.DOMove(target.transform.position, 5f));
 	}
 
 	// I somehow really don't want the planets to be triggers
 	private void OnTriggerEnter(Collider other)
 	{
-		Debug.Log($"Collision with {other.gameObject.name}");
-		if (other.gameObject != target.gameObject) return;
+		if (delivered || other.gameObject != target.gameObject) return;
+		delivered = true;
 		// Ship has been delivered
 		target.Deliver(box);
 		box = null;
-		if (tweener.IsActive()) tweener.Kill();
+		if (sequence.IsActive()) sequence.Kill();
 		StartCoroutine(Return());
 	}
 
 	private IEnumerator Return()
 	{
-		// TODO rotate as well
-		yield return new WaitForSeconds(1f);
-		tweener = transform.DOMove(startPos, 5f);
-		yield return new WaitWhile(() => { return tweener.IsActive() && tweener.IsPlaying(); });
+		sequence = DOTween.Sequence();
+		sequence.Append(transform.DOLookAt(startPos, 1f));
+		sequence.Append(transform.DOMove(startPos, 5f));
+		yield return new WaitWhile(() => { return sequence.IsActive() && sequence.IsPlaying(); });
 		OnArrival?.Invoke(this);
 	}
 }

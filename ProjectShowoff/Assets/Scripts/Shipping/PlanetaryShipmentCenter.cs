@@ -47,16 +47,20 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 
 	// TODO deselect stuff
 
+	public void DeselectPlanet()
+	{
+		if (selectedPlanet) selectedPlanet.Deselect();
+		selectedPlanet = null;
+	}
+
 	public void OnPlanetClicked(Planet planet)
 	{
-		Debug.Log($"Selected Planet --- {planet.gameObject.name}");
 		if (selectedPlanet) selectedPlanet.Deselect();
 		selectedPlanet = planet;
 	}
 
 	public void OnShipSelected(Ship ship)
 	{
-		Debug.Log($"Selected Ship --- {ship.gameObject.name}");
 		if (selectedShip) ui.DeselectButton(selectedShip);
 		selectedShip = ship;
 	}
