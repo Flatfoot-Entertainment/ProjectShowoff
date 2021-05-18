@@ -98,6 +98,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 			// subject.transform.SetParent(transform);
 			Box.AddToBox(subject.contained);
 			contained.Add(subject.gameObject);
+			subject.OnAddedToBox();
 			// box.ShowBoxContents();
 			OnObjectAdded();
 		}
