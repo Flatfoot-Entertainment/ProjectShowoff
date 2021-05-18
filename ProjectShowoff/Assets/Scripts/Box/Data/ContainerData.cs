@@ -35,4 +35,18 @@ public class ContainerData : IBoxData<ItemBoxData>
 	{
 		contents.Remove(contained);
 	}
+
+	public Dictionary<ItemType, float> GetItems()
+	{
+		Dictionary<ItemType, float> ret = new Dictionary<ItemType, float>();
+		foreach (ItemBoxData box in Contents)
+		{
+			foreach (Item item in box.Contents)
+			{
+				if (ret.ContainsKey(item.Type)) ret[item.Type] += item.Value;
+				else ret[item.Type] = item.Value;
+			}
+		}
+		return ret;
+	}
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public static class Extensions
 {
@@ -17,5 +18,15 @@ public static class Extensions
 	public static bool Contains(this LayerMask mask, int layer)
 	{
 		return (mask == (mask | (1 << layer)));
+	}
+
+	public static string ToBeautifulString(this Dictionary<ItemType, float> val)
+	{
+		string ret = "";
+		foreach (var kvp in val)
+		{
+			ret += $"{kvp.Key.ToString()}: {kvp.Value}\n";
+		}
+		return ret;
 	}
 }
