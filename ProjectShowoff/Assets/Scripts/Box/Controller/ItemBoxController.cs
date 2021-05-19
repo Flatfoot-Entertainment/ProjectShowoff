@@ -24,4 +24,8 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 		protected set => box = value;
 	}
 
+	protected override void PurgeContents()
+	{
+		foreach (GameObject gO in contained) Lean.Pool.LeanPool.Despawn(gO);
+	}
 }

@@ -29,7 +29,7 @@ public class SpringlessGrabber : CraneHook
 		shouldUnhook = false;
 		oldTargetConstraints = target.constraints;
 		target.constraints = oldTargetConstraints | RigidbodyConstraints.FreezeRotation;
-		tweener = target.DORotate(Vector3.zero, rotationTime).SetEase(Ease.InOutQuint);
+		tweener = target.DORotate(Vector3.zero, rotationTime).SetEase(easingMode);
 	}
 
 	public override bool Unhook()
@@ -81,7 +81,7 @@ public class SpringlessGrabber : CraneHook
 		// For now unhook in this method
 		target.constraints = oldTargetConstraints;
 		// For safety, abort the tween
-		tweener.Kill();
+		if (tweener.IsActive()) tweener.Kill();
 		tweener = null;
 		// Reset all the values
 		target = null;

@@ -1,21 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class BoxBody : MonoBehaviour
 {
-	private List<GameObject> intersecting = new List<GameObject>();
+	public Action OnContentsUpdated;
+	public List<GameObject> intersecting { get; private set; } = new List<GameObject>();
+	public List<GameObject> nextList = new List<GameObject>();
 
-	private void OnTriggerEnter(Collider other)
+	// private void OnTriggerEnter(Collider other)
+	// {
+	// 	// TODO specify layers and shit
+	// 	OnContentsUpdated?.Invoke();
+	// 	intersecting.Add(other.gameObject);
+	// }
+
+	private void OnTriggerStay(Collider other)
 	{
-		// TODO specify layers and shit
-		intersecting.Add(other.gameObject);
+		nextList.Add(other.gameObject);
 	}
 
-	private void OnTriggerExit(Collider other)
+	private void FixedUpdate()
 	{
-		intersecting.Remove(other.gameObject);
+		// Check if lists differ
+		bool differing = intersecting.Count != nextList.Count;
+		if (!differing)
+		{
+			differing = intersecting.Except(nextList).Any();
+		}
+		intersecting.Clear();
+		intersecting = nextList;
+		nextList = new List<GameObject>();
+		if (differing)
+		{
+			OnContentsUpdated?.Invoke();
+		}
 	}
+
+	// private void OnTriggerExit(Collider other)
+	// {
+	// 	Debug.Log("Exit");
+	// 	OnContentsUpdated?.Invoke();
+	// 	intersecting.Remove(other.gameObject);
+	// }
 
 	public bool Has(GameObject item)
 	{

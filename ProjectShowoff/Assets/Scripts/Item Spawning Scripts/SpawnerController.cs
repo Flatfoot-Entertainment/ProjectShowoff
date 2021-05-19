@@ -4,26 +4,45 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour
 {
-	[SerializeField] private List<ItemSpawner> spawners = new List<ItemSpawner>();
+    [SerializeField] private List<ItemSpawner> spawners = new List<ItemSpawner>();
+    [SerializeField] private List<SimpleConveyor> conveyors = new List<SimpleConveyor>();
 
-	[SerializeField] private float spawnInterval;
+    [SerializeField] private float spawnInterval;
 
-	private void Start()
-	{
-		StartCoroutine(Coroutine());
-	}
+    [SerializeField] private float conveyorDelay;
 
-	private IEnumerator Coroutine()
-	{
-		while (gameObject)
-		{
-			Spawn();
-			yield return new WaitForSeconds(spawnInterval);
-		}
-	}
+    private void Start()
+    {
+        StartCoroutine(Coroutine());
+    }
 
-	private void Spawn()
-	{
-		spawners.ForEach(s => s.Spawn());
-	}
+    public IEnumerator Coroutine()
+    {
+        while (gameObject)
+        {
+            Spawn();
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+
+    private void Spawn()
+    {
+        spawners.ForEach(s => s.Spawn());
+    }
+
+
+    //ffs do it in an event or something you dum dum
+    //put it in another class, not here
+    public void ManageConveyors(int index)
+    {
+        if (conveyors.Count > 0)
+        {
+            SimpleConveyor conveyor = conveyors[index];
+            Debug.Log("Conveyor to be stopped: " + conveyor.name);
+            if (conveyor.Speed == conveyor.InitialSpeed)
+            {
+                StartCoroutine(conveyor.StopConveyor(spawners[index], conveyorDelay));
+            }
+        }
+    }
 }

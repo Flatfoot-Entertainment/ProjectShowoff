@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7427508701595437724}
   - component: {fileID: 7427508701595437699}
   - component: {fileID: 7427508701595437698}
-  - component: {fileID: 7427508701595437726}
+  - component: {fileID: 900586885}
   m_Layer: 0
   m_Name: BoxDropoff
   m_TagString: Untagged
@@ -91,12 +91,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7427508701595437697}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7427508701595437726
+--- !u!114 &900586885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,9 +105,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7427508701595437697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89b507007a7c7d44987a871244831b9d, type: 3}
+  m_Script: {fileID: 11500000, guid: 321b215cf25e9234e84aba4fedd9c5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructionLayer:
+  transportLayer:
     serializedVersion: 2
-    m_Bits: 3758096384
+    m_Bits: 536870912
+  transportTo: {fileID: 0}

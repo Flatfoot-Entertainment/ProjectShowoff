@@ -12,6 +12,7 @@ public class ConveyorStop : Upgrade
 
     public override void ApplyUpgrade()
     {
-        //conveyor stop button stuff, activate in ui or smth
+        //look at the method below's comment
+        BaseGame.Instance.EnableConveyorButton();
     }
 }

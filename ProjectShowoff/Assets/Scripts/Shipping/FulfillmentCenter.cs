@@ -17,6 +17,16 @@ public class FulfillmentCenter : MonoBehaviour
 		SpawnBox();
 	}
 
+	public bool CanShipBox()
+	{
+		return fillableBox && fillableBox.Shippable;
+	}
+
+	public bool CanShipContainer()
+	{
+		return fillableContainer && fillableContainer.Shippable;
+	}
+
 	public void CloseContainer()
 	{
 		// TODO ship the container, if money is available (and if theres a non shipped container)
@@ -66,6 +76,16 @@ public class FulfillmentCenter : MonoBehaviour
 				Random.Range(0.75f, 1.25f),
 				Random.Range(1f, 2f)
 			),
+			null
+		).GetComponent<ItemBoxController>();
+	}
+
+	public void SpawnBox(Vector3 size)
+	{
+		if (fillableBox) return;
+		fillableBox = BoxCreator.Instance.Create<ItemBoxData>(
+			boxPos.position,
+			size,
 			null
 		).GetComponent<ItemBoxController>();
 	}
