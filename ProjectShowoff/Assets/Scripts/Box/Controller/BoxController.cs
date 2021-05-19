@@ -10,6 +10,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	private BoxLid<Contained> lid;
 	private BoxBody body;
 	public abstract BoxT Box { get; protected set; }
+	protected List<GameObject> contained = new List<GameObject>();
 
 	[SerializeField] private float finalPositionThreshold = 0.1f;
 	[SerializeField] private float sampleBoxCost = 50.0f;
@@ -75,7 +76,11 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		lid.OnExitCallback -= LidExit;
 		lid.OnEnterCallback -= LidEnter;
 		body.OnContentsUpdated -= UpdateShippable;
+		// Purge contents
+		PurgeContents();
 	}
+
+	protected abstract void PurgeContents();
 
 	private void DestroyBox(float value)
 	{
@@ -90,8 +95,10 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		if (body.Has(subject.gameObject))
 		{
 			//containing.Add(subject);
-			subject.transform.SetParent(transform);
+			// subject.transform.SetParent(transform);
 			Box.AddToBox(subject.contained);
+			contained.Add(subject.gameObject);
+			subject.OnAddedToBox();
 			// box.ShowBoxContents();
 			OnObjectAdded();
 		}
@@ -103,8 +110,9 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		if (body.Has(subject.gameObject))
 		{
-			subject.transform.parent = null;
+			// subject.transform.parent = null;
 			Box.RemoveFromBox(subject.contained);
+			contained.Remove(subject.gameObject);
 			// TODO call functions in child classes
 			// box.ShowBoxContents();
 			OnObjectRemoved();

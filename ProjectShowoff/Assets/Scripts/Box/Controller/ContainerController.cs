@@ -49,4 +49,9 @@ public class ContainerController : BoxController<ContainerData, ItemBoxData>
 	{
 		return Instantiate<ShippableContainer>(shippableContainerPrefab, transform.position, transform.rotation, transform.parent);
 	}
+
+	protected override void PurgeContents()
+	{
+		foreach (GameObject gO in contained) Destroy(gO);
+	}
 }

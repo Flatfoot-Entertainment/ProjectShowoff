@@ -11,7 +11,7 @@ public class SegregatedItemFactory : ItemFactory
 	public GameObject[] peoplePrefabs;
 	public override ConsumerGoods CreateConsumerGoods()
 	{
-		return new ConsumerGoods(45f, 100);
+		return new ConsumerGoods(1f, 100);
 	}
 
 	public override Food CreateFood()

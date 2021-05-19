@@ -15,4 +15,6 @@ public abstract class BoxScript<Contained> : MonoBehaviour
 	}
 
 	protected virtual void OnStart() { }
+
+	public virtual void OnAddedToBox() { }
 }
