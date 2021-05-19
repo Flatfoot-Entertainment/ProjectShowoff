@@ -73,13 +73,15 @@ public class SpringlessGrabber : CraneHook
 
 	private void LateUnhook()
 	{
+		target.constraints = oldTargetConstraints;
 		// Set target velocity.y to zero
 		// Prevent stuff from flying
+		// TODO weird
 		Vector3 v = target.velocity;
 		v.y = 0;
 		target.velocity = v;
+		// target.velocity = Vector3.zero;
 		// For now unhook in this method
-		target.constraints = oldTargetConstraints;
 		// For safety, abort the tween
 		if (tweener.IsActive()) tweener.Kill();
 		tweener = null;
