@@ -49,7 +49,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(-sampleBoxCost));
 		var shippable = InstantiateShipped();
-		shippable.Init(GetComponent<BoxParts<BoxT, Contained>>().Dimensions, Box);
+		shippable.Init(Box);
 		Box = default(BoxT);
 		shippable.gameObject.SetActive(true);
 		Destroy(gameObject);
