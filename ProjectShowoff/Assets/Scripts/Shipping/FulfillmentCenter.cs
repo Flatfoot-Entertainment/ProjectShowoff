@@ -23,7 +23,7 @@ public class FulfillmentCenter : MonoBehaviour
 	[SerializeField] private Transform boxPos;
 	[SerializeField] private PlanetaryShipmentCenter planetaryShipment;
 	private ItemBoxController fillableBox;
-	private ShippableItemBox shippedBox;
+	// private ShippableItemBox shippedBox;
 	private ContainerController fillableContainer;
 	private ShippableContainer shippedContainer;
 
@@ -77,23 +77,6 @@ public class FulfillmentCenter : MonoBehaviour
 		// TODO maybe destroy the box???
 		planetaryShipment.ReadyForShipment(dockingSpaces[index].container.Box, index);
 		dockingSpaces[index].readyForShipment = true;
-
-		// shippedContainer = (ShippableContainer)fillableContainer.Ship();
-		// if (!shippedContainer)
-		// {
-		// 	Debug.LogWarning("ShippedContainer --- wrong type!!!");
-		// 	return;
-		// }
-
-		// // at this point the shipped stage is reached and we can set up events
-		// shippedContainer.OnShipment += () =>
-		// {
-		// 	SpawnContainer();
-		// 	// TODO also add money
-		// 	Debug.Log("Shipment");
-		// 	EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(shippedContainer.Box.MoneyValue));
-		// 	EventScript.Instance.EventQueue.AddEvent(new ManageTimeEvent(20)); // TODO must be moved somewhere else
-		// };
 	}
 
 	public void CloseBox()
@@ -162,17 +145,7 @@ public class FulfillmentCenter : MonoBehaviour
 	private void FinalizeBoxClosing()
 	{
 		// TODO ship the box, if money is available (and if theres a non shipped box)
-		shippedBox = (ShippableItemBox)fillableBox.Ship();
-		if (!shippedBox)
-		{
-			Debug.LogWarning("ShippedBox --- wrong type!!!");
-			return;
-		}
-		// at this point the shipped stage is reached and we can set up events
-		shippedBox.OnShipment += () =>
-		{
-			SpawnBox();
-		};
+		fillableBox.Ship();
 	}
 
 	// OTHER THINGS
