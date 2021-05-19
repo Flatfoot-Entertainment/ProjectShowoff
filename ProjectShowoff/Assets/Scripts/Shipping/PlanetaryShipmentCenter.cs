@@ -14,7 +14,7 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	// We are shipping the box on the ship, so the rest doesn't matter
 	private Ship selectedShip;
 
-	private List<Ship> shipsOnStandby = new List<Ship>();
+	private Dictionary<Ship, int> shipsOnStandby = new Dictionary<Ship, int>();
 
 	// Start is called before the first frame update
 	void Start()
@@ -31,6 +31,7 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	{
 		// We need both a selected planet and a selected ship
 		if (!selectedPlanet || !selectedShip) return;
+		fulfillmentCenter.OnSendShip(shipsOnStandby[selectedShip]);
 		// Instantiate a ship
 		shipsOnStandby.Remove(selectedShip);
 		selectedShip.DeliverTo(selectedPlanet);
@@ -67,13 +68,13 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	}
 
 	// Mark a container/ship ready for shipment
-	public void ReadyForShipment(ContainerData box)
+	public void ReadyForShipment(ContainerData box, int index)
 	{
 		// Instantiate a ship next to the base
 		Ship ship = Instantiate<Ship>(shipPrefab, shipSpawnPos.position, shipSpawnPos.rotation);
 		ship.box = box;
 		ship.OnArrival += ShipHasReturned;
-		shipsOnStandby.Add(ship);
+		shipsOnStandby.Add(ship, index);
 		// Instantiate a button to select the ship
 		ui.AddButton(ship);
 	}
