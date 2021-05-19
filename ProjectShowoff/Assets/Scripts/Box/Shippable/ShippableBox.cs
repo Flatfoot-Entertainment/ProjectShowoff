@@ -12,11 +12,10 @@ public class ShippableBox<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData
 
 	protected virtual void OnInit() { }
 
-	public void Init(Vector3 dimentions, BoxT box)
+	public void Init(BoxT box)
 	{
 		delivered = false;
 		this.box = box;
-		transform.localScale = dimentions;
 		OnInit();
 	}
 
