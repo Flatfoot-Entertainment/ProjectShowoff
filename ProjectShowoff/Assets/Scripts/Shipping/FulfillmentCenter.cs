@@ -15,7 +15,7 @@ public class FulfillmentCenter : MonoBehaviour
 	private void Start()
 	{
 		SpawnContainer();
-		SpawnBox();
+		//SpawnBox();
 	}
 
 	public bool CanShipBox()
@@ -63,18 +63,7 @@ public class FulfillmentCenter : MonoBehaviour
 
 	public void CloseBox()
 	{
-		// TODO ship the box, if money is available (and if theres a non shipped box)
-		shippedBox = (ShippableItemBox)fillableBox.Ship();
-		if (!shippedBox)
-		{
-			Debug.LogWarning("ShippedBox --- wrong type!!!");
-			return;
-		}
-		// at this point the shipped stage is reached and we can set up events
-		shippedBox.OnShipment += () =>
-		{
-			SpawnBox();
-		};
+		StartCoroutine(StartBoxClosing());
 	}
 
 	public void SpawnBox()
@@ -87,16 +76,6 @@ public class FulfillmentCenter : MonoBehaviour
 				Random.Range(0.75f, 1.25f),
 				Random.Range(1f, 2f)
 			),
-			null
-		).GetComponent<ItemBoxController>();
-	}
-
-	public void SpawnBox(Vector3 size)
-	{
-		if (fillableBox) return;
-		fillableBox = BoxCreator.Instance.Create<ItemBoxData>(
-			boxPos.position,
-			size,
 			null
 		).GetComponent<ItemBoxController>();
 	}
@@ -121,6 +100,35 @@ public class FulfillmentCenter : MonoBehaviour
 			null
 		).GetComponent<ContainerController>();
 	}
+
+	private IEnumerator StartBoxClosing()
+    {
+		Animator boxAnimator = fillableBox.GetComponentInChildren<Animator>();
+		if (boxAnimator == null) Debug.LogError("BoxAnimator not found.");
+        else
+        {
+			Debug.Log("Found a BoxAnimator");
+			boxAnimator.SetBool("isClosing", true);
+			yield return new WaitForSeconds(fillableBox.ClosingAnimation.length);
+			FinalizeBoxClosing();
+        }
+    }
+
+	private void FinalizeBoxClosing()
+    {
+        // TODO ship the box, if money is available (and if theres a non shipped box)
+        shippedBox = (ShippableItemBox)fillableBox.Ship();
+        if (!shippedBox)
+        {
+            Debug.LogWarning("ShippedBox --- wrong type!!!");
+            return;
+        }
+        // at this point the shipped stage is reached and we can set up events
+        shippedBox.OnShipment += () =>
+        {
+            SpawnBox();
+        };
+    }
 
 	// OTHER THINGS
 	// void SpawnBox() -> don't spawn box automatically
