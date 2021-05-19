@@ -9,6 +9,7 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	[SerializeField] private Transform shipSpawnPos;
 	[SerializeField] private Ship shipPrefab;
 	[SerializeField] private PlanetaryShipmentCenterUI ui;
+	[SerializeField] private FulfillmentCenter fulfillmentCenter;
 	private Planet selectedPlanet;
 	// We are shipping the box on the ship, so the rest doesn't matter
 	private Ship selectedShip;
@@ -20,10 +21,10 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	{
 		ui.OnShipSelected += OnShipSelected;
 		// For testing spawn 4 ships
-		ReadyForShipment(RandomCrate());
-		ReadyForShipment(RandomCrate());
-		ReadyForShipment(RandomCrate());
-		ReadyForShipment(RandomCrate());
+		// ReadyForShipment(RandomCrate());
+		// ReadyForShipment(RandomCrate());
+		// ReadyForShipment(RandomCrate());
+		// ReadyForShipment(RandomCrate());
 	}
 
 	public void DeliverSelected()
@@ -88,7 +89,8 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 
 		// Maybe for now just call ReadyForShipment
 		//! Testing
-		ReadyForShipment(RandomCrate());
+		// ReadyForShipment(RandomCrate());
+		fulfillmentCenter.OnShipReturn();
 	}
 
 	// For testing purposes only

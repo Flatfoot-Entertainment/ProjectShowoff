@@ -6,6 +6,7 @@ public class FulfillmentCenter : MonoBehaviour
 {
 	[SerializeField] private Transform containerPos;
 	[SerializeField] private Transform boxPos;
+	[SerializeField] private PlanetaryShipmentCenter planetaryShipment;
 	private ItemBoxController fillableBox;
 	private ShippableItemBox shippedBox;
 	private ContainerController fillableContainer;
@@ -27,27 +28,37 @@ public class FulfillmentCenter : MonoBehaviour
 		return fillableContainer && fillableContainer.Shippable;
 	}
 
+	public void OnShipReturn()
+	{
+		// TODO let specific ship return by moving in the correct place
+		SpawnContainer();
+	}
+
 	public void CloseContainer()
 	{
 		// TODO ship the container, if money is available (and if theres a non shipped container)
 		// TODO maybe destroy the box???
 
-		shippedContainer = (ShippableContainer)fillableContainer.Ship();
-		if (!shippedContainer)
-		{
-			Debug.LogWarning("ShippedContainer --- wrong type!!!");
-			return;
-		}
+		// TODO notify planetary shipment center about a new available ship
 
-		// at this point the shipped stage is reached and we can set up events
-		shippedContainer.OnShipment += () =>
-		{
-			SpawnContainer();
-			// TODO also add money
-			Debug.Log("Shipment");
-			EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(shippedContainer.Box.MoneyValue));
-			EventScript.Instance.EventQueue.AddEvent(new ManageTimeEvent(20)); // TODO must be moved somewhere else
-		};
+		planetaryShipment.ReadyForShipment(fillableContainer.Box);
+
+		// shippedContainer = (ShippableContainer)fillableContainer.Ship();
+		// if (!shippedContainer)
+		// {
+		// 	Debug.LogWarning("ShippedContainer --- wrong type!!!");
+		// 	return;
+		// }
+
+		// // at this point the shipped stage is reached and we can set up events
+		// shippedContainer.OnShipment += () =>
+		// {
+		// 	SpawnContainer();
+		// 	// TODO also add money
+		// 	Debug.Log("Shipment");
+		// 	EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(shippedContainer.Box.MoneyValue));
+		// 	EventScript.Instance.EventQueue.AddEvent(new ManageTimeEvent(20)); // TODO must be moved somewhere else
+		// };
 	}
 
 	public void CloseBox()
@@ -91,13 +102,13 @@ public class FulfillmentCenter : MonoBehaviour
 	}
 
 	public void SpawnBox(GameObject boxPrefab)
-    {
+	{
 		//tobias help
 		if (fillableBox) return;
 		fillableBox = Instantiate(boxPrefab, boxPos.position, Quaternion.identity).GetComponent<ItemBoxController>();
-    }
+	}
 
-    private void SpawnContainer()
+	private void SpawnContainer()
 	{
 		if (fillableContainer) return;
 		fillableContainer = BoxCreator.Instance.Create<ContainerData>(
