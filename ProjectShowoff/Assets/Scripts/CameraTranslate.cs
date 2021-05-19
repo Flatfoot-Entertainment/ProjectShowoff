@@ -1,35 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using Cinemachine;
 
 public class CameraTranslate : MonoBehaviour
 {
-    [SerializeField] private Transform[] cameraPositions;
-    [SerializeField] private float cameraMoveSpeed;
-    [SerializeField] private Vector3 currentTargetPosition;
+    [SerializeField] private CinemachineBrain brain;
+    [SerializeField] private CinemachineVirtualCamera[] cameras;
 
-    private Tweener tweener;
 
     private void Start()
     {
-        currentTargetPosition = cameraPositions[0].position;
-        Camera.main.transform.position = currentTargetPosition;
+        brain = Camera.main.GetComponent<CinemachineBrain>();
     }
 
     public void MoveCamera()
     {
-        if (tweener == null || !(tweener.IsActive() && tweener.IsPlaying()))
+        if (!brain.IsBlending)
         {
-            if (Camera.main.transform.position == cameraPositions[0].position)
+            if(cameras[0].Priority < cameras[1].Priority)
             {
-                currentTargetPosition = cameraPositions[1].position;
+                //TODO dont use magic variables;
+                cameras[0].Priority += 3;
             }
-            else if (Camera.main.transform.position == cameraPositions[1].position)
+            else
             {
-                currentTargetPosition = cameraPositions[0].position;
+                cameras[0].Priority -= 3;
             }
-            tweener = Camera.main.transform.DOMove(currentTargetPosition, cameraMoveSpeed);
         }
 
     }

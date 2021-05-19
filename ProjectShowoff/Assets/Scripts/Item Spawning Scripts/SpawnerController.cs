@@ -37,6 +37,7 @@ public class SpawnerController : MonoBehaviour
     {
         if (conveyors.Count > 0)
         {
+            //TODO get a reference of the animators to stop the conveyor animations as well
             SimpleConveyor conveyor = conveyors[index];
             Debug.Log("Conveyor to be stopped: " + conveyor.name);
             if (conveyor.Speed == conveyor.InitialSpeed)
