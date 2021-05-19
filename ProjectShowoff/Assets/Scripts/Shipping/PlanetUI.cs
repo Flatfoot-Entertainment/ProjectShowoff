@@ -10,13 +10,14 @@ public class PlanetUI : MonoBehaviour
 
 	private void Awake()
 	{
-		text = GetComponent<TMP_Text>();
+		if (!text) text = GetComponent<TMP_Text>();
 	}
 
 	public Dictionary<ItemType, float> Contents
 	{
 		set
 		{
+			if (!text) text = GetComponent<TMP_Text>();
 			text.text = value.ToBeautifulString();
 		}
 	}
