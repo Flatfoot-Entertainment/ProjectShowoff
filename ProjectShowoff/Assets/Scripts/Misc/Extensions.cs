@@ -25,7 +25,7 @@ public static class Extensions
 		return (mask == (mask | (1 << layer)));
 	}
 
-	public static string ToBeautifulString(this Dictionary<ItemType, float> val)
+	public static string ToBeautifulString<T>(this Dictionary<ItemType, T> val)
 	{
 		string ret = "";
 		foreach (var kvp in val)

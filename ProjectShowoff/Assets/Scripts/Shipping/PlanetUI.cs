@@ -13,7 +13,7 @@ public class PlanetUI : MonoBehaviour
 		if (!text) text = GetComponent<TMP_Text>();
 	}
 
-	public Dictionary<ItemType, float> Contents
+	public Dictionary<ItemType, int> Contents
 	{
 		set
 		{

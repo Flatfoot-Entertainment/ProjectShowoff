@@ -28,17 +28,17 @@ public class PercentageItemFactory : MonoBehaviour
 			switch (type)
 			{
 				case ItemType.Food:
-					item = new Food(1f, value);
+					item = new Food(value);
 					break;
 				case ItemType.MechanicalParts:
-					item = new MechanicalParts(1f, value);
+					item = new MechanicalParts(value);
 					break;
 				case ItemType.Medicine:
-					item = new Medicine(1f, value);
+					item = new Medicine(value);
 					break;
 				case ItemType.Fuel:
 				default:
-					item = new Fuel(1f, value);
+					item = new Fuel(value);
 					break;
 			}
 			item.ItemPrefab = isLowValue ? lowValuePrefabs.Random() : highValuePrefabs.Random();

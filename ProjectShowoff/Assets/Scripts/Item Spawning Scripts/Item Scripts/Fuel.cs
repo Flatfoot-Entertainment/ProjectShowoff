@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Fuel : Item
 {
-    public Fuel(float pValue, int pPrice) : base(ItemType.Fuel, pValue, true, pPrice)
-    {
+	public Fuel(int pPrice) : base(ItemType.Fuel, true, pPrice)
+	{
 
-    }
+	}
 }

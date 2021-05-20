@@ -36,9 +36,10 @@ public class ContainerData : IBoxData<ItemBoxData>
 		contents.Remove(contained);
 	}
 
-	public Dictionary<ItemType, float> GetItems()
+	public Dictionary<ItemType, int> GetItems()
 	{
-		Dictionary<ItemType, float> ret = new Dictionary<ItemType, float>();
+		// TODO make faster -> cache it or something
+		Dictionary<ItemType, int> ret = new Dictionary<ItemType, int>();
 		foreach (ItemBoxData box in Contents)
 		{
 			foreach (Item item in box.Contents)
