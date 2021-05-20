@@ -139,5 +139,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxVelocity: 50
   leniancy: 1
-  rotationTime: 0.5
-  easingMode: 25
+  rotationResetTime: 0.5
+  rotationTime: 0.2
+  rotationResetEasingMode: 31
+  rotationEasingMode: 31

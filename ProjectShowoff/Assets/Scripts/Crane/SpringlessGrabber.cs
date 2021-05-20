@@ -5,31 +5,54 @@ using DG.Tweening;
 
 public class SpringlessGrabber : CraneHook
 {
-	[SerializeField] private float maxDistance;
-	[SerializeField] private AnimationCurve smoothing;
-	[SerializeField] private float maxVelocity;
-	[SerializeField] private float leniancy;
+	[Header("Physics interaction")]
+	[Tooltip("A multiplier of the force after letting go of an object"), SerializeField]
+	private float throwSpeed = 50f;
+	[Tooltip("How fast the object goes towards the hook location.\n" +
+		"The higher this value, the faster"),
+	SerializeField]
+	private float smoothing = 10f;
+	// The thing being hooked
+	private Rigidbody target;
+	// The constraints of the target rigidbody the moment it was hooked
+	private RigidbodyConstraints oldTargetConstraints;
+	// Flag to set, if the hook should unhook at the end of the next FixedUpdate call
+	private bool shouldUnhook = false;
 
 	[Header("Tweening")]
-	[SerializeField] private float rotationTime = 0.5f;
-	[SerializeField] private Ease easingMode = Ease.InOutElastic;
-	private Rigidbody target;
-	private RigidbodyConstraints oldTargetConstraints;
-	private Tweener tweener;
-
-	private Vector3 slowMoveVelocity = Vector3.zero;
-	private bool shouldUnhook = false;
+	[Tooltip("The time it takes for the objects rotation to reset after picking it up"), SerializeField]
+	private float rotationResetTime = 0.5f;
+	[Tooltip("The easing mode to use for the initial pickup"), SerializeField]
+	private Ease rotationResetEasingMode = Ease.InOutBounce;
+	[Tooltip("The rotation time for rotating a picked up object"), SerializeField]
+	private float rotationTime = 0.3f;
+	[Tooltip("The easing mode for rotation a picked up object"), SerializeField]
+	private Ease rotationEasingMode = Ease.InOutBounce;
+	// The last rotation used for tweening
+	// Used for calculating the next rotation
+	private Quaternion lastRot;
 
 	public override void Hook(Rigidbody hooked)
 	{
-		// Another idea would be to disable the collider while carrying it
-		// -> You wouldn't throw stuff around
 		target = hooked;
-		slowMoveVelocity = Vector3.zero;
+		target.isKinematic = true;
+		target.detectCollisions = false;
+		lastRot = Quaternion.identity;
 		shouldUnhook = false;
 		oldTargetConstraints = target.constraints;
 		target.constraints = oldTargetConstraints | RigidbodyConstraints.FreezeRotation;
-		tweener = target.DORotate(Vector3.zero, rotationTime).SetEase(easingMode);
+		target.DORotate(Vector3.zero, rotationResetTime).SetEase(rotationResetEasingMode);
+	}
+
+	private void Update()
+	{
+		if (Input.GetMouseButtonDown(1))
+		{
+			lastRot = Quaternion.Euler(0f, 90f, 0f) * lastRot;
+			target.DORotate(
+				lastRot.eulerAngles, rotationTime
+			).SetEase(rotationEasingMode);
+		}
 	}
 
 	public override bool Unhook()
@@ -45,49 +68,30 @@ public class SpringlessGrabber : CraneHook
 	private void FixedUpdate()
 	{
 		if (!target) return;
-		Vector3 delta = transform.position - target.position;
-		float dist = delta.magnitude;
-		if (dist < leniancy)
-		{
-			Vector3 oldPos = target.position;
-			target.MovePosition(transform.position);
-			// Check how much the target has been moved to reach the grabber
-			slowMoveVelocity = (target.position - oldPos);
-			target.velocity = shouldUnhook
-				// If we should unhook, we set the velocity to the last one we recorded
-				? target.velocity = slowMoveVelocity * maxVelocity
-				// ...otherwise we set it to zero
-				: target.velocity = Vector3.zero;
-		}
-		else
-		{
-			slowMoveVelocity = Vector3.zero;
-			float velocityMultiplier = smoothing.Evaluate(Mathf.Clamp(dist, 0, maxDistance));
-			target.velocity = (delta).normalized * maxVelocity * velocityMultiplier;
-		}
-		// If the flag was set, we unhook the target finally.
-		// After this iteration we don't need it anymore
+
+		Vector3 targetOldPos = target.position;
+		target.position = Vector3.Lerp(target.position, transform.position, smoothing * Time.fixedDeltaTime);
+		Vector3 targetMovement = target.position - targetOldPos;
+
 		if (shouldUnhook)
+		{
+			target.velocity = targetMovement * throwSpeed;
 			LateUnhook();
+		}
 	}
 
 	private void LateUnhook()
 	{
+		target.isKinematic = false;
+		target.detectCollisions = true;
+		// Reset constraints to the old ones (previously rotation was disallowed)
 		target.constraints = oldTargetConstraints;
-		// Set target velocity.y to zero
-		// Prevent stuff from flying
-		// TODO weird
-		Vector3 v = target.velocity;
-		v.y = 0;
-		target.velocity = v;
-		// target.velocity = Vector3.zero;
-		// For now unhook in this method
-		// For safety, abort the tween
-		if (tweener.IsActive()) tweener.Kill();
-		tweener = null;
+
+		// For safety, abort all tweens
+		target.DOKill();
+
 		// Reset all the values
 		target = null;
 		shouldUnhook = false;
-		slowMoveVelocity = Vector3.zero;
 	}
 }
