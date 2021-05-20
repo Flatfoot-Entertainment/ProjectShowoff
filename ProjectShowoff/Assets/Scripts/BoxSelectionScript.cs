@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BoxSelectionScript : MonoBehaviour
 {
     [SerializeField] private Sprite[] boxImages;
+    [SerializeField] private GameObject[] boxPrefabs;
     [SerializeField] private FulfillmentCenter fulfillmentCenter;
     [SerializeField] private Image placeholder;
     private int imageIndex;
@@ -29,25 +30,24 @@ public class BoxSelectionScript : MonoBehaviour
     public void ConfirmBox()
     {
         //check if anything in threshold, if yes dont confirm, if no confirm
-        Vector3 boxSize = Vector3.zero;
+        GameObject box = null;
         switch (imageIndex)
         {
             case 0:
-                boxSize = new Vector3(1f, 1f, 1f);
+                box = boxPrefabs[0];
                 break;
             case 1:
-                boxSize = new Vector3(1.5f, 1.5f, 1.5f);
+                box = boxPrefabs[1];
                 break;
             case 2:
-                boxSize = new Vector3(2f, 2f, 2f);
+                box = boxPrefabs[2];
                 break;
             default:
                 Debug.LogWarning("Yo bro this image index doesn't exist");
                 break;
         }
         //rly not the best way but eh, probably turn to an event later on
-
-        fulfillmentCenter.SpawnBox(boxSize);
+        fulfillmentCenter.SpawnBox(box);
     }
 
 
