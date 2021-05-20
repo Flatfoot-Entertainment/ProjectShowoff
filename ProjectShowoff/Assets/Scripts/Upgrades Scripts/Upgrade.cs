@@ -6,13 +6,15 @@ using UnityEngine.UI;
 public enum UpgradeType
 {
     ConveyorStop,
-    BoxSizeIncrease,
+    ConveyorUpgrade,
     FasterDelivery,
     DeliveryShipSpeed
 }
 
 //need to set the sprite to be specific for each type of upgrade, instead of setting it in the prefab
 //getting the path of the sprite?
+
+//TODO maybe convert the upgrade to a scriptable object?
 
 public abstract class Upgrade
 {
@@ -26,7 +28,7 @@ public abstract class Upgrade
     private int cost;
     private Sprite sprite;
 
-    public Upgrade (UpgradeType pType, int pCost, Sprite pSprite)
+    public Upgrade(UpgradeType pType, int pCost, Sprite pSprite)
     {
         level = 0;
         type = pType;

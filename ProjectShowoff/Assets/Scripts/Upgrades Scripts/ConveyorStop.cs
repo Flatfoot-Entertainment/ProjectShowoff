@@ -15,4 +15,12 @@ public class ConveyorStop : Upgrade
         //look at the method below's comment
         BaseGame.Instance.EnableConveyorButton();
     }
+
+    public override void IncreaseLevel()
+    {
+        if (Level < 1)
+        {
+            base.IncreaseLevel();
+        }
+    }
 }
