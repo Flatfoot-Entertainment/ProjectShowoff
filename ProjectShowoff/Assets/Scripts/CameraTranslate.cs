@@ -2,58 +2,62 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using DG.Tweening;
 
 public class CameraTranslate : MonoBehaviour
 {
 	[SerializeField] private CinemachineBrain brain;
-	[SerializeField] private CinemachineVirtualCamera[] cameras;
+	private CinemachineVirtualCamera lastCam;
+	[SerializeField] private CinemachineVirtualCamera planetVCam;
+	[SerializeField] private CinemachineVirtualCamera packagingVCam;
+	[SerializeField] private CinemachineVirtualCamera shippingVCam;
+	[SerializeField] private CameraMoveEvent.CameraState initialView;
+
+	private IEnumerable<CinemachineVirtualCamera> AllCams()
+	{
+		yield return planetVCam;
+		yield return packagingVCam;
+		yield return shippingVCam;
+	}
 
 	private void Start()
 	{
-		brain = Camera.main.GetComponent<CinemachineBrain>();
-	}
-
-	public void MoveCamera()
-	{
-		if (!brain.IsBlending)
+		EventScript.Instance.EventQueue.Subscribe(EventType.CameraMove, (e) =>
 		{
-			if (cameras[0].Priority < cameras[1].Priority)
-			{
-				//TODO dont use magic variables;
-				cameras[0].Priority += 3;
-			}
-			else
-			{
-				cameras[0].Priority -= 3;
-			}
-		}
+			OnCamMove(((CameraMoveEvent)e).NewState);
+		});
 
-	}
+		foreach (CinemachineVirtualCamera cam in AllCams()) cam.Priority = 0;
 
-	public enum Mode
-	{
-		Planets,
-		Packaging
-	}
-	[SerializeField] private Camera planetCamera;
-
-	private Mode mode = Mode.Packaging;
-
-	// TODO this might not be necessary, if we use cinemachine
-	public void ToggleMode()
-	{
-		mode = mode == Mode.Planets ? Mode.Packaging : Mode.Planets;
-
-		switch (mode)
+		// Hopefully this executes stuff one frame after start
+		Sequence seq = DOTween.Sequence();
+		seq.AppendCallback(() =>
 		{
-			case Mode.Packaging:
-				brain.gameObject.SetActive(true);
-				planetCamera.gameObject.SetActive(false);
+			EventScript.Instance.EventQueue.AddEvent(
+				new CameraMoveEvent(initialView)
+			);
+		});
+		OnCamMove(initialView);
+	}
+
+	private void OnCamMove(CameraMoveEvent.CameraState newState)
+	{
+		CinemachineVirtualCamera newCam = null;
+		switch (newState)
+		{
+			case CameraMoveEvent.CameraState.Planets:
+				newCam = planetVCam;
 				break;
-			case Mode.Planets:
-				brain.gameObject.SetActive(false);
-				planetCamera.gameObject.SetActive(true);
+			case CameraMoveEvent.CameraState.Packaging:
+				newCam = packagingVCam;
+				break;
+			case CameraMoveEvent.CameraState.Shipping:
+			default:
+				newCam = shippingVCam;
 				break;
 		}
+		if (lastCam) lastCam.Priority = 0;
+		newCam.Priority = 1000;
+		lastCam = newCam;
 	}
 }
