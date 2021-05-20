@@ -7,29 +7,25 @@ public class UIViewSwitchingHandler : MonoBehaviour
 	// TODO use the event handler for all of this
 	[SerializeField] private GameObject[] packagingOnlyGameObjects;
 	[SerializeField] private GameObject[] planetsOnlyGameObjects;
-	private CameraTranslate.Mode mode = CameraTranslate.Mode.Packaging;
 
 	private void Start()
 	{
-		ApplyMode();
-	}
-
-	public void ToggleMode()
-	{
-		mode = mode == CameraTranslate.Mode.Planets ? CameraTranslate.Mode.Packaging : CameraTranslate.Mode.Planets;
-
-		ApplyMode();
-	}
-
-	private void ApplyMode()
-	{
-		switch (mode)
+		EventScript.Instance.EventQueue.Subscribe(EventType.CameraMove, (e) =>
 		{
-			case CameraTranslate.Mode.Planets:
+			OnCamMove(((CameraMoveEvent)e).NewState);
+		});
+	}
+
+	private void OnCamMove(CameraMoveEvent.CameraState newState)
+	{
+		switch (newState)
+		{
+			case CameraMoveEvent.CameraState.Planets:
 				foreach (GameObject gO in packagingOnlyGameObjects) gO.SetActive(false);
 				foreach (GameObject gO in planetsOnlyGameObjects) gO.SetActive(true);
 				break;
-			case CameraTranslate.Mode.Packaging:
+			case CameraMoveEvent.CameraState.Packaging:
+			case CameraMoveEvent.CameraState.Shipping:
 				foreach (GameObject gO in packagingOnlyGameObjects) gO.SetActive(true);
 				foreach (GameObject gO in planetsOnlyGameObjects) gO.SetActive(false);
 				break;

@@ -5,16 +5,17 @@ using UnityEngine;
 
 public enum EventType
 {
-    ManageMoney,
-    ManageUpgrade,
-    ManageTime
+	ManageMoney,
+	ManageUpgrade,
+	ManageTime,
+	CameraMove
 }
 public abstract class Event
 {
-    public readonly EventType type;
+	public readonly EventType type;
 
-    public Event(EventType pType)
-    {
-        type = pType;
-    }
+	public Event(EventType pType)
+	{
+		type = pType;
+	}
 }
