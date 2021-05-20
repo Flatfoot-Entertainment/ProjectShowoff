@@ -13,7 +13,6 @@ public class ConveyorSetupScript : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        itemSpawners = GetComponentsInChildren<ItemSpawner>();
         conveyorScripts = GetComponentsInChildren<SimpleConveyor>();
         for (int i = 0; i < conveyorScripts.Length; i++)
         {
