@@ -70,15 +70,6 @@ public class ItemBoxData : IBoxData<Item>
 		return contentsSum;
 	}
 
-	public void ShowBoxContents()
-	{
-		Debug.Log("Contents: ");
-		foreach (ItemType itemType in boxContents.Keys.ToList())
-		{
-			Debug.Log(itemType.ToString() + ": " + boxContents[itemType]);
-		}
-	}
-
 	public void AddToBox(Item contained)
 	{
 		AddItemToBox(contained);

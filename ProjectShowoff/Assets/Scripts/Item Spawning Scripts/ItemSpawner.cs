@@ -26,7 +26,6 @@ public class ItemSpawner : MonoBehaviour
 		if (item.ItemMaterial != null) spawnedItemObject.GetComponent<Renderer>().material = item.ItemMaterial;
 		ItemScript itemScript = spawnedItemObject.GetOrAddComponent<ItemScript>();
 		itemScript.contained = item;
-		// Debug.Log(item);
 	}
 
 	public void Spawn()

@@ -14,7 +14,7 @@ public class BoxCreator : MonoBehaviour
 	{
 		if (Instance)
 		{
-			Debug.LogWarning($"BoxCreator instance is already filled with {Instance.name}. Destroying {gameObject.name} which treid to take its place.");
+			Debug.LogWarning($"BoxCreator instance is already filled with {Instance.name}. Destroying {gameObject.name} which triedd to take its place.");
 			Destroy(gameObject);
 		}
 		else
@@ -38,12 +38,10 @@ public class BoxCreator : MonoBehaviour
 			// Nice syntax xD
 			case var cls when cls == typeof(ItemBoxData):
 				{
-					Debug.Log("Create Item Box");
 					return CreateGenericHelper<ItemBoxData, Item>(itemBox, position, dimensions, parent);
 				}
 			case var cls when cls == typeof(ContainerData):
 				{
-					Debug.Log("Create Container");
 					return CreateGenericHelper<ContainerData, ItemBoxData>(boxBox, position, dimensions, parent);
 				}
 		}

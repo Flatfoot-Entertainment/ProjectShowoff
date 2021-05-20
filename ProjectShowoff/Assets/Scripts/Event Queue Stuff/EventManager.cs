@@ -20,7 +20,6 @@ public class EventManager
 		{
 			EventHandler handler = null;
 			subscribers.Add(eventType, handler);
-			Debug.Log("Added event of type " + eventType);
 		}
 		subscribers[eventType] += eventHandler;
 	}
@@ -31,37 +30,15 @@ public class EventManager
 		{
 			subscribers[eventType] -= eventHandler;
 		}
-		else
-		{
-			Debug.Log("ey bro this subscriber is missin");
-		}
+		// TODO maybe handle if the subscriber could not be found
+		// I know this was here before, but maybe something other than a simple Debug.Log
 	}
 
 	public void AddEvent(Event e)
 	{
-		Debug.Log("Event added: " + e.type);
-		// events.Add(e);
 		if (subscribers.ContainsKey(e.type))
 		{
 			subscribers[e.type]?.Invoke(e);
 		}
 	}
-
-	// public void Update()
-	// {
-	// 	for (int i = events.Count - 1; i >= 0; i--)
-	// 	{
-	// 		Event e = events[i];
-	// 		Debug.Log("Event type to be invoked: " + e.type);
-	// 		if (subscribers.ContainsKey(e.type))
-	// 		{
-	// 			subscribers[e.type]?.Invoke(e);
-	// 		}
-	// 		else
-	// 		{
-	// 			Debug.Log("event type: " + e.type + " dont exist in subscribers bruh");
-	// 		}
-	// 		events.Remove(e);
-	// 	}
-	// }
 }

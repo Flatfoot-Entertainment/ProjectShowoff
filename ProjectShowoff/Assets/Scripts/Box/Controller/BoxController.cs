@@ -62,12 +62,10 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		{
 			if (body.Has(s.gameObject))
 			{
-				Debug.Log($"Cannot be shipped (LID: {lid.inLid.Count} body: {body.intersecting.Count})");
 				Shippable = false;
 				return;
 			}
 		}
-		Debug.Log($"Can be shipped (LID: {lid.inLid.Count} body: {body.intersecting.Count})");
 		Shippable = true;
 	}
 
@@ -81,13 +79,6 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	}
 
 	protected abstract void PurgeContents();
-
-	private void DestroyBox(float value)
-	{
-		Debug.Log("Contents sent...");
-		// box.ShowBoxContents();
-		Destroy(gameObject);
-	}
 
 	private void LidExit(BoxScript<Contained> subject)
 	{
