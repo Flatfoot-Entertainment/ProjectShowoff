@@ -19,11 +19,12 @@ public class SimpleConveyor : MonoBehaviour
 
     [SerializeField] private float speed;
     [SerializeField] private float initialSpeed = 2.0f;
+    [SerializeField] private Vector3 moveDir;
     private Rigidbody rb;
 
 
     // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
         speed = initialSpeed;
         rb = GetComponent<Rigidbody>();
@@ -32,11 +33,11 @@ public class SimpleConveyor : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 oldPos = rb.position;
-        rb.position += (-transform.forward) * speed * Time.fixedDeltaTime;
+        rb.position += (-moveDir) * speed * Time.fixedDeltaTime;
         rb.MovePosition(oldPos);
     }
 
-    //just no, change the parameters required (or the code in general)
+    //TODO just no, change the parameters required (or the code in general)
     public IEnumerator StopConveyor(ItemSpawner spawner, float delay)
     {
         spawner.CanSpawn = false;
@@ -44,6 +45,6 @@ public class SimpleConveyor : MonoBehaviour
         yield return new WaitForSeconds(delay);
         speed = initialSpeed;
         spawner.CanSpawn = true;
-        
+
     }
 }
