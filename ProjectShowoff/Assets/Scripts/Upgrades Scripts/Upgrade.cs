@@ -8,7 +8,7 @@ public enum UpgradeType
     ConveyorStop,
     ConveyorUpgrade,
     FasterDelivery,
-    DeliveryShipSpeed
+    ShipQuantity
 }
 
 //need to set the sprite to be specific for each type of upgrade, instead of setting it in the prefab

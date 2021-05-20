@@ -23,6 +23,9 @@ public abstract class BaseGame : MonoBehaviour
 
     [SerializeField] private GameObject[] leftConveyorBelts, rightConveyorBelts;
 
+    //TODO already 3 references of the fulfillment center in the project, make it one
+    private FulfillmentCenter fulfillmentCenter;
+
     public static BaseGame Instance;
 
     public float Money
@@ -43,6 +46,7 @@ public abstract class BaseGame : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
         }
+        fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
     }
 
     // Start is called before the first frame update
@@ -142,5 +146,12 @@ public abstract class BaseGame : MonoBehaviour
             }
         }
         else Debug.LogError("SpawnerController not found when upgrading conveyor belts");
+    }
+
+
+    //TODO make into an event
+    public void UpgradeShipQuantity()
+    {
+        fulfillmentCenter.AddShip();
     }
 }
