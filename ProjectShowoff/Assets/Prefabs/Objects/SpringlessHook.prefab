@@ -94,52 +94,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa34e222e169e3947afa9f45ba4413fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 50
-  smoothing:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.14307417
-      outSlope: 0.14307417
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.6739146
-    - serializedVersion: 3
-      time: 0.18292357
-      value: 0.0985947
-      inSlope: 2.0667787
-      outSlope: 2.0667787
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5036824
-      value: 0.81263244
-      inSlope: 1.178882
-      outSlope: 1.178882
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.06339454
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0.011909017
-      outSlope: 0.011909017
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.56229687
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  maxVelocity: 50
-  leniancy: 1
+  throwSpeed: 50
+  smoothing: 0.95
+  maxVelocity: 30
   rotationResetTime: 0.5
-  rotationTime: 0.2
   rotationResetEasingMode: 31
+  rotationTime: 0.2
   rotationEasingMode: 31

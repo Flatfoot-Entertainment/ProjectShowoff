@@ -8,10 +8,17 @@ public class SpringlessGrabber : CraneHook
 	[Header("Physics interaction")]
 	[Tooltip("A multiplier of the force after letting go of an object"), SerializeField]
 	private float throwSpeed = 50f;
+
 	[Tooltip("How fast the object goes towards the hook location.\n" +
 		"The higher this value, the faster"),
+	SerializeField,
+	Range(0f, 1f)]
+	private float smoothing = 0.95f;
+
+	[Tooltip("The maximum speed at which an item will be released. (Velocity will be clamped to it)"),
 	SerializeField]
-	private float smoothing = 10f;
+	private float maxVelocity = 35f;
+
 	// The thing being hooked
 	private Rigidbody target;
 	// The constraints of the target rigidbody the moment it was hooked
@@ -20,12 +27,16 @@ public class SpringlessGrabber : CraneHook
 	private bool shouldUnhook = false;
 
 	[Header("Tweening")]
+
 	[Tooltip("The time it takes for the objects rotation to reset after picking it up"), SerializeField]
 	private float rotationResetTime = 0.5f;
+
 	[Tooltip("The easing mode to use for the initial pickup"), SerializeField]
 	private Ease rotationResetEasingMode = Ease.InOutBounce;
+
 	[Tooltip("The rotation time for rotating a picked up object"), SerializeField]
 	private float rotationTime = 0.3f;
+
 	[Tooltip("The easing mode for rotation a picked up object"), SerializeField]
 	private Ease rotationEasingMode = Ease.InOutBounce;
 	// The last rotation used for tweening
@@ -70,12 +81,13 @@ public class SpringlessGrabber : CraneHook
 		if (!target) return;
 
 		Vector3 targetOldPos = target.position;
-		target.position = Vector3.Lerp(target.position, transform.position, smoothing * Time.fixedDeltaTime);
+		target.position = Vector3.Lerp(target.position, transform.position, smoothing);
 		Vector3 targetMovement = target.position - targetOldPos;
 
 		if (shouldUnhook)
 		{
-			target.velocity = targetMovement * throwSpeed;
+			targetMovement.y = 0; // Just to be safe so it's at least not flying in the air
+			target.velocity = Vector3.ClampMagnitude(targetMovement * throwSpeed, maxVelocity);
 			LateUnhook();
 		}
 	}
