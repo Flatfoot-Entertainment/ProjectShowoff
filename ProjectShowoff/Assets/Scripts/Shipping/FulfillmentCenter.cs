@@ -32,7 +32,6 @@ public class FulfillmentCenter : MonoBehaviour
 		// Preprocess List
 		for (int i = 0; i < dockingSpaces.Count; i++)
 		{
-			Debug.Log($"Index A {i}");
 			dockingSpaces[i].index = i;
 			int val = i; // Clone i, because captures suck
 			dockingSpaces[i].closeButton.onClick.AddListener(() =>
@@ -42,7 +41,6 @@ public class FulfillmentCenter : MonoBehaviour
 			dockingSpaces[i].free = true;
 		}
 		foreach (var _ in dockingSpaces) SpawnContainer();
-		//SpawnBox();
 	}
 
 	public bool CanShipBox()
@@ -136,7 +134,6 @@ public class FulfillmentCenter : MonoBehaviour
 		if (boxAnimator == null) Debug.LogError("BoxAnimator not found.");
 		else
 		{
-			Debug.Log("Found a BoxAnimator");
 			boxAnimator.SetBool("isClosing", true);
 			yield return new WaitForSeconds(fillableBox.ClosingAnimation.length);
 			FinalizeBoxClosing();

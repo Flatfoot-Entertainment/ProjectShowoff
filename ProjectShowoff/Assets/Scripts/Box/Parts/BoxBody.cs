@@ -10,13 +10,6 @@ public class BoxBody : MonoBehaviour
 	public List<GameObject> intersecting { get; private set; } = new List<GameObject>();
 	public List<GameObject> nextList = new List<GameObject>();
 
-	// private void OnTriggerEnter(Collider other)
-	// {
-	// 	// TODO specify layers and shit
-	// 	OnContentsUpdated?.Invoke();
-	// 	intersecting.Add(other.gameObject);
-	// }
-
 	private void OnTriggerStay(Collider other)
 	{
 		nextList.Add(other.gameObject);
@@ -38,13 +31,6 @@ public class BoxBody : MonoBehaviour
 			OnContentsUpdated?.Invoke();
 		}
 	}
-
-	// private void OnTriggerExit(Collider other)
-	// {
-	// 	Debug.Log("Exit");
-	// 	OnContentsUpdated?.Invoke();
-	// 	intersecting.Remove(other.gameObject);
-	// }
 
 	public bool Has(GameObject item)
 	{
