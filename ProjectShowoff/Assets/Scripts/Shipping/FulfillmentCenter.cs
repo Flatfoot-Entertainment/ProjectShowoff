@@ -107,13 +107,14 @@ public class FulfillmentCenter : MonoBehaviour
 
 	/// Spawn a container in the first free space
 	/// Returns if there was a free space (so if a ship could be spawned successfully)
-	private bool SpawnContainer()
+	private bool SpawnContainer(DockingSpace empty = null)
 	{
 		// TODO move ships in and out of dock
-		var empty = dockingSpaces.Where((DockingSpace s) => s.free).FirstOrDefault();
-		Debug.Log("A");
-		if (empty == null) return false;
-		Debug.Log("B");
+		if (empty == null)
+		{
+			empty = dockingSpaces.Where((DockingSpace s) => s.free).FirstOrDefault();
+			if (empty == null) return false;
+		}
 		int index = dockingSpaces.IndexOf(empty);
 		empty.container = BoxCreator.Instance.Create<ContainerData>(
 			empty.location.position,

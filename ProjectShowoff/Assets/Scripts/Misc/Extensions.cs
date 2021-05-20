@@ -15,6 +15,11 @@ public static class Extensions
 		return arr[UnityEngine.Random.Range(0, arr.Length)];
 	}
 
+	public static T Random<T>(this List<T> arr)
+	{
+		return arr[UnityEngine.Random.Range(0, arr.Count)];
+	}
+
 	public static bool Contains(this LayerMask mask, int layer)
 	{
 		return (mask == (mask | (1 << layer)));
