@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Food : Item
 {
-    public Food(float pValue, int pPrice) : base(ItemType.Food, pValue, false, pPrice)
-    {
+	public Food(int pPrice) : base(ItemType.Food, false, pPrice)
+	{
 
-    }
-   
+	}
+
 }

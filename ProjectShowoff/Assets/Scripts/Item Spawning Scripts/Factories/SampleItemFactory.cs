@@ -39,22 +39,22 @@ public class SampleItemFactory : ItemFactory
 
 	private Food CreateFood()
 	{
-		return new Food(45f, 100);
+		return new Food(100);
 	}
 
 	private Fuel CreateFuel()
 	{
-		return new Fuel(45f, 100);
+		return new Fuel(100);
 	}
 
 	private MechanicalParts CreateMechanicalParts()
 	{
-		return new MechanicalParts(45f, 100);
+		return new MechanicalParts(100);
 	}
 
 	private Medicine CreateMedicine()
 	{
-		return new Medicine(45f, 100);
+		return new Medicine(100);
 	}
 
 }
