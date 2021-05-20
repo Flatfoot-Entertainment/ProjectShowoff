@@ -40,13 +40,17 @@ public class SpawnerController : MonoBehaviour
             //TODO get a reference of the animators to stop the conveyor animations as well
             //TODO make this as an event
             ConveyorSetupScript conveyor = conveyors[index];
-            Debug.Log("Conveyor to be stopped: " + conveyor.name);
+            Debug.Log("Conveyor to be stopped: " + conveyor.transform.parent.name);
             foreach (SimpleConveyor conveyorPart in conveyor.ConveyorScripts)
             {
-                if (conveyorPart.Speed == conveyorPart.InitialSpeed)
+                Debug.Log("Conveyor piece: " + conveyorPart.transform.name);
+                if (conveyorPart.Speed > 0)
                 {
+
                     foreach (ItemSpawner spawner in conveyor.ItemSpawners)
                     {
+                        Debug.Log("yes");
+                        Debug.Log("Item Spawner: " + spawner.transform.name);
                         StartCoroutine(conveyorPart.StopConveyor(spawner, conveyorDelay));
                     }
                 }
