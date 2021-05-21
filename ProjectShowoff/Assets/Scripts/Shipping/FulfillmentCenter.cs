@@ -125,7 +125,6 @@ public class FulfillmentCenter : MonoBehaviour
         if (boxAnimator == null) Debug.LogError("BoxAnimator not found.");
         else
         {
-            Debug.Log("Found a BoxAnimator");
             boxAnimator.SetBool("isClosing", true);
             yield return new WaitForSeconds(fillableBox.ClosingAnimation.length);
             FinalizeBoxClosing();
