@@ -7,6 +7,8 @@ public class SpawnerController : MonoBehaviour
 	// TODO has a bunch of Debug.Logs
 	[SerializeField] private List<ItemSpawner> spawners = new List<ItemSpawner>();
 	[SerializeField] private List<ConveyorSetupScript> conveyors = new List<ConveyorSetupScript>();
+	[SerializeField] private List<ConveyorSetupScript> leftConveyors = new List<ConveyorSetupScript>();
+	[SerializeField] private List<ConveyorSetupScript> rightConveyors = new List<ConveyorSetupScript>();
 
 	[SerializeField] private float spawnInterval;
 
@@ -29,6 +31,43 @@ public class SpawnerController : MonoBehaviour
 	private void Spawn()
 	{
 		spawners.ForEach(s => s.Spawn());
+	}
+
+	public void StopLeftConveyors()
+	{
+		foreach (var conv in leftConveyors)
+		{
+			Debug.Log($"Stopping {conv.name}");
+			foreach (SimpleConveyor conveyorPart in conv.ConveyorScripts)
+			{
+				Debug.Log("Conveyor piece: " + conveyorPart.transform.name);
+				if (conveyorPart.Speed > 0)
+				{
+					foreach (ItemSpawner spawner in conv.ItemSpawners)
+					{
+						StartCoroutine(conveyorPart.StopConveyor(spawner, conveyorDelay));
+					}
+				}
+			}
+		}
+	}
+
+	public void StopRightConveyors()
+	{
+		foreach (var conv in rightConveyors)
+		{
+			foreach (SimpleConveyor conveyorPart in conv.ConveyorScripts)
+			{
+				Debug.Log("Conveyor piece: " + conveyorPart.transform.name);
+				if (conveyorPart.Speed > 0)
+				{
+					foreach (ItemSpawner spawner in conv.ItemSpawners)
+					{
+						StartCoroutine(conveyorPart.StopConveyor(spawner, conveyorDelay));
+					}
+				}
+			}
+		}
 	}
 
 

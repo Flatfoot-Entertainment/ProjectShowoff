@@ -50,8 +50,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSpeed: 4
-  conveyorScripts: []
-  itemSpawners: []
+  conveyorScripts:
+  - {fileID: 4272651407570216009}
+  itemSpawners:
+  - {fileID: 4074845173742075792}
 --- !u!1 &4272651407570216014
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +359,7 @@ PrefabInstance:
     - target: {fileID: 339189657417992945, guid: 868099601e6770f49982ee43b59d5efc, type: 3}
       propertyPath: itemFactory
       value: 
-      objectReference: {fileID: 11400000, guid: 45498ea7a2470ca4cb3adf1cd7858e87, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 339189657417992946, guid: 868099601e6770f49982ee43b59d5efc, type: 3}
       propertyPath: m_Icon
       value: 
@@ -373,6 +375,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 339189657417992944, guid: 868099601e6770f49982ee43b59d5efc, type: 3}
   m_PrefabInstance: {fileID: 4339720901772621153}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4074845173742075792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 339189657417992945, guid: 868099601e6770f49982ee43b59d5efc, type: 3}
+  m_PrefabInstance: {fileID: 4339720901772621153}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86da45326d373a7489119abe201b8060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4575515112426337119
 PrefabInstance:
   m_ObjectHideFlags: 0
