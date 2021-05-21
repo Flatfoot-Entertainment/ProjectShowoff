@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoxCreator : MonoBehaviour
 {
-	// TODO singletons are scummy
+	// TODO remove in the future, once the models for the ships are here
 	[SerializeField] private ItemBoxParts itemBox;
 	[SerializeField] private ContainerParts boxBox;
 

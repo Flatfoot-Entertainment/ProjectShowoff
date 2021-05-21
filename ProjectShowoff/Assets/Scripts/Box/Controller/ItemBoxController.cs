@@ -16,20 +16,27 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 		box = new ItemBoxData(BoxType.Type1); // TODO multiple types
 	}
 
-	protected override ShippableBox<ItemBoxData, Item> InstantiateShipped()
-	{
-		return Instantiate<ShippableItemBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
-	}
-
 	public override ItemBoxData Box
 	{
 		get => box;
 		protected set => box = value;
-		
+
 	}
 
 	protected override void PurgeContents()
 	{
 		foreach (GameObject gO in contained) Lean.Pool.LeanPool.Despawn(gO);
+	}
+
+	public ShippableItemBox Ship()
+	{
+		// TODO variable cost
+		EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(-50.0f));
+		var shippable = Instantiate<ShippableItemBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
+		shippable.Init(Box);
+		Box = null;
+		shippable.gameObject.SetActive(true);
+		Destroy(gameObject);
+		return shippable;
 	}
 }

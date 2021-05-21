@@ -43,19 +43,6 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		}
 	}
 
-	protected abstract ShippableBox<BoxT, Contained> InstantiateShipped();
-
-	public ShippableBox<BoxT, Contained> Ship()
-	{
-		EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(-sampleBoxCost));
-		var shippable = InstantiateShipped();
-		shippable.Init(Box);
-		Box = default(BoxT);
-		shippable.gameObject.SetActive(true);
-		Destroy(gameObject);
-		return shippable;
-	}
-
 	private void UpdateShippable()
 	{
 		foreach (BoxScript<Contained> s in lid.inLid)
