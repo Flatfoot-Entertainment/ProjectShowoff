@@ -44,14 +44,6 @@ public class FulfillmentCenter : MonoBehaviour
             dockingSpaces[i].free = true;
             dockingSpaces[i].closeButton.gameObject.SetActive(false);
         }
-        foreach (var _ in dockingSpaces)
-        {
-            if (_.isUnlocked)
-            {
-                _.closeButton.gameObject.SetActive(true);
-                SpawnContainer();
-            }
-        }
         //SpawnBox();
     }
 
@@ -122,6 +114,7 @@ public class FulfillmentCenter : MonoBehaviour
         ).GetComponent<ContainerController>();
         dockSpace.free = false;
         dockSpace.readyForShipment = false;
+        dockSpace.closeButton.gameObject.SetActive(true);
         return true;
     }
 
@@ -148,11 +141,14 @@ public class FulfillmentCenter : MonoBehaviour
     public void AddShip()
     {
         var empty = dockingSpaces.Where((DockingSpace s) => !s.isUnlocked).FirstOrDefault();
-        empty.isUnlocked = true;
-        foreach (var _ in dockingSpaces)
+        if (empty == null)
         {
-            SpawnContainer(empty);
+            Debug.LogError("No more ships to spawn, bruh");
+            return;
         }
+
+        empty.isUnlocked = true;
+        SpawnContainer(empty);
 
     }
 
