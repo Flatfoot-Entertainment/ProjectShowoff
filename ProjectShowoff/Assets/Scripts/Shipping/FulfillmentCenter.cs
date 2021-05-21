@@ -131,15 +131,48 @@ public class FulfillmentCenter : MonoBehaviour
         return true;
     }
 
-	// void SpawnBox() -> don't spawn box automatically
-	private void Update()
-	{
-		foreach (var space in dockingSpaces)
-		{
-			space.closeButton.enabled = space.container && space.container.Shippable;
-		}
-	}
+    private IEnumerator StartBoxClosing()
+    {
+        Animator boxAnimator = fillableBox.GetComponentInChildren<Animator>();
+        if (boxAnimator == null) Debug.LogError("BoxAnimator not found.");
+        else
+        {
+            boxAnimator.SetBool("isClosing", true);
+            yield return new WaitForSeconds(fillableBox.ClosingAnimation.length);
+            FinalizeBoxClosing();
+        }
+    }
 
-	// OTHER THINGS
-	// void SpawnBox() -> don't spawn box automatically
+    private void FinalizeBoxClosing()
+    {
+        // TODO ship the box, if money is available (and if theres a non shipped box)
+        fillableBox.Ship();
+    }
+
+    public void AddShip()
+    {
+        var empty = dockingSpaces.Where((DockingSpace s) => !s.isUnlocked).FirstOrDefault();
+        if (empty == null)
+        {
+            Debug.LogError("No more ships to spawn, bruh");
+            return;
+        }
+
+        empty.isUnlocked = true;
+        SpawnContainer(empty);
+
+    }
+
+    // void SpawnBox() -> don't spawn box automatically
+    private void Update()
+    {
+        foreach (var space in dockingSpaces)
+        {
+            space.closeButton.enabled = space.container && space.container.Shippable;
+        }
+    }
+
+
+    // OTHER THINGS
+    // void SpawnBox() -> don't spawn box automatically
 }
