@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ContainerController : BoxController<ContainerData, ItemBoxData>
 {
-	[SerializeField] private ShippableContainer shippableContainerPrefab;
-
 	public override ContainerData Box
 	{
 		get => box;
@@ -43,11 +41,6 @@ public class ContainerController : BoxController<ContainerData, ItemBoxData>
 	public override string ToString()
 	{
 		return base.ToString();
-	}
-
-	protected override ShippableBox<ContainerData, ItemBoxData> InstantiateShipped()
-	{
-		return Instantiate<ShippableContainer>(shippableContainerPrefab, transform.position, transform.rotation, transform.parent);
 	}
 
 	protected override void PurgeContents()
