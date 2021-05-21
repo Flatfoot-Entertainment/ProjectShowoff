@@ -97,8 +97,6 @@ public class FulfillmentCenter : MonoBehaviour
     private bool SpawnContainer(DockingSpace dockSpace = null)
     {
         // TODO move ships in and out of dock
-
-    }
         if (dockSpace == null)
         {
             dockSpace = dockingSpaces.Where((DockingSpace s) => s.free && s.isUnlocked).FirstOrDefault();
