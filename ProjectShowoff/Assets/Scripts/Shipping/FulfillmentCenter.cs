@@ -148,6 +148,14 @@ public class FulfillmentCenter : MonoBehaviour
 
 	}
 
+	private void Update()
+	{
+		foreach (var space in dockingSpaces)
+		{
+			space.closeButton.enabled = space.container && space.container.Shippable;
+		}
+	}
+
 	// OTHER THINGS
 	// void SpawnBox() -> don't spawn box automatically
 }
