@@ -34,10 +34,6 @@ public class UpgradeContainer : MonoBehaviour
 				upgrade = new ShipQuantity(100, sprite);
 				upgradeText.text = "Add Ship";
 				break;
-			case UpgradeType.FasterDelivery:
-				upgrade = new FasterDelivery(100, sprite);
-				upgradeText.text = "Faster Delivery";
-				break;
 		}
 		image.sprite = upgrade.Sprite;
 		levelText.text = upgrade.Level.ToString();

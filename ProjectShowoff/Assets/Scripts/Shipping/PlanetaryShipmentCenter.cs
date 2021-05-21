@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlanetaryShipmentCenter : MonoBehaviour
 {
-	// For testing purposes
-	[SerializeField] private ItemFactory factory;
 	[SerializeField] private Transform shipSpawnPos;
 	[SerializeField] private Ship shipPrefab;
 	[SerializeField] private PlanetaryShipmentCenterUI ui;
@@ -92,21 +90,5 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 		//! Testing
 		// ReadyForShipment(RandomCrate());
 		fulfillmentCenter.OnShipReturn();
-	}
-
-	// For testing purposes only
-	private ContainerData RandomCrate()
-	{
-		ContainerData data = new ContainerData();
-		for (int i = 0; i < Random.Range(3, 5); i++)
-		{
-			ItemBoxData box = new ItemBoxData(BoxType.Type1);
-			for (int j = 0; j < Random.Range(3, 5); j++)
-			{
-				box.AddToBox(factory.CreateRandomItem());
-			}
-			data.AddToBox(box);
-		}
-		return data;
 	}
 }
