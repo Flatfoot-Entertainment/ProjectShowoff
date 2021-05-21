@@ -30,9 +30,9 @@ public class UpgradeContainer : MonoBehaviour
                 upgrade = new ConveyorStop(100, sprite);
                 upgradeText.text = "Conveyor Stop";
                 break;
-            case UpgradeType.DeliveryShipSpeed:
-                upgrade = new DeliveryShipSpeed(100, sprite);
-                upgradeText.text = "Delivery Speed";
+            case UpgradeType.ShipQuantity:
+                upgrade = new ShipQuantity(100, sprite);
+                upgradeText.text = "Add Ship";
                 break;
             case UpgradeType.FasterDelivery:
                 upgrade = new FasterDelivery(100, sprite);
