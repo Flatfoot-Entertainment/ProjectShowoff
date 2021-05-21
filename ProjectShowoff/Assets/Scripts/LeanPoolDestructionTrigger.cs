@@ -6,6 +6,7 @@ public class LeanPoolDestructionTrigger : MonoBehaviour
 {
 	[SerializeField] private LayerMask destructionLayer;
 
+	// TODO respect multi child objects
 	private void OnTriggerEnter(Collider other)
 	{
 		if (destructionLayer.Contains(other.gameObject.layer))

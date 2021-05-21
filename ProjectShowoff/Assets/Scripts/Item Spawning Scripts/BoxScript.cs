@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 //item script to show debug info in the inspector
+// TODO RENAME
 [RequireComponent(typeof(Rigidbody), typeof(Renderer))]
 public abstract class BoxScript<Contained> : MonoBehaviour
 {

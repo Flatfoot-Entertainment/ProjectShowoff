@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO RENAME, PLEASE!
 public class SingularCameraViewToggle : MonoBehaviour
 {
 	[SerializeField] private CameraMoveEvent.CameraState targetState;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO Rename
 public class UIViewSwitchingHandler : MonoBehaviour
 {
 	// TODO use the event handler for all of this

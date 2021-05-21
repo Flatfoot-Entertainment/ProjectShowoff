@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO by the love of god, rename!
 public class CameraViewToggle : MonoBehaviour
 {
 	[SerializeField] private CameraMoveEvent.CameraState stateA;

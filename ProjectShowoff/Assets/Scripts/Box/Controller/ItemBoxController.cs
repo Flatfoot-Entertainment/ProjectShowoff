@@ -25,7 +25,7 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 	{
 		get => box;
 		protected set => box = value;
-		
+
 	}
 
 	protected override void PurgeContents()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoxParts<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
+	// TODO remove in the future, once we have ship models
 	private Vector3 dimensions;
 	public Vector3 Dimensions => dimensions;
 
