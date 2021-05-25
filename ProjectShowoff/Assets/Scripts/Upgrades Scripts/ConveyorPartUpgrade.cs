@@ -11,7 +11,7 @@ public class ConveyorPartUpgrade : Upgrade
 
     public override void ApplyUpgrade()
     {
-        BaseGame.Instance.UpgradeConveyorBelt(Level);
+        EventScript.Instance.EventManager.InvokeEvent(new ConveyorUpgradeEvent(Level));
     }
 
     public override void IncreaseLevel()

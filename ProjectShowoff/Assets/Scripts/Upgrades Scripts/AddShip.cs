@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //TBD what this upgrade will actually be
-public class ShipQuantity : Upgrade
+public class AddShip : Upgrade
 {
-    public ShipQuantity(int pCost, Sprite pSprite) : base(UpgradeType.ShipQuantity, pCost, pSprite)
+    public AddShip(int pCost, Sprite pSprite) : base(UpgradeType.ShipQuantity, pCost, pSprite)
     {
 
     }
@@ -21,6 +21,8 @@ public class ShipQuantity : Upgrade
     }
     public override void ApplyUpgrade()
     {
-        BaseGame.Instance.UpgradeShipQuantity();
+        //TODO finish up
+        //EventScript.Instance.EventManager.InvokeEvent(new AddShipEvent());
+        BaseGame.Instance.OnAddShip();
     }
 }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7824673907156117671}
-  - component: {fileID: 1097180601}
+  - component: {fileID: 3186520028659841601}
   m_Layer: 0
   m_Name: ItemConveyorLvl1
   m_TagString: Untagged
@@ -37,7 +37,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1097180601
+--- !u!114 &3186520028659841601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,14 +46,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 481305100651140406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05f6e001be052ba48bfcd2936f9a2302, type: 3}
+  m_Script: {fileID: 11500000, guid: 4691820937eb6774d86c729eac6a6754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSpeed: 4
-  conveyorScripts:
-  - {fileID: 4272651407570216009}
-  itemSpawners:
-  - {fileID: 4074845173742075792}
+  initialSpeed: 2
+  conveyorScripts: []
+  itemSpawners: []
 --- !u!1 &4272651407570216014
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,17 +373,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 339189657417992944, guid: 868099601e6770f49982ee43b59d5efc, type: 3}
   m_PrefabInstance: {fileID: 4339720901772621153}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4074845173742075792 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 339189657417992945, guid: 868099601e6770f49982ee43b59d5efc, type: 3}
-  m_PrefabInstance: {fileID: 4339720901772621153}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86da45326d373a7489119abe201b8060, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4575515112426337119
 PrefabInstance:
   m_ObjectHideFlags: 0

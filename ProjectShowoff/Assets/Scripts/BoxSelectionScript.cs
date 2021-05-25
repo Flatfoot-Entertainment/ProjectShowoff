@@ -13,6 +13,7 @@ public class BoxSelectionScript : MonoBehaviour
 
     private void Start()
     {
+        //EventScript.Instance.EventManager.Subscribe(EventType.ManageBoxSelect, ConfirmBox);
         fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
         imageIndex = 0;
         placeholder.sprite = boxImages[imageIndex];
@@ -26,25 +27,20 @@ public class BoxSelectionScript : MonoBehaviour
         placeholder.sprite = boxImages[imageIndex];
     }
 
-
-    public void ConfirmBox()
+    public void ManageBoxConfirmation()
     {
+    }
+
+    private void ConfirmBox()
+    {
+        //TODO finish
+        //ManageBoxSelectEvent boxSelectEvent = e as ManageBoxSelectEvent;
         //check if anything in threshold, if yes dont confirm, if no confirm
-        GameObject box = null;
-        switch (imageIndex)
+        GameObject box = boxPrefabs[imageIndex];
+        if (!box)
         {
-            case 0:
-                box = boxPrefabs[0];
-                break;
-            case 1:
-                box = boxPrefabs[1];
-                break;
-            case 2:
-                box = boxPrefabs[2];
-                break;
-            default:
-                Debug.LogWarning("Yo bro this image index doesn't exist");
-                break;
+            Debug.LogError("Yo this box don't exist");
+            return;
         }
         //rly not the best way but eh, probably turn to an event later on
         fulfillmentCenter.SpawnBox(box);

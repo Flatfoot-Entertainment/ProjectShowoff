@@ -4,91 +4,93 @@ using UnityEngine;
 
 public class PlanetaryShipmentCenter : MonoBehaviour
 {
-	[SerializeField] private Transform shipSpawnPos;
-	[SerializeField] private Ship shipPrefab;
-	[SerializeField] private PlanetaryShipmentCenterUI ui;
-	[SerializeField] private FulfillmentCenter fulfillmentCenter;
-	private Planet selectedPlanet;
-	// We are shipping the box on the ship, so the rest doesn't matter
-	private Ship selectedShip;
+    [SerializeField] private Transform shipSpawnPos;
+    [SerializeField] private Ship shipPrefab;
+    [SerializeField] private PlanetaryShipmentCenterUI ui;
 
-	private Dictionary<Ship, int> shipsOnStandby = new Dictionary<Ship, int>();
+    //TODO remove as many references to FulfillmentCenter as possible
+    [SerializeField] private FulfillmentCenter fulfillmentCenter;
+    private Planet selectedPlanet;
+    // We are shipping the box on the ship, so the rest doesn't matter
+    private Ship selectedShip;
 
-	// Start is called before the first frame update
-	void Start()
-	{
-		ui.OnShipSelected += OnShipSelected;
-		// For testing spawn 4 ships
-		// ReadyForShipment(RandomCrate());
-		// ReadyForShipment(RandomCrate());
-		// ReadyForShipment(RandomCrate());
-		// ReadyForShipment(RandomCrate());
-	}
+    private Dictionary<Ship, int> shipsOnStandby = new Dictionary<Ship, int>();
 
-	public void DeliverSelected()
-	{
-		// We need both a selected planet and a selected ship
-		if (!selectedPlanet || !selectedShip) return;
-		fulfillmentCenter.OnSendShip(shipsOnStandby[selectedShip]);
-		// Instantiate a ship
-		shipsOnStandby.Remove(selectedShip);
-		selectedShip.DeliverTo(selectedPlanet);
+    // Start is called before the first frame update
+    void Start()
+    {
+        ui.OnShipSelected += OnShipSelected;
+        // For testing spawn 4 ships
+        // ReadyForShipment(RandomCrate());
+        // ReadyForShipment(RandomCrate());
+        // ReadyForShipment(RandomCrate());
+        // ReadyForShipment(RandomCrate());
+    }
 
-		selectedPlanet.Deselect();
+    public void DeliverSelected()
+    {
+        // We need both a selected planet and a selected ship
+        if (!selectedPlanet || !selectedShip) return;
+        fulfillmentCenter.OnSendShip(shipsOnStandby[selectedShip]); //TODO its own event?
+        // Instantiate a ship
+        shipsOnStandby.Remove(selectedShip);
+        selectedShip.DeliverTo(selectedPlanet);
 
-		// Once shipped, you shouldn't be able to resend it again
-		// No need to deselect, as it gets removed afterwards, but better safe than sorry
-		ui.DeselectButton(selectedShip);
-		ui.RemoveButton(selectedShip);
+        selectedPlanet.Deselect();
 
-		selectedPlanet = null;
-		selectedShip = null;
-	}
+        // Once shipped, you shouldn't be able to resend it again
+        // No need to deselect, as it gets removed afterwards, but better safe than sorry
+        ui.DeselectButton(selectedShip);
+        ui.RemoveButton(selectedShip);
 
-	// TODO deselect stuff
+        selectedPlanet = null;
+        selectedShip = null;
+    }
 
-	public void DeselectPlanet()
-	{
-		if (selectedPlanet) selectedPlanet.Deselect();
-		selectedPlanet = null;
-	}
+    // TODO deselect stuff
 
-	public void OnPlanetClicked(Planet planet)
-	{
-		if (selectedPlanet) selectedPlanet.Deselect();
-		selectedPlanet = planet;
-	}
+    public void DeselectPlanet()
+    {
+        if (selectedPlanet) selectedPlanet.Deselect();
+        selectedPlanet = null;
+    }
 
-	public void OnShipSelected(Ship ship)
-	{
-		if (selectedShip) ui.DeselectButton(selectedShip);
-		selectedShip = ship;
-	}
+    public void OnPlanetClicked(Planet planet)
+    {
+        if (selectedPlanet) selectedPlanet.Deselect();
+        selectedPlanet = planet;
+    }
 
-	// Mark a container/ship ready for shipment
-	public void ReadyForShipment(ContainerData box, int index)
-	{
-		// Instantiate a ship next to the base
-		Ship ship = Instantiate<Ship>(shipPrefab, shipSpawnPos.position, shipSpawnPos.rotation);
-		ship.box = box;
-		ship.OnArrival += ShipHasReturned;
-		shipsOnStandby.Add(ship, index);
-		// Instantiate a button to select the ship
-		ui.AddButton(ship);
-	}
+    public void OnShipSelected(Ship ship)
+    {
+        if (selectedShip) ui.DeselectButton(selectedShip);
+        selectedShip = ship;
+    }
 
-	public void ShipHasReturned(Ship ship)
-	{
-		// Delete Ship from list
-		shipsOnStandby.Remove(ship);
-		ship.OnArrival -= ShipHasReturned;
-		Destroy(ship.gameObject);
+    // Mark a container/ship ready for shipment
+    public void ReadyForShipment(ContainerData box, int index)
+    {
+        // Instantiate a ship next to the base
+        Ship ship = Instantiate<Ship>(shipPrefab, shipSpawnPos.position, shipSpawnPos.rotation);
+        ship.box = box;
+        ship.OnArrival += ShipHasReturned;
+        shipsOnStandby.Add(ship, index);
+        // Instantiate a button to select the ship
+        ui.AddButton(ship);
+    }
 
-		// TODO An Empty ship can be added to the packing screen
+    public void ShipHasReturned(Ship ship)
+    {
+        // Delete Ship from list
+        shipsOnStandby.Remove(ship);
+        ship.OnArrival -= ShipHasReturned;
+        Destroy(ship.gameObject);
 
-		// Maybe for now just call ReadyForShipment
-		//! Testing
-		// ReadyForShipment(RandomCrate());
-		fulfillmentCenter.OnShipReturn();
-	}
+        // TODO An Empty ship can be added to the packing screen
+
+        // Maybe for now just call ReadyForShipment
+        //! Testing
+        // ReadyForShipment(RandomCrate());
+        fulfillmentCenter.OnShipReturn();
+    }
 }
