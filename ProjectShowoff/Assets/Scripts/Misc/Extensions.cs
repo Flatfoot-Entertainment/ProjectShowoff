@@ -45,4 +45,19 @@ public static class Extensions
 		if (dict.ContainsKey(key)) return dict[key];
 		else return defaultValue;
 	}
+
+	public static void SetX(this Vector3 v, float val)
+	{
+		v.x = val;
+	}
+
+	public static void SetY(this Vector3 v, float val)
+	{
+		v.y = val;
+	}
+
+	public static void SetZ(this Vector3 v, float val)
+	{
+		v.z = val;
+	}
 }
