@@ -14,9 +14,10 @@ public class PlayModeReadOnlyPropertyDrawer : PropertyDrawer
 	{
 		// while GUI.enabled is false, all attributes are drawn but not editable
 		// we dont want them to be editable in play mode so we set enabled accordingly
+		bool wasEnabled = GUI.enabled;
 		GUI.enabled = !Application.isPlaying;
 		// just draw the default property field
 		EditorGUI.PropertyField(position, property, label, true);
-		GUI.enabled = true;
+		GUI.enabled = wasEnabled;
 	}
 }
