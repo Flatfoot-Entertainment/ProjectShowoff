@@ -13,7 +13,7 @@ public enum GameState
 	PlanetView
 }
 
-public abstract class BaseGame : MonoBehaviour
+public abstract class GameHandler : MonoBehaviour
 {
 	[SerializeField] private TextMeshProUGUI moneyText;
 	[SerializeField] private float money;
@@ -26,7 +26,7 @@ public abstract class BaseGame : MonoBehaviour
 	//TODO already 3 references of the fulfillment center in the project, make it one
 	private FulfillmentCenter fulfillmentCenter;
 
-	public static BaseGame Instance;
+	public static GameHandler Instance;
 
 	public float Money
 	{

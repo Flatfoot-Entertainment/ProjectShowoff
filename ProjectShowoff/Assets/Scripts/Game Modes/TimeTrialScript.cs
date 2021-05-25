@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-public class TimeTrialScript : BaseGame
+public class TimeTrialScript : GameHandler
 {
 	[SerializeField] private TextMeshProUGUI timeText;
 	[SerializeField] private int timeLeft;
