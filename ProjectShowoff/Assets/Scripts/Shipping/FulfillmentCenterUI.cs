@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class FulfillmentCenterUI : MonoBehaviour
 {
-	[SerializeField] private Button shipBoxButton;
-	[SerializeField] private FulfillmentCenter fulfillmentCenter;
+    [SerializeField] private Button shipBoxButton;
+    [SerializeField] private FulfillmentCenter fulfillmentCenter;
 
-	private void Update()
-	{
-		shipBoxButton.interactable = fulfillmentCenter.CanShipBox();
-	}
+    private void Update()
+    {
+        //change so it doesnt update every frame
+        shipBoxButton.interactable = fulfillmentCenter.CanShipBox();
+    }
 }

@@ -12,7 +12,7 @@ public class ConveyorStop : Upgrade
 
     public override void ApplyUpgrade()
     {
-        //look at the method below's comment
+        //EventScript.Instance.EventManager.InvokeEvent(new ConveyorStopButtonUpgradeEvent());
         BaseGame.Instance.EnableConveyorButton();
     }
 

@@ -15,6 +15,11 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private bool canSpawn = true;
     // Start is called before the first frame update
 
+    private void Awake()
+    {
+        itemFactory = FindObjectOfType<PercentageItemFactory>();
+    }
+
     private void InstantiateItem()
     {
         //creates the item

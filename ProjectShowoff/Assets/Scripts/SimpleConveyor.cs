@@ -28,6 +28,7 @@ public class SimpleConveyor : MonoBehaviour
     {
         speed = initialSpeed;
         rb = GetComponent<Rigidbody>();
+        EventScript.Instance.EventManager.Subscribe(EventType.ManageConveyors, ManageConveyors);
     }
 
     private void FixedUpdate()
@@ -37,8 +38,14 @@ public class SimpleConveyor : MonoBehaviour
         rb.MovePosition(oldPos);
     }
 
-    //TODO just no, change the parameters required (or the code in general)
-    public IEnumerator StopConveyor(ItemSpawner spawner, float delay)
+
+    private void ManageConveyors(Event e)
+    {
+        ManageConveyorsEvent conveyorsEvent = e as ManageConveyorsEvent;
+        StartCoroutine(StopConveyor(conveyorsEvent.ItemSpawner, conveyorsEvent.DelayTime));
+    }
+
+    private IEnumerator StopConveyor(ItemSpawner spawner, float delay)
     {
         spawner.CanSpawn = false;
         speed = 0f;
