@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ManageMoneyEvent : Event
 {
-	public float Amount => amount;
-	private float amount;
+	public int Amount => amount;
+	private int amount;
 
-	public ManageMoneyEvent(float pAmount) : base(EventType.ManageMoney)
+	public ManageMoneyEvent(int pAmount) : base(EventType.ManageMoney)
 	{
 		amount = pAmount;
 	}
