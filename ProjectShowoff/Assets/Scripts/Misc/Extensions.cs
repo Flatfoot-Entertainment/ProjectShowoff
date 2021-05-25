@@ -39,4 +39,10 @@ public static class Extensions
 	{
 		return gameObject.GetComponent<T>() ?? gameObject.AddComponent<T>();
 	}
+
+	public static U ValueOr<T, U>(this Dictionary<T, U> dict, T key, U defaultValue)
+	{
+		if (dict.ContainsKey(key)) return dict[key];
+		else return defaultValue;
+	}
 }

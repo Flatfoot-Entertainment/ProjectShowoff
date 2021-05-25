@@ -14,24 +14,10 @@ public class PlanetUI : MonoBehaviour
 	{
 		set
 		{
-			foreach (var kvp in value)
-			{
-				switch (kvp.Key)
-				{
-					case ItemType.Food:
-						foodText.text = kvp.Value.ToString();
-						break;
-					case ItemType.MechanicalParts:
-						mechanicalText.text = kvp.Value.ToString();
-						break;
-					case ItemType.Medicine:
-						medicineText.text = kvp.Value.ToString();
-						break;
-					case ItemType.Fuel:
-						fuelText.text = kvp.Value.ToString();
-						break;
-				}
-			}
+			foodText.text = value.ValueOr(ItemType.Food, 0).ToString();
+			fuelText.text = value.ValueOr(ItemType.Fuel, 0).ToString();
+			mechanicalText.text = value.ValueOr(ItemType.MechanicalParts, 0).ToString();
+			medicineText.text = value.ValueOr(ItemType.Medicine, 0).ToString();
 		}
 	}
 }
