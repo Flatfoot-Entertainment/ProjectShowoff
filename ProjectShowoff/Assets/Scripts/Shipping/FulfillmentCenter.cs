@@ -43,7 +43,6 @@ public class FulfillmentCenter : MonoBehaviour
 		// Preprocess List - Docking stuff class
 		for (int i = 0; i < dockingSpaces.Count; i++)
 		{
-			Debug.Log($"Index A {i}");
 			dockingSpaces[i].index = i;
 			int val = i; // Clone i, because captures suck
 			dockingSpaces[i].closeButton.onClick.AddListener(() =>
