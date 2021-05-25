@@ -10,6 +10,7 @@ public class UpgradeContainer : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI upgradeText;
 	[SerializeField] private TextMeshProUGUI levelText;
 	[SerializeField] private TextMeshProUGUI costText;
+	[SerializeField] private Button buyButton;
 
 	private Upgrade upgrade;
 	// Start is called before the first frame update
@@ -36,8 +37,16 @@ public class UpgradeContainer : MonoBehaviour
 		costText.text = upgrade.Cost.ToString();
 	}
 
+	private void Update()
+	{
+		// Yes, I know this isn't the best in Update, but it's the fastest to do, so... :^)
+		buyButton.interactable = GameHandler.Instance.Money < upgrade.Cost;
+	}
+
 	public void UpdateUpgrade() //such name very read
 	{
+		// TODO update buy button interactibility
+		if (GameHandler.Instance.Money < upgrade.Cost) return;
 		upgrade.IncreaseLevel();
 		upgrade.ApplyUpgrade();
 		EventScript.Handler.BroadcastEvent(new ManageUpgradeEvent(upgrade));
