@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class SpringlessGrabber : CraneHook
+public class SpringlessGrabber : MonoBehaviour
 {
 	[Header("Physics interaction")]
 	[Tooltip("A multiplier of the force after letting go of an object"), SerializeField]
@@ -42,7 +42,7 @@ public class SpringlessGrabber : CraneHook
 	// The last rotation used for tweening, used for calculating the next rotation
 	private Quaternion lastRot;
 
-	public override void Hook(Rigidbody hooked)
+	public void Hook(Rigidbody hooked)
 	{
 		target = hooked;
 
@@ -73,7 +73,7 @@ public class SpringlessGrabber : CraneHook
 		}
 	}
 
-	public override bool Unhook()
+	public bool Unhook()
 	{
 		// Only set a flag -> We still need the target in the next FixedUpdate
 		shouldUnhook = true;
@@ -81,7 +81,7 @@ public class SpringlessGrabber : CraneHook
 		return target;
 	}
 
-	protected override void OnAwake() { }
+	protected void Awake() { }
 
 	private void FixedUpdate()
 	{
@@ -112,5 +112,14 @@ public class SpringlessGrabber : CraneHook
 		// Reset all the values
 		target = null;
 		shouldUnhook = false;
+	}
+
+	/**
+	 * Move the hook using the underlying Rigidbody
+	 */
+	public void MovePosition(Vector3 pos)
+	{
+		transform.position = pos;
+		// rb.MovePosition(pos);
 	}
 }

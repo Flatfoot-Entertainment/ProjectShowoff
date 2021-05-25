@@ -6,7 +6,7 @@ using DG.Tweening;
 public class CraneController : MonoBehaviour
 {
 	[SerializeField, Tooltip("The hook of this crane.")]
-	private CraneHook hook;
+	private SpringlessGrabber hook;
 
 	[SerializeField, Tooltip("Which objects (by LayerMask) should be able to be hooked")]
 	private LayerMask hookableMask;
@@ -23,11 +23,6 @@ public class CraneController : MonoBehaviour
 	private void Awake()
 	{
 		mainCam = Camera.main;
-#if UNITY_EDITOR
-		DOTween.Init(false, true, LogBehaviour.Verbose);
-#else
-		DOTween.Init(false, true, LogBehaviour.ErrorsOnly);
-#endif
 	}
 
 	void Start()
