@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEditor;
 
 public class ReadonlyHack : UnityEditor.AssetModificationProcessor
 {
@@ -25,14 +23,11 @@ public class ReadonlyHack : UnityEditor.AssetModificationProcessor
 		foreach (string path in paths)
 		{
 			FileInfo info = new FileInfo(path);
+			// If the file exists, has a forbidden extension and is readonly, it is unsaveable
 			if (!(info.Exists && IsForbiddenExtension(info.Extension) && info.IsReadOnly))
-			{
 				saveable.Add(path);
-			}
 			else
-			{
 				unsaveable.Add(path);
-			}
 		}
 		foreach (string path in unsaveable)
 		{

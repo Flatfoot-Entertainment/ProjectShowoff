@@ -39,19 +39,26 @@ public class SpringlessGrabber : CraneHook
 
 	[Tooltip("The easing mode for rotation a picked up object"), SerializeField]
 	private Ease rotationEasingMode = Ease.InOutBounce;
-	// The last rotation used for tweening
-	// Used for calculating the next rotation
+	// The last rotation used for tweening, used for calculating the next rotation
 	private Quaternion lastRot;
 
 	public override void Hook(Rigidbody hooked)
 	{
 		target = hooked;
+
+		// Make RB kinematic and ignore collisions -> needed for hook
 		target.isKinematic = true;
 		target.detectCollisions = false;
+
+		// Set variables to default
 		lastRot = Quaternion.identity;
 		shouldUnhook = false;
+
+		// Save old constraints and add a rotation constraint
 		oldTargetConstraints = target.constraints;
 		target.constraints = oldTargetConstraints | RigidbodyConstraints.FreezeRotation;
+
+		// Start a tween to the initial rotation
 		target.DORotate(Vector3.zero, rotationResetTime).SetEase(rotationResetEasingMode);
 	}
 

@@ -11,7 +11,7 @@ public class CameraViewToggle : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		EventScript.Instance.EventQueue.Subscribe(EventType.CameraMove, (e) =>
+		EventScript.Handler.Subscribe(EventType.CameraMove, (e) =>
 		{
 			OnCamMove(((CameraMoveEvent)e).NewState);
 		});
@@ -21,7 +21,7 @@ public class CameraViewToggle : MonoBehaviour
 	public void Toggle()
 	{
 		current = current == stateA ? stateB : stateA;
-		EventScript.Instance.EventQueue.AddEvent(new CameraMoveEvent(current));
+		EventScript.Handler.BroadcastEvent(new CameraMoveEvent(current));
 	}
 
 	private void OnCamMove(CameraMoveEvent.CameraState newState)

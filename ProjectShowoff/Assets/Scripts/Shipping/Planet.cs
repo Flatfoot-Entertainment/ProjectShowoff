@@ -39,7 +39,7 @@ public class Planet : MonoBehaviour
 			}
 		}
 		// Add the money to the player
-		EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(money));
+		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(money));
 		if (needs.Count <= 0)
 		{
 			InitRandom();

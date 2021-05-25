@@ -31,10 +31,16 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 	public ShippableItemBox Ship()
 	{
 		// TODO variable cost
-		EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(-50.0f));
+		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-50));
+
+		// Create a new shippable variant
 		var shippable = Instantiate<ShippableItemBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
+
+		// Move box to shippable instance
 		shippable.Init(Box);
 		Box = null;
+
+		// Enable shippable and destroy self
 		shippable.gameObject.SetActive(true);
 		Destroy(gameObject);
 		return shippable;
