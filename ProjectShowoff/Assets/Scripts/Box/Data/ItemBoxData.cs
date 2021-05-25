@@ -13,23 +13,21 @@ public enum BoxType
 // TODO maybe call it BoxData or something?
 public class ItemBoxData : IBoxData<Item>
 {
-	public float MoneyValue => GetBoxContentsValue();
+	public int MoneyValue => GetBoxContentsValue();
 	public BoxType Type => type;
 	private readonly BoxType type;
 
 	//sorting items by their item type
-	private Dictionary<ItemType, float> boxContents;
-	public Dictionary<ItemType, float> BoxContents => boxContents;
+	private Dictionary<ItemType, int> boxContents = new Dictionary<ItemType, int>();
+	public Dictionary<ItemType, int> BoxContents => boxContents;
 
 	public List<Item> Contents => lookUp;
 
-	private List<Item> lookUp;
+	private List<Item> lookUp = new List<Item>();
 
 	public ItemBoxData(BoxType pBoxType)
 	{
 		type = pBoxType;
-		boxContents = new Dictionary<ItemType, float>();
-		lookUp = new List<Item>();
 	}
 
 	public void AddItemToBox(Item item)
@@ -60,9 +58,9 @@ public class ItemBoxData : IBoxData<Item>
 		}
 	}
 
-	public float GetBoxContentsValue()
+	public int GetBoxContentsValue()
 	{
-		float contentsSum = 0f;
+		int contentsSum = 0;
 		foreach (ItemType itemType in boxContents.Keys.ToList())
 		{
 			contentsSum += boxContents[itemType];

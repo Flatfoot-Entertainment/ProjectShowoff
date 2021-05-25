@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 public class ContainerData : IBoxData<ItemBoxData>
 {
-	public float MoneyValue
+	public int MoneyValue
 	{
 		get
 		{
-			float val = 0f;
+			int val = 0;
 			foreach (ItemBoxData box in Contents)
 			{
 				val += box.MoneyValue;
