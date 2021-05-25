@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Planet : MonoBehaviour
 {
+	[SerializeField] private RectTransform hitMarker;
+	[SerializeField] private CanvasScaler scaler;
 	[SerializeField] private PlanetUI ui;
 	[SerializeField] private UnityEvent<Planet> OnClick;
 	public Dictionary<ItemType, int> needs { get; private set; } = new Dictionary<ItemType, int>();
@@ -46,18 +49,20 @@ public class Planet : MonoBehaviour
 
 	public void Deselect()
 	{
-		GetComponent<Renderer>().material.color = Color.white;
+		hitMarker.gameObject.SetActive(false);
 	}
 
 	public void Select()
 	{
-		GetComponent<Renderer>().material.color = Color.red;
+		hitMarker.gameObject.SetActive(true);
+		var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+		screenPos /= scaler.scaleFactor;
+		hitMarker.transform.position = screenPos;
 	}
 
 	private void OnMouseDown()
 	{
 		OnClick?.Invoke(this);
-		Select();
 	}
 
 	private void InitRandom()

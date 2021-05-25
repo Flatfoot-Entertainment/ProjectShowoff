@@ -45,7 +45,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 				return;
 			}
 		}
-		Shippable = true;
+		Shippable = contained.Count > 0;
 	}
 
 	private void OnDestroy()
