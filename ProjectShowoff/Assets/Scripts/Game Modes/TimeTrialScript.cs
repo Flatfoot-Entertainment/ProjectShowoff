@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-public class TimeTrialScript : BaseGame
+public class TimeTrialScript : GameHandler
 {
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private int timeLeft;
@@ -15,19 +15,19 @@ public class TimeTrialScript : BaseGame
     // Start is called before the first frame update
 
 
-    protected override void Start()
-    {
-        base.Start();
-        timeText.text = "Time: " + timeLeft;
-        InvokeRepeating("UpdateTime", 1f, 1f);
-        EventScript.Instance.EventManager.Subscribe(EventType.ManageTime, ManageTime);
-    }
+	protected override void Start()
+	{
+		base.Start();
+		timeText.text = "Time: " + timeLeft;
+		InvokeRepeating("UpdateTime", 1f, 1f);
+		EventScript.Handler.Subscribe(EventType.ManageTime, ManageTime);
+	}
 
-    protected override void OnDestroyCallback()
-    {
-        base.OnDestroyCallback();
-        EventScript.Instance.EventManager.UnSubscribe(EventType.ManageTime, ManageTime);
-    }
+	protected override void OnDestroyCallback()
+	{
+		base.OnDestroyCallback();
+		EventScript.Handler.Unsubscribe(EventType.ManageTime, ManageTime);
+	}
 
     private void ManageTime(Event e)
     {

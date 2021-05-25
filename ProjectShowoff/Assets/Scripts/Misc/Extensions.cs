@@ -39,4 +39,25 @@ public static class Extensions
 	{
 		return gameObject.GetComponent<T>() ?? gameObject.AddComponent<T>();
 	}
+
+	public static U ValueOr<T, U>(this Dictionary<T, U> dict, T key, U defaultValue)
+	{
+		if (dict.ContainsKey(key)) return dict[key];
+		else return defaultValue;
+	}
+
+	public static void SetX(this Vector3 v, float val)
+	{
+		v.x = val;
+	}
+
+	public static void SetY(this Vector3 v, float val)
+	{
+		v.y = val;
+	}
+
+	public static void SetZ(this Vector3 v, float val)
+	{
+		v.z = val;
+	}
 }

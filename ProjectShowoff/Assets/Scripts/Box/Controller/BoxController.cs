@@ -1,19 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
 {
-	// TODO maybe in the future have a class that handles shipments.
-	// That way, we don't have a static event, which might mess with lifetimes, etc.
 	private BoxLid<Contained> lid;
 	private BoxBody body;
 	public abstract BoxT Box { get; protected set; }
 	protected List<GameObject> contained = new List<GameObject>();
-
-	[SerializeField] private float finalPositionThreshold = 0.1f;
-	[SerializeField] private float sampleBoxCost = 50.0f;
 
 	public bool Shippable { get; private set; }
 
@@ -21,7 +14,6 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		lid = GetComponentInChildren<BoxLid<Contained>>();
 		body = GetComponentInChildren<BoxBody>();
-		// box = new ItemBox(BoxType.Type1);
 		OnAwake();
 	}
 
@@ -53,7 +45,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 				return;
 			}
 		}
-		Shippable = true;
+		Shippable = contained.Count > 0;
 	}
 
 	private void OnDestroy()
@@ -72,12 +64,9 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 		// If the thing exiting the lid is in the body, it is fully in the box
 		if (body.Has(subject.gameObject))
 		{
-			//containing.Add(subject);
-			// subject.transform.SetParent(transform);
 			Box.AddToBox(subject.contained);
 			contained.Add(subject.gameObject);
 			subject.OnAddedToBox();
-			// box.ShowBoxContents();
 			OnObjectAdded();
 		}
 		UpdateShippable();
@@ -91,8 +80,6 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 			// subject.transform.parent = null;
 			Box.RemoveFromBox(subject.contained);
 			contained.Remove(subject.gameObject);
-			// TODO call functions in child classes
-			// box.ShowBoxContents();
 			OnObjectRemoved();
 		}
 		UpdateShippable();

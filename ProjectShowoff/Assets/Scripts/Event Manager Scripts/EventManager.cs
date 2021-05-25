@@ -24,7 +24,7 @@ public class EventManager
         subscribers[eventType] += eventHandler;
     }
 
-    public void UnSubscribe(EventType eventType, EventHandler eventHandler)
+    public void Unsubscribe(EventType eventType, EventHandler eventHandler)
     {
         if (!subscribers.ContainsKey(eventType))
         {
@@ -39,7 +39,7 @@ public class EventManager
         // I know this was here before, but maybe something other than a simple Debug.Log
     }
 
-    public void InvokeEvent(Event e)
+    public void BroadcastEvent(Event e)
     {
         if (subscribers.ContainsKey(e.type))
         {

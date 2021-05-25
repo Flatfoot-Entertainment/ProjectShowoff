@@ -1,4 +1,3 @@
-using UnityEngine;
 
 public class ShippableItemBox : ShippableBox<ItemBoxData, Item>
 {

@@ -2,28 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowcaseGameMode : BaseGame
+public class ShowcaseGameMode : GameHandler
 {
 	[SerializeField] private Transform referenceContainerPos;
 
-
-	protected override void Start()
-	{
-		base.Start();
-	}
-
-	protected override void OnDestroyCallback()
-	{
-		base.OnDestroyCallback();
-	}
-
-	protected override void OnBoxDelivered(Event e)
-	{
-		base.OnBoxDelivered(e);
-	}
-
 	private void OnContainerDelivered(float value)
 	{ }
-
-
 }

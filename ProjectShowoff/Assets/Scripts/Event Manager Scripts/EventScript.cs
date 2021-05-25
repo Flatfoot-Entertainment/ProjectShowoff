@@ -5,7 +5,7 @@ using UnityEngine;
 public class EventScript : MonoBehaviour
 {
     public static EventScript Instance;
-    public EventManager EventManager => eventManager;
+    public static EventManager Handler => Instance.eventManager;
 
     private EventManager eventManager;
     // Start is called before the first frame update

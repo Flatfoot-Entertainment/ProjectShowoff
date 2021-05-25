@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Planet : MonoBehaviour
 {
-    [SerializeField] private PlanetUI ui;
-    [SerializeField] private UnityEvent<Planet> OnClick; //TODO perhaps to implement with the EventManager?
-    public Dictionary<ItemType, int> needs { get; private set; } = new Dictionary<ItemType, int>();
+	[SerializeField] private RectTransform hitMarker;
+	[SerializeField] private CanvasScaler scaler;
+	[SerializeField] private PlanetUI ui;
+	[SerializeField] private UnityEvent<Planet> OnClick;
+	public Dictionary<ItemType, int> needs { get; private set; } = new Dictionary<ItemType, int>();
 
     private void Start()
     {
@@ -16,49 +19,51 @@ public class Planet : MonoBehaviour
         ui.Contents = needs;
     }
 
-    public void Deliver(ContainerData box)
-    {
-        int money = 0;
-        foreach (ItemBoxData b in box.Contents)
-        {
-            foreach (Item i in b.Contents)
-            {
-                if (needs.ContainsKey(i.Type))
-                {
-                    needs[i.Type] -= 1;
-                    if (needs[i.Type] <= 0)
-                    {
-                        needs.Remove(i.Type);
-                    }
-                    // Only add money if the planet actually needed it
-                    money += i.Price;
-                }
-            }
-        }
-        // Add the money to the player
-        EventScript.Instance.EventManager.InvokeEvent(new ManageMoneyEvent(money));
-        if (needs.Count <= 0)
-        {
-            InitRandom();
-        }
-        ui.Contents = needs;
-    }
+	public void Deliver(ContainerData box)
+	{
+		int money = 0;
+		foreach (ItemBoxData b in box.Contents)
+		{
+			foreach (Item i in b.Contents)
+			{
+				if (needs.ContainsKey(i.Type))
+				{
+					needs[i.Type] -= 1;
+					if (needs[i.Type] <= 0)
+					{
+						needs.Remove(i.Type);
+					}
+					// Only add money if the planet actually needed it
+					money += i.Price;
+				}
+			}
+		}
+		// Add the money to the player
+		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(money));
+		if (needs.Count <= 0)
+		{
+			InitRandom();
+		}
+		ui.Contents = needs;
+	}
 
-    public void Deselect()
-    {
-        GetComponent<Renderer>().material.color = Color.white;
-    }
+	public void Deselect()
+	{
+		hitMarker.gameObject.SetActive(false);
+	}
 
-    public void Select()
-    {
-        GetComponent<Renderer>().material.color = Color.red;
-    }
+	public void Select()
+	{
+		hitMarker.gameObject.SetActive(true);
+		var screenPos = Camera.main.WorldToScreenPoint(transform.position);
+		screenPos /= scaler.scaleFactor;
+		hitMarker.transform.position = screenPos;
+	}
 
-    private void OnMouseDown()
-    {
-        OnClick?.Invoke(this);
-        Select();
-    }
+	private void OnMouseDown()
+	{
+		OnClick?.Invoke(this);
+	}
 
     private void InitRandom()
     {

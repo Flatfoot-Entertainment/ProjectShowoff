@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class SpringlessGrabber : CraneHook
+public class SpringlessGrabber : MonoBehaviour
 {
 	[Header("Physics interaction")]
 	[Tooltip("A multiplier of the force after letting go of an object"), SerializeField]
@@ -39,19 +39,26 @@ public class SpringlessGrabber : CraneHook
 
 	[Tooltip("The easing mode for rotation a picked up object"), SerializeField]
 	private Ease rotationEasingMode = Ease.InOutBounce;
-	// The last rotation used for tweening
-	// Used for calculating the next rotation
+	// The last rotation used for tweening, used for calculating the next rotation
 	private Quaternion lastRot;
 
-	public override void Hook(Rigidbody hooked)
+	public void Hook(Rigidbody hooked)
 	{
 		target = hooked;
+
+		// Make RB kinematic and ignore collisions -> needed for hook
 		target.isKinematic = true;
 		target.detectCollisions = false;
+
+		// Set variables to default
 		lastRot = Quaternion.identity;
 		shouldUnhook = false;
+
+		// Save old constraints and add a rotation constraint
 		oldTargetConstraints = target.constraints;
 		target.constraints = oldTargetConstraints | RigidbodyConstraints.FreezeRotation;
+
+		// Start a tween to the initial rotation
 		target.DORotate(Vector3.zero, rotationResetTime).SetEase(rotationResetEasingMode);
 	}
 
@@ -66,7 +73,7 @@ public class SpringlessGrabber : CraneHook
 		}
 	}
 
-	public override bool Unhook()
+	public bool Unhook()
 	{
 		// Only set a flag -> We still need the target in the next FixedUpdate
 		shouldUnhook = true;
@@ -74,7 +81,7 @@ public class SpringlessGrabber : CraneHook
 		return target;
 	}
 
-	protected override void OnAwake() { }
+	protected void Awake() { }
 
 	private void FixedUpdate()
 	{
@@ -105,5 +112,14 @@ public class SpringlessGrabber : CraneHook
 		// Reset all the values
 		target = null;
 		shouldUnhook = false;
+	}
+
+	/**
+	 * Move the hook using the underlying Rigidbody
+	 */
+	public void MovePosition(Vector3 pos)
+	{
+		transform.position = pos;
+		// rb.MovePosition(pos);
 	}
 }

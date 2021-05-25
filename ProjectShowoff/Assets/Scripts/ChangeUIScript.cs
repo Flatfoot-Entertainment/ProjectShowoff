@@ -10,7 +10,7 @@ public class ChangeUIScript : MonoBehaviour
 
     private void Start()
     {
-        EventScript.Instance.EventManager.Subscribe(EventType.CameraMove, (e) =>
+        EventScript.Handler.Subscribe(EventType.CameraMove, (e) =>
         {
             OnCamMove(((CameraMoveEvent)e).NewState);
         });

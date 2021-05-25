@@ -64,38 +64,17 @@ public class FulfillmentCenter : MonoBehaviour
     {
         return fillableBox && fillableBox.Shippable;
     }
-
-    public bool CanShipContainer()
-    {
-        return fillableContainer && fillableContainer.Shippable;
-    }
-
-    public void OnShipReturn()
-    {
-        // TODO let specific ship return by moving in the correct place
-        SpawnContainer();
-    }
-
-    public void OnSendShip(int dockIndex)
-    {
-        // TODO validate index
-        Destroy(dockingSpaces[dockIndex].container.gameObject);
-        dockingSpaces[dockIndex].container = null;
-        dockingSpaces[dockIndex].free = true;
-        dockingSpaces[dockIndex].readyForShipment = false;
-        dockingSpaces[dockIndex].closeButton.gameObject.SetActive(false);
-    }
-
-    public void CloseContainer(int index)
-    {
-        if (dockingSpaces[index].readyForShipment) return;
-        // TODO ship the container, if money is available (and if theres a non shipped container)
-        // TODO maybe destroy the box???
-        planetaryShipment.ReadyForShipment(dockingSpaces[index].container.Box, index);
-        dockingSpaces[index].readyForShipment = true;
-        dockingSpaces[index].lid.SetActive(true);
-        dockingSpaces[index].closeButton.interactable = false;
-    }
+    
+	public void CloseContainer(int index)
+	{
+		if (dockingSpaces[index].readyForShipment) return;
+		// TODO ship the container, if money is available (and if theres a non shipped container)
+		// TODO maybe destroy the box???
+		planetaryShipment.ReadyForShipment(dockingSpaces[index].container.Box, index);
+		dockingSpaces[index].readyForShipment = true;
+		dockingSpaces[index].lid.SetActive(true);
+		dockingSpaces[index].closeButton.interactable = false;
+	}
 
     public void CloseBox()
     {
@@ -171,16 +150,16 @@ public class FulfillmentCenter : MonoBehaviour
 
         empty.isUnlocked = true;
         SpawnContainer(empty);
-
     }
-
-    private void Update()
-    {
-        foreach (var space in dockingSpaces)
-        {
-            space.closeButton.enabled = space.container && space.container.Shippable;
-        }
-    }
+    
+	// void SpawnBox() -> don't spawn box automatically
+	private void Update()
+	{
+		foreach (var space in dockingSpaces)
+		{
+			space.closeButton.interactable = space.container && space.container.Shippable;
+		}
+	}
 
 
     // OTHER THINGS

@@ -28,15 +28,21 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
         foreach (GameObject gO in contained) Lean.Pool.LeanPool.Despawn(gO);
     }
 
-    public ShippableItemBox Ship()
-    {
-        // TODO variable cost
-        EventScript.Instance.EventManager.InvokeEvent(new ManageMoneyEvent(-50.0f));
-        var shippable = Instantiate<ShippableItemBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
-        shippable.Init(Box);
-        Box = null;
-        shippable.gameObject.SetActive(true);
-        Destroy(gameObject);
-        return shippable;
-    }
+	public ShippableItemBox Ship()
+	{
+		// TODO variable cost
+		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-50));
+
+		// Create a new shippable variant
+		var shippable = Instantiate<ShippableItemBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
+
+		// Move box to shippable instance
+		shippable.Init(Box);
+		Box = null;
+
+		// Enable shippable and destroy self
+		shippable.gameObject.SetActive(true);
+		Destroy(gameObject);
+		return shippable;
+	}
 }
