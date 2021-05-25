@@ -7,16 +7,14 @@ using System.Linq;
 public class FulfillmentCenter : MonoBehaviour
 {
 
-	//TODO put docking space functionalities in a seperate class
+	//TODO put docking space functionalities in a separate class
 	[System.Serializable]
 	public class DockingSpace
 	{
 		public Transform location;
 		public Button closeButton;
 		public bool isUnlocked = false;
-
-		//added a lid prefab for the time being
-		public GameObject lid;
+		[HideInInspector] public GameObject lid;
 		[HideInInspector] public bool free = false;
 		[HideInInspector] public ContainerController container;
 		[HideInInspector] public int index;
@@ -28,7 +26,6 @@ public class FulfillmentCenter : MonoBehaviour
 
 	[SerializeField] private Transform boxPos;
 
-	//TODO put planet things in a seperate class
 	[SerializeField] private PlanetaryShipmentCenter planetaryShipment;
 
 	[SerializeField] private GameObject lidPrefab;
@@ -57,7 +54,6 @@ public class FulfillmentCenter : MonoBehaviour
 			if (dockingSpaces[i].isUnlocked) SpawnContainer(dockingSpaces[i]);
 			else dockingSpaces[i].closeButton.gameObject.SetActive(false);
 		}
-		//SpawnBox();
 	}
 
 	public bool CanShipBox()
@@ -69,7 +65,6 @@ public class FulfillmentCenter : MonoBehaviour
 	{
 		if (dockingSpaces[index].readyForShipment) return;
 		// TODO ship the container, if money is available (and if theres a non shipped container)
-		// TODO maybe destroy the box???
 		planetaryShipment.ReadyForShipment(dockingSpaces[index].container.Box, index);
 		dockingSpaces[index].readyForShipment = true;
 		dockingSpaces[index].lid.SetActive(true);
@@ -78,18 +73,17 @@ public class FulfillmentCenter : MonoBehaviour
 
 	public void CloseBox()
 	{
-		StartCoroutine(StartBoxClosing());
+		fillableBox.Close();
 	}
 
 	public void OnShipReturn()
 	{
-		// TODO let specific ship return by moving in the correct place
 		SpawnContainer();
 	}
 
 	public void OnSendShip(int dockIndex)
 	{
-		// TODO validate index
+		if (dockIndex < 0 || dockIndex >= dockingSpaces.Count) return;
 		Destroy(dockingSpaces[dockIndex].container.gameObject);
 		dockingSpaces[dockIndex].container = null;
 		dockingSpaces[dockIndex].free = true;
@@ -135,26 +129,6 @@ public class FulfillmentCenter : MonoBehaviour
 		return true;
 	}
 
-	//perhaps in its own class w/ fillable/shippable box
-	private IEnumerator StartBoxClosing()
-	{
-		Animator boxAnimator = fillableBox.GetComponentInChildren<Animator>();
-		if (boxAnimator == null) Debug.LogError("BoxAnimator not found.");
-		else
-		{
-			boxAnimator.SetBool("isClosing", true);
-			yield return new WaitForSeconds(fillableBox.ClosingAnimation.length);
-			FinalizeBoxClosing();
-		}
-	}
-
-	//same as above
-	private void FinalizeBoxClosing()
-	{
-		// TODO ship the box, if money is available (and if theres a non shipped box)
-		fillableBox.Ship();
-	}
-
 	//docking class
 	public void AddShip()
 	{
@@ -169,7 +143,6 @@ public class FulfillmentCenter : MonoBehaviour
 		SpawnContainer(empty);
 	}
 
-	// void SpawnBox() -> don't spawn box automatically
 	private void Update()
 	{
 		foreach (var space in dockingSpaces)
@@ -177,7 +150,4 @@ public class FulfillmentCenter : MonoBehaviour
 			space.closeButton.interactable = space.container && space.container.Shippable;
 		}
 	}
-
-
-	// OTHER THINGS
 }

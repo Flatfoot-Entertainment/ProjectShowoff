@@ -4,35 +4,32 @@ using UnityEngine;
 
 public class ItemBoxController : BoxController<ItemBoxData, Item>
 {
-    public AnimationClip ClosingAnimation => closingAnimation;
+	public AnimationClip ClosingAnimation => closingAnimation;
 
-    [SerializeField] private ShippableItemBox shippableBoxPrefab;
-    [SerializeField] private AnimationClip closingAnimation;
+	[SerializeField] private ShippableItemBox shippableBoxPrefab;
+	[SerializeField] private AnimationClip closingAnimation;
 
-    private ItemBoxData box;
-    protected override void OnAwake()
-    {
-        base.OnAwake();
-        box = new ItemBoxData(BoxType.Type1); // TODO multiple types
-    }
+	private ItemBoxData box;
+	protected override void OnAwake()
+	{
+		base.OnAwake();
+		box = new ItemBoxData(BoxType.Type1); // TODO multiple types
+	}
 
-    public override ItemBoxData Box
-    {
-        get => box;
-        protected set => box = value;
+	public override ItemBoxData Box
+	{
+		get => box;
+		protected set => box = value;
 
-    }
+	}
 
-    protected override void PurgeContents()
-    {
-        foreach (GameObject gO in contained) Lean.Pool.LeanPool.Despawn(gO);
-    }
+	protected override void PurgeContents()
+	{
+		foreach (GameObject gO in contained) Lean.Pool.LeanPool.Despawn(gO);
+	}
 
 	public ShippableItemBox Ship()
 	{
-		// TODO variable cost
-		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-50));
-
 		// Create a new shippable variant
 		var shippable = Instantiate<ShippableItemBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
 
@@ -44,5 +41,24 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 		shippable.gameObject.SetActive(true);
 		Destroy(gameObject);
 		return shippable;
+	}
+
+	public void Close()
+	{
+		StartCoroutine(CloseBox());
+	}
+
+	private IEnumerator CloseBox()
+	{
+		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-50));
+
+		Animator boxAnimator = GetComponentInChildren<Animator>();
+		if (boxAnimator == null) Debug.LogError("BoxAnimator not found.");
+		else
+		{
+			boxAnimator.SetBool("isClosing", true);
+			yield return new WaitForSeconds(ClosingAnimation.length);
+			Ship();
+		}
 	}
 }
