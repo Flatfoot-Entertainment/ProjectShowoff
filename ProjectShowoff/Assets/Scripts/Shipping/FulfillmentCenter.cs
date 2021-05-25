@@ -80,16 +80,16 @@ public class FulfillmentCenter : MonoBehaviour
 		dockingSpaces[dockIndex].closeButton.gameObject.SetActive(false);
 	}
 
-    public void CloseContainer(int index)
-    {
-        if (dockingSpaces[index].readyForShipment) return;
-        // TODO ship the container, if money is available (and if theres a non shipped container)
-        // TODO maybe destroy the box???
-        planetaryShipment.ReadyForShipment(dockingSpaces[index].container.Box, index);
-        dockingSpaces[index].readyForShipment = true;
-        dockingSpaces[index].lid.SetActive(true);
-        dockingSpaces[index].closeButton.interactable = false;
-    }
+	public void CloseContainer(int index)
+	{
+		if (dockingSpaces[index].readyForShipment) return;
+		// TODO ship the container, if money is available (and if theres a non shipped container)
+		// TODO maybe destroy the box???
+		planetaryShipment.ReadyForShipment(dockingSpaces[index].container.Box, index);
+		dockingSpaces[index].readyForShipment = true;
+		dockingSpaces[index].lid.SetActive(true);
+		dockingSpaces[index].closeButton.interactable = false;
+	}
 
 	public void CloseBox()
 	{
@@ -167,7 +167,7 @@ public class FulfillmentCenter : MonoBehaviour
 	{
 		foreach (var space in dockingSpaces)
 		{
-			space.closeButton.enabled = space.container && space.container.Shippable;
+			space.closeButton.interactable = space.container && space.container.Shippable;
 		}
 	}
 
