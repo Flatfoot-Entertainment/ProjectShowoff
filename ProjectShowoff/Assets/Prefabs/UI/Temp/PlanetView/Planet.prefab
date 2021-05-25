@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 9075099968909457120}
   - component: {fileID: 9075099968909457115}
   - component: {fileID: 9075099968909457116}
+  - component: {fileID: 3487614631143423726}
   m_Layer: 0
-  m_Name: Planet - top left
+  m_Name: Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4775c467a990be0428203075d24ef657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 0}
+  ui: {fileID: 3487614631143423726}
   OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -141,3 +142,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3487614631143423726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9075099968909457121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02aea325d3b89694d92f159cf4ebbaa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodText: {fileID: 0}
+  fuelText: {fileID: 0}
+  medicineText: {fileID: 0}
+  mechanicalText: {fileID: 0}

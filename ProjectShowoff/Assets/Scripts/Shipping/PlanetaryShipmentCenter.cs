@@ -57,6 +57,7 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	{
 		if (selectedPlanet) selectedPlanet.Deselect();
 		selectedPlanet = planet;
+		selectedPlanet.Select();
 	}
 
 	public void OnShipSelected(Ship ship)
