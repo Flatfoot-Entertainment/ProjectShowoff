@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class UIEventRaiser : MonoBehaviour
 {
-    public void CameraMoveEvent(CameraMoveEvent.CameraState newState)
-    {
-        EventScript.Instance.EventManager.InvokeEvent(new CameraMoveEvent(newState));
-    }
+	public void CameraMoveEvent(CameraMoveEvent.CameraState newState)
+	{
+		EventScript.Handler.BroadcastEvent(new CameraMoveEvent(newState));
+	}
 
-    // TODO for others
+	// TODO for others
 }
