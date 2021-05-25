@@ -5,10 +5,11 @@ using UnityEngine;
 public class EventScript : MonoBehaviour
 {
 	public static EventScript Instance;
-	public EventManager EventQueue => eventQueue;
+	public static EventManager Handler => Instance.eventQueue;
 
 	private EventManager eventQueue;
 	// Start is called before the first frame update
+
 	void Awake()
 	{
 		if (Instance != null)
@@ -19,8 +20,8 @@ public class EventScript : MonoBehaviour
 		{
 			Instance = this;
 			DontDestroyOnLoad(Instance);
+			// Only create an EventManager, if we are allowed to live
+			eventQueue = new EventManager();
 		}
-		eventQueue = new EventManager();
-
 	}
 }

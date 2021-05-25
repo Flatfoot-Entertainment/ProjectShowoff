@@ -6,7 +6,7 @@ public class UIEventRaiser : MonoBehaviour
 {
 	public void CameraMoveEvent(CameraMoveEvent.CameraState newState)
 	{
-		EventScript.Instance.EventQueue.AddEvent(new CameraMoveEvent(newState));
+		EventScript.Handler.BroadcastEvent(new CameraMoveEvent(newState));
 	}
 
 	// TODO for others

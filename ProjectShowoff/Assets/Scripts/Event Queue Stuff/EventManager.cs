@@ -24,21 +24,16 @@ public class EventManager
 		subscribers[eventType] += eventHandler;
 	}
 
-	public void UnSubscribe(EventType eventType, EventHandler eventHandler)
+	public void Unsubscribe(EventType eventType, EventHandler eventHandler)
 	{
 		if (subscribers.ContainsKey(eventType))
-		{
 			subscribers[eventType] -= eventHandler;
-		}
 		// TODO maybe handle if the subscriber could not be found
 		// I know this was here before, but maybe something other than a simple Debug.Log
 	}
 
-	public void AddEvent(Event e)
+	public void BroadcastEvent(Event e)
 	{
-		if (subscribers.ContainsKey(e.type))
-		{
-			subscribers[e.type]?.Invoke(e);
-		}
+		if (subscribers.ContainsKey(e.type)) subscribers[e.type]?.Invoke(e);
 	}
 }

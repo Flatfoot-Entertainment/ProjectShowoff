@@ -11,7 +11,7 @@ public class UIViewSwitchingHandler : MonoBehaviour
 
 	private void Start()
 	{
-		EventScript.Instance.EventQueue.Subscribe(EventType.CameraMove, (e) =>
+		EventScript.Handler.Subscribe(EventType.CameraMove, (e) =>
 		{
 			OnCamMove(((CameraMoveEvent)e).NewState);
 		});

@@ -46,7 +46,7 @@ public class UpgradeContainer : MonoBehaviour
 		upgrade.ApplyUpgrade();
 		levelText.text = upgrade.Level.ToString();
 		costText.text = upgrade.Cost.ToString();
-		EventScript.Instance.EventQueue.AddEvent(new ManageUpgradeEvent(upgrade));
+		EventScript.Handler.BroadcastEvent(new ManageUpgradeEvent(upgrade));
 	}
 
 }

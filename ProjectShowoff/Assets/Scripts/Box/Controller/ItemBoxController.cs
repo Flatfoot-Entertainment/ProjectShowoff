@@ -31,7 +31,7 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 	public ShippableItemBox Ship()
 	{
 		// TODO variable cost
-		EventScript.Instance.EventQueue.AddEvent(new ManageMoneyEvent(-50.0f));
+		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-50.0f));
 
 		// Create a new shippable variant
 		var shippable = Instantiate<ShippableItemBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);

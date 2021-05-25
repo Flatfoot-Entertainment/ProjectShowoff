@@ -22,7 +22,7 @@ public class CameraTranslate : MonoBehaviour
 
 	private void Start()
 	{
-		EventScript.Instance.EventQueue.Subscribe(EventType.CameraMove, (e) =>
+		EventScript.Handler.Subscribe(EventType.CameraMove, (e) =>
 		{
 			OnCamMove(((CameraMoveEvent)e).NewState);
 		});
@@ -33,7 +33,7 @@ public class CameraTranslate : MonoBehaviour
 		Sequence seq = DOTween.Sequence();
 		seq.AppendCallback(() =>
 		{
-			EventScript.Instance.EventQueue.AddEvent(
+			EventScript.Handler.BroadcastEvent(
 				new CameraMoveEvent(initialView)
 			);
 		});

@@ -52,8 +52,8 @@ public abstract class BaseGame : MonoBehaviour
 	// Start is called before the first frame update
 	protected virtual void Start()
 	{
-		EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, ManageMoney);
-		EventScript.Instance.EventQueue.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
+		EventScript.Handler.Subscribe(EventType.ManageMoney, ManageMoney);
+		EventScript.Handler.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
 		//EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, OnUpgradeBought);
 		moneyText.text = "Money: " + money;
 	}
@@ -81,9 +81,9 @@ public abstract class BaseGame : MonoBehaviour
 
 	protected virtual void OnDestroyCallback()
 	{
-		EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnBoxSent);
-		EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnBoxDelivered);
-		EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageUpgrade, OnUpgradeBought);
+		EventScript.Handler.Unsubscribe(EventType.ManageMoney, OnBoxSent);
+		EventScript.Handler.Unsubscribe(EventType.ManageMoney, OnBoxDelivered);
+		EventScript.Handler.Unsubscribe(EventType.ManageUpgrade, OnUpgradeBought);
 	}
 
 	protected virtual void OnBoxDelivered(Event e)

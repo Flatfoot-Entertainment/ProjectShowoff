@@ -20,13 +20,13 @@ public class TimeTrialScript : BaseGame
 		base.Start();
 		timeText.text = "Time: " + timeLeft;
 		InvokeRepeating("UpdateTime", 1f, 1f);
-		EventScript.Instance.EventQueue.Subscribe(EventType.ManageTime, ManageTime);
+		EventScript.Handler.Subscribe(EventType.ManageTime, ManageTime);
 	}
 
 	protected override void OnDestroyCallback()
 	{
 		base.OnDestroyCallback();
-		EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageTime, ManageTime);
+		EventScript.Handler.Unsubscribe(EventType.ManageTime, ManageTime);
 	}
 
 	private void ManageTime(Event e)
