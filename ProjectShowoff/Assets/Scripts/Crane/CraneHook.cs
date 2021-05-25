@@ -9,7 +9,6 @@ public abstract class CraneHook : MonoBehaviour
 	private void Awake()
 	{
 		OnAwake();
-		// rb = GetComponent<Rigidbody>();
 	}
 
 	/**
