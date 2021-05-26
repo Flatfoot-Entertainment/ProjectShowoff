@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e926043240ae1b4da1a0b485f8c4372, type: 3}
+  m_Name: ItemSettings
+  m_EditorClassIdentifier: 
+  foodSettings:
+    type: 0
+    chance: 0.25
+    chanceLowValue: 0.75
+    lowValue: 25
+    chanceHighValue: 0.25
+    highValue: 75
+    lowValuePrefabs:
+    - {fileID: 4971904634972695535, guid: 75f25760a0afed14ba330ed819959cd5, type: 3}
+    - {fileID: 2764675827314841296, guid: d8ce2f8d6e2164a4aa6b558dc64a58b2, type: 3}
+    - {fileID: 7980503247024958293, guid: 9c198d870ed3a2d4db6e05b46b2daccf, type: 3}
+    - {fileID: 7093512310658435825, guid: 793f89e7300ee6946893b7e878f7badc, type: 3}
+    - {fileID: 5206703874192707258, guid: 12da9321e34ba814aa45a962dc61cbeb, type: 3}
+    - {fileID: 6767251518317399078, guid: 5a9279da64a56af45a280aef0b9d51e7, type: 3}
+    highValuePrefabs:
+    - {fileID: 6185327202928309969, guid: a4f0dfd946561674e959bd4e24acb6e2, type: 3}
+    - {fileID: 1366592270240369636, guid: dd002e302e30a454b86ce596968432a7, type: 3}
+    - {fileID: 1603280094430692019, guid: 99d19fded46f7334c80bd20845445a8e, type: 3}
+  fuelSettings:
+    type: 0
+    chance: 0.25
+    chanceLowValue: 0.75
+    lowValue: 25
+    chanceHighValue: 0.25
+    highValue: 75
+    lowValuePrefabs:
+    - {fileID: 5336467506707529863, guid: cfda3924a42a8d84887915a53890d937, type: 3}
+    - {fileID: 7081443185160063894, guid: 583171f2ae7ae3941b65ec4c7ee969b5, type: 3}
+    - {fileID: 5698255077709856257, guid: 2094d66447674cd4c9c0927fc6a368a5, type: 3}
+    - {fileID: 5304390880539444356, guid: 27899633c093f9d479fed6cb357894a6, type: 3}
+    - {fileID: 4566738066708673892, guid: c808b0fc6a487244599e2fb86a5bd380, type: 3}
+    - {fileID: 6499760956479969837, guid: 599c9e8b796d0784abb358f1fee8eb86, type: 3}
+    highValuePrefabs:
+    - {fileID: 2969503543021840880, guid: 2953bdc970e9b0540a689a97cca097a6, type: 3}
+    - {fileID: 9068874700518143638, guid: f268943ec4cc6214b8b193413700706d, type: 3}
+  mechanicalPartsSettings:
+    type: 0
+    chance: 0.25
+    chanceLowValue: 0.75
+    lowValue: 25
+    chanceHighValue: 0.25
+    highValue: 75
+    lowValuePrefabs:
+    - {fileID: 746342708232055606, guid: 068607784861e714da4347b6130093a9, type: 3}
+    - {fileID: 8317982311002028306, guid: e35a80ced6bc6c2428302b81103fa0ed, type: 3}
+    - {fileID: 5781060795756931648, guid: 7acd785690bd19040bddf08d6e66f75e, type: 3}
+    - {fileID: 4407871048936973009, guid: ebd14b6f7d3f34140802ba5f2cf9bb8f, type: 3}
+    - {fileID: 7475187060627849344, guid: 98a03d736f252f04189c65bd3c52f4f8, type: 3}
+    - {fileID: 2852381818686395120, guid: df99c3e6050076a449611a99cc5f821a, type: 3}
+    highValuePrefabs:
+    - {fileID: 4129132757633139620, guid: 354a0a0fb888a904cb9a6fedd3d12dc7, type: 3}
+    - {fileID: 235638728915453378, guid: 94c517f12529ae64eabf440149fa5575, type: 3}
+  medicineSettings:
+    type: 0
+    chance: 0.25
+    chanceLowValue: 0.75
+    lowValue: 25
+    chanceHighValue: 0.25
+    highValue: 75
+    lowValuePrefabs:
+    - {fileID: 767051394014286133, guid: 8efea24e1c3c59e48bde3f22ce308e32, type: 3}
+    - {fileID: 97512113250795494, guid: 8f42263d27740d742abab3cba14d68dc, type: 3}
+    - {fileID: 1741087571902755076, guid: 2c4450fa91114c542a0016f2155ef939, type: 3}
+    - {fileID: 4966525279682749082, guid: 13e89c8a54c6db64cb9c734a791f1650, type: 3}
+    - {fileID: 4988637857723419859, guid: 7bf9e809aa7d3b64688d2a6f8225f570, type: 3}
+    - {fileID: 7172471159513578706, guid: a01b1df7b9d27ad419458781ca98c28a, type: 3}
+    highValuePrefabs:
+    - {fileID: 2796109334841000629, guid: 47a4a6dd31f977640b6f492ff51f9cfc, type: 3}
+    - {fileID: 8378405491182959840, guid: d2427fd4c4d3fdd42bb7c78b5c8bc393, type: 3}
+    - {fileID: 3433445481976357915, guid: 618b962566b01944883cc3dd39feee87, type: 3}
