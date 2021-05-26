@@ -16,6 +16,8 @@ public class BoxSelectionScript : MonoBehaviour
     [SerializeField] private Image placeholder;
     private int boxSelectionIndex;
 
+    private Button[] boxButtons;
+
     private void Start()
     {
         foreach (GameObject gO in boxSelectionModels)
@@ -23,9 +25,11 @@ public class BoxSelectionScript : MonoBehaviour
             gO.GetComponentInChildren<MeshRenderer>().material = transparentColor;
         }
         //EventScript.Instance.EventManager.Subscribe(EventType.ManageBoxSelect, ConfirmBox);
+        boxButtons = boxSelectionGroup.GetComponentsInChildren<Button>();
         fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
         boxSelectionIndex = 0;
         boxSelectionModels[boxSelectionIndex].SetActive(true);
+        EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, EnableBoxSelectionButtons);
     }
 
     public void ChangeImage(int direction)
@@ -65,15 +69,13 @@ public class BoxSelectionScript : MonoBehaviour
 
     private void DisableBoxSelectionButtons()
     {
-        Button[] boxButtons = boxSelectionGroup.GetComponentsInChildren<Button>();
         foreach (Button boxButton in boxButtons) boxButton.interactable = false;
-
     }
 
-    public void EnableBoxSelectionButtons()
+    private void EnableBoxSelectionButtons(Event e)
     {
-        Button[] boxButtons = boxSelectionGroup.GetComponentsInChildren<Button>();
         foreach (Button boxButton in boxButtons) boxButton.interactable = true;
+        boxSelectionModels[boxSelectionIndex].SetActive(true);
     }
 
 }
