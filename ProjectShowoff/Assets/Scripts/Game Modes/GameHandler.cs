@@ -161,6 +161,6 @@ public abstract class GameHandler : MonoBehaviour
 	//TODO make into an event
 	public void OnAddShip()
 	{
-		fulfillmentCenter.AddShip();
+		// fulfillmentCenter.AddShip();
 	}
 }
