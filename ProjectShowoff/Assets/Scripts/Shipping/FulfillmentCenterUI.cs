@@ -13,4 +13,5 @@ public class FulfillmentCenterUI : MonoBehaviour
         //change so it doesnt update every frame
         shipBoxButton.interactable = fulfillmentCenter.CanShipBox();
     }
+
 }

@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2403410429981301176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2264379907581461783}
+  - component: {fileID: 3407630277217801510}
+  m_Layer: 19
+  m_Name: ShippingLid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2264379907581461783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2403410429981301176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.841, z: -0.037}
+  m_LocalScale: {x: 2.243474, y: 0.32481, z: 2.2193136}
+  m_Children: []
+  m_Father: {fileID: 9028013331057377280}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3407630277217801510
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2403410429981301176}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5804703, y: 0.43092883, z: 0.8426643}
+  m_Center: {x: -0.0076370914, y: 0.21546441, z: 0.012984926}
 --- !u!95 &1644781127378382887
 Animator:
   serializedVersion: 3
@@ -140,7 +184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9028013330616108596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.767, z: 0}
+  m_LocalPosition: {x: 0, y: 0.736, z: -0.034}
   m_LocalScale: {x: 2.243474, y: 0.32481, z: 2.2193136}
   m_Children: []
   m_Father: {fileID: 9028013331057377280}
@@ -157,8 +201,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5804703, y: 1, z: 0.8166939}
-  m_Center: {x: -0.0076370956, y: 0.5, z: -0.000000092117524}
+  m_Size: {x: 1.5804703, y: 0.43092883, z: 0.816694}
+  m_Center: {x: -0.0076370914, y: 0.21546441, z: -0.00000010107662}
 --- !u!114 &9028013330616108601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9028013330788080865}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.37, z: 0}
   m_LocalScale: {x: 2.243474, y: 0.64962, z: 2.2193136}
   m_Children: []
   m_Father: {fileID: 9028013331057377280}
@@ -228,7 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f7b3636a7c59b4fad68bb7cae7896a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextList: []
 --- !u!1 &9028013331057377281
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +305,7 @@ Transform:
   - {fileID: 9028013330788080864}
   - {fileID: 9028013330616108599}
   - {fileID: 6191971171099168700}
+  - {fileID: 2264379907581461783}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -297,8 +341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a5f0e291e30554fad748b3de501427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finalPositionThreshold: 0.1
-  sampleBoxCost: 50
   shippableBoxPrefab: {fileID: 8677081705330404108, guid: aa352c6bb1a9958458cebaa1e7f00a7e, type: 3}
   closingAnimation: {fileID: 1827226128182048838, guid: 61ba9213b74b26a44aab7d3340e0e0d0, type: 3}
 --- !u!1 &9028013331103172746
@@ -489,8 +531,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.6169782, y: 0.9999999, z: 1}
+  m_Center: {x: 0.3084889, y: 0, z: 0}
 --- !u!1 &9028013331539439824
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,8 +661,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.6730641, y: 0.9999999, z: 1}
+  m_Center: {x: -0.3365321, y: 0, z: 0}
 --- !u!1 &9028013331695430956
 GameObject:
   m_ObjectHideFlags: 0
