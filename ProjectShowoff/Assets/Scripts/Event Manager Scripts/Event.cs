@@ -13,6 +13,8 @@ public enum EventType
     ConveyorUpgrade,
     ConveyorStopButtonUpgrade,
     AddShip,
+
+    BoxConveyorPlace,
     CameraMove
 }
 public abstract class Event
