@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x8000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000023F26ADEF78 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000001B38F793A38 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -15,113 +15,16 @@
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Affinity: 0x8000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
-[LOG] SoundI::release                          : Main Track Hermes v2 Master 1 (0000023F3DFABB08)
-[LOG] SoundI::release                          :     Main Track Hermes v2 Master 1 (0000023FDD9626B8)
-[LOG] SoundI::release                          :     Main Track Hermes v2 Master 1 (0000023FCBED20B8)
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 5380320
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 11584
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000053843DEF88
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA1FC17B10
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA1FC17AE0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA1FC17BE0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA1FC17CA0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000023F349392F8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Alweer een winnaar (1)', format=5, channels=2, frequency=48000, lengthbytes=54336, lengthpcm=263314, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.930084.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 5380320
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 11584
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000053843DEF88
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA1FC17B10
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA1FC17AE0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA1FC17BE0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA1FC17CA0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000023F349392F8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Cardboard 1', format=5, channels=2, frequency=48000, lengthbytes=5248, lengthpcm=19500, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.560028.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 5380320
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 11584
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000053843DEF88
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA1FC17B10
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA1FC17AE0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA1FC17BE0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA1FC17CA0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000023F349392F8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Cardboard 2', format=5, channels=2, frequency=48000, lengthbytes=5664, lengthpcm=21000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.989960.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 5380320
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 11584
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000053843DEF88
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA1FC17B10
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA1FC17AE0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA1FC17BE0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA1FC17CA0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000023F349392F8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Cardboard 3', format=5, channels=2, frequency=48000, lengthbytes=10016, lengthpcm=36000, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.666077.
-[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
-[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
-[LOG] SystemI::createSoundInternal             : exinfo->length             = 5380320
-[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 11584
-[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000053843DEF88
-[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
-[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
-[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFA1FC17B10
-[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFA1FC17AE0
-[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFA1FC17BE0
-[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFA1FC17CA0
-[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 0000023F349392F8
-[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
-[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
-[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Breaking glass 1', format=5, channels=2, frequency=48000, lengthbytes=11648, lengthpcm=34500, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
-[LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] Manager::readBank                        : fileversion = 135, compatVersion = 132 (oldest = 44, newest = 135)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
-[LOG] SoundI::release                          :  (0000023FD00A1918)
-[LOG] SoundI::release                          :     Breaking glass 1 (0000023F312217A8)
-[LOG] SoundI::release                          :  (0000023FD00A17A8)
-[LOG] SoundI::release                          :     Cardboard 1 (0000023FCDBE1528)
-[LOG] SoundI::release                          :  (0000023FD00A1BF8)
-[LOG] SoundI::release                          :     Cardboard 2 (0000023FCDBE1A08)
-[LOG] SoundI::release                          :  (0000023FD00A14C8)
-[LOG] SoundI::release                          :     Cardboard 3 (0000023FCDBE16C8)
-[LOG] SoundI::release                          :  (0000023FD00A1638)
-[LOG] SoundI::release                          :     Alweer een winnaar (1) (0000023FCDBE1868)
-[LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] Thread::callback                         : FMOD Studio sample load thread finished.
 [LOG] LiveUpdate::release                      : 
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Thread::callback                         : FMOD stream thread finished.
 [LOG] Thread::callback                         : FMOD mixer thread finished.
-[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] SystemI::close                           : Closed.

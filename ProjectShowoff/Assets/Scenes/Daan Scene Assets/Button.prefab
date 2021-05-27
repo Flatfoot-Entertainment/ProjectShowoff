@@ -345,7 +345,9 @@ GameObject:
   - component: {fileID: 8887498950663043654}
   - component: {fileID: 8887498950663043649}
   - component: {fileID: 8887498950663043648}
-  - component: {fileID: 8887498950663043651}
+  - component: {fileID: 7170286742722323036}
+  - component: {fileID: 3186419693801338388}
+  - component: {fileID: 8874507891745408738}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -457,9 +459,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8859391606928008525}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
+      - m_Target: {fileID: 8874507891745408738}
+        m_TargetAssemblyTypeName: TriggerAudioClick, Assembly-CSharp
+        m_MethodName: PlayOneShot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -469,7 +471,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8887498950663043651
+--- !u!114 &7170286742722323036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -486,9 +488,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3194249094854869784}
-          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-          m_MethodName: Play
+        - m_Target: {fileID: 3186419693801338388}
+          m_TargetAssemblyTypeName: TriggerAudioHover, Assembly-CSharp
+          m_MethodName: PlayOneShot
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -498,3 +500,31 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &3186419693801338388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887498950663043661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d13e98e0a56b88a448f4d33c6d99fbd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/UI/Hover1
+  PlayOnAwake: 0
+--- !u!114 &8874507891745408738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887498950663043661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0f4f9b62d4cd0449f3c82c3bf51868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/UI/Click
+  PlayOnAwake: 0
