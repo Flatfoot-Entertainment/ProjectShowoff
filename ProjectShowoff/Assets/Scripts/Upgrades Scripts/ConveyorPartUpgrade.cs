@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConveyorPartUpgrade : Upgrade
 {
-	public ConveyorPartUpgrade(int pCost, Sprite pSprite) : base(UpgradeType.ConveyorUpgrade, pCost, pSprite)
+	public ConveyorPartUpgrade(int pCost) : base(UpgradeType.ConveyorUpgrade, pCost)
 	{
 
 	}
@@ -14,11 +14,11 @@ public class ConveyorPartUpgrade : Upgrade
         EventScript.Handler.BroadcastEvent(new ConveyorUpgradeEvent(Level));
     }
 
-	public override void IncreaseLevel()
+	public override void IncreaseLevel(int cost)
 	{
 		if (Level <= 3)
 		{
-			base.IncreaseLevel();
+			base.IncreaseLevel(cost);
 		}
 	}
 }
