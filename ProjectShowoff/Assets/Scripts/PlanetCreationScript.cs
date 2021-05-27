@@ -25,6 +25,9 @@ public class PlanetCreationScript : MonoBehaviour
     [SerializeField] private RectTransform hitMarker;
     [SerializeField] private CanvasScaler scaler;
 
+    [SerializeField] private GameObject planetUIContainer;
+    [SerializeField] private Transform ordersParent;
+
     private float minPlanetScale, maxPlanetScale;
 
 
@@ -65,7 +68,8 @@ public class PlanetCreationScript : MonoBehaviour
         {
             planet.transform.localScale = Vector3.one * uniformScale;
         }
-        SetupPlanetUI(planet.GetComponent<Planet>(), planet.GetComponent<PlanetUI>());
+        GameObject uiContainer = Instantiate(planetUIContainer, ordersParent.position, Quaternion.identity, ordersParent);
+        uiContainer.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = planet.name;
     }
 
     private void AddPlanets()
@@ -92,6 +96,25 @@ public class PlanetCreationScript : MonoBehaviour
         }
     }
 
+    private void ClearPreviousPlanetUI()
+    {
+        if (ordersParent.childCount > 0)
+        {
+            for (int i = transform.childCount - 1; i >= 0; i--)
+            {
+                GameObject planetUI = ordersParent.GetChild(i).gameObject;
+#if UNITY_EDITOR
+                Debug.Log("Removed planet: " + planetUI);
+                DestroyImmediate(planetUI);
+#endif
+                if (Application.isPlaying)
+                {
+                    Destroy(planetUI);
+                }
+            }
+        }
+    }
+
     private Vector3 GetRandomPosition()
     {
         float randomXPosition = Random.Range(volumeBounds.min.x, volumeBounds.max.x);
@@ -105,18 +128,11 @@ public class PlanetCreationScript : MonoBehaviour
     {
         planet.HitMarker = hitMarker;
         planet.Scaler = scaler;
-
-        if (foodText)
-        {
-            planetUI.FoodText = foodText;
-            planetUI.FuelText = fuelText;
-            planetUI.MechanicalText = mechanicalText;
-            planetUI.MedicineText = medicineText;
-        }
     }
 
     public void CreatePlanets()
     {
+        ClearPreviousPlanetUI();
         ClearPreviousPlanets();
         AddPlanets();
     }
