@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc903e62118d407c88741f2e2ae2e44b, type: 3}
+  m_Name: Upgrade Settings
+  m_EditorClassIdentifier: 
+  conveyorUpgrades:
+  - buyable: 1
+    upgradeImage: {fileID: 21300000, guid: e932e36d623e5a14fbcfa1ea3ed88cdb, type: 3}
+    price: 100
+  - buyable: 1
+    upgradeImage: {fileID: 21300000, guid: f5dc4288b4f5fcc4099772790c5d4b69, type: 3}
+    price: 150
+  - buyable: 1
+    upgradeImage: {fileID: 21300000, guid: 1aafa5f40ac55d04fa8ab18855e18ebe, type: 3}
+    price: 200
+  - buyable: 0
+    upgradeImage: {fileID: 21300000, guid: 2bcb86c27a7d2d048bf201a8e2eb822b, type: 3}
+    price: 300
+  stopButtonLevels:
+  - buyable: 1
+    upgradeImage: {fileID: 21300000, guid: c2be58b83614359488702aa18f5331f7, type: 3}
+    price: 400
+  - buyable: 0
+    upgradeImage: {fileID: 21300000, guid: 78ed472d61e183a4394eb443ec52b73d, type: 3}
+    price: 0
