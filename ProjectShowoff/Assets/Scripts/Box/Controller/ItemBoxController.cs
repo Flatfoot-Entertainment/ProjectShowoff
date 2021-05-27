@@ -50,8 +50,6 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 
 	private IEnumerator CloseBox()
 	{
-		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-50));
-
 		Animator boxAnimator = GetComponentInChildren<Animator>();
 		if (boxAnimator == null) Debug.LogError("BoxAnimator not found.");
 		else

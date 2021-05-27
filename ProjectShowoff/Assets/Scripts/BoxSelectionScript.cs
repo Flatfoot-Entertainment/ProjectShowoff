@@ -5,75 +5,113 @@ using UnityEngine.UI;
 
 public class BoxSelectionScript : MonoBehaviour
 {
-	[SerializeField] private Material transparentColor;
+	[SerializeField] private Color validPreview;
+	[SerializeField] private Color invalidPreview;
+	
+	[System.Serializable]
+	public class BoxSize
+	{
+		public GameObject prefab;
+		public GameObject preview;
+		public int price;
+	}
 
-    [SerializeField] private GameObject boxSelectionGroup;
-    [SerializeField] private GameObject[] boxSelectionModels;
-    [SerializeField] private GameObject[] boxPrefabs;
-    [SerializeField] private FulfillmentCenter fulfillmentCenter;
-    [SerializeField] private Image placeholder;
+	[SerializeField] private BoxSize[] boxSettings;
     private int boxSelectionIndex;
 
-    private Button[] boxButtons;
+    [SerializeField] private Material previewMaterial;
+    [SerializeField] private GameObject boxSelectionGroup;
+    [SerializeField] private FulfillmentCenter fulfillmentCenter;
+
+    [SerializeField] private Button confirmButton;
+    // private Button[] boxButtons;
 
     private void Start()
     {
-        foreach (GameObject gO in boxSelectionModels)
+        foreach (BoxSize box in boxSettings)
         {
-            gO.GetComponentInChildren<MeshRenderer>().material = transparentColor;
+            box.preview.GetComponentInChildren<MeshRenderer>().material = previewMaterial;
         }
         //EventScript.Instance.EventManager.Subscribe(EventType.ManageBoxSelect, ConfirmBox);
-        boxButtons = boxSelectionGroup.GetComponentsInChildren<Button>();
+        // boxButtons = boxSelectionGroup.GetComponentsInChildren<Button>();
         fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
         boxSelectionIndex = 0;
-        boxSelectionModels[boxSelectionIndex].SetActive(true);
-        EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, EnableBoxSelectionButtons);
+        CurrentBox().preview.SetActive(true);
+        EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, _ =>
+        {
+	        BoxSize box = boxSettings[boxSelectionIndex];
+	        box.preview.SetActive(true);
+	        EnableBoxSelectionButtons();
+        });
+        EventScript.Handler.Subscribe(EventType.ManageMoney, _ => OnMoneyChange());
+        OnMoneyChange();
     }
 
     public void ChangeImage(int direction)
     {
         int previousIndex = boxSelectionIndex;
         boxSelectionIndex += direction;
-        boxSelectionIndex = boxSelectionIndex < 0 ? boxSelectionModels.Length - 1 : boxSelectionIndex;
-        boxSelectionIndex = boxSelectionIndex >= boxSelectionModels.Length ? 0 : boxSelectionIndex;
+        boxSelectionIndex = boxSelectionIndex < 0 ? boxSettings.Length - 1 : boxSelectionIndex;
+        boxSelectionIndex = boxSelectionIndex >= boxSettings.Length ? 0 : boxSelectionIndex;
 
         if (previousIndex != boxSelectionIndex)
         {
-            boxSelectionModels[previousIndex].SetActive(false);
+	        boxSettings[previousIndex].preview.SetActive(false);
         }
-        boxSelectionModels[boxSelectionIndex].SetActive(true);
+
+        boxSettings[boxSelectionIndex].preview.SetActive(true);
+        OnMoneyChange();
     }
 
     public void ManageBoxConfirmation()
     {
     }
 
+    private void OnMoneyChange()
+    {
+	    BoxSize box = boxSettings[boxSelectionIndex];
+	    if (box.price > GameHandler.Instance.Money)
+	    {
+		    previewMaterial.color = invalidPreview;
+		    confirmButton.interactable = false;
+		    DisableBoxSelectionButtons();
+	    }
+	    else
+	    {
+		    EnableBoxSelectionButtons(); // The event is not needed
+		    previewMaterial.color = validPreview;
+	    }
+    }
+
     private void ConfirmBox()
     {
+	    BoxSize box = boxSettings[boxSelectionIndex];
+	    if (CurrentBox().price > GameHandler.Instance.Money) return;
         //TODO finish
         //ManageBoxSelectEvent boxSelectEvent = e as ManageBoxSelectEvent;
         //check if anything in threshold, if yes dont confirm, if no confirm
-        GameObject box = boxPrefabs[boxSelectionIndex];
-        boxSelectionModels[boxSelectionIndex].SetActive(false);
-        if (!box)
-        {
-            Debug.LogError("Yo this box don't exist");
-            return;
-        }
+        CurrentBox().preview.SetActive(false);
         //rly not the best way but eh, probably turn to an event later on
-        fulfillmentCenter.SpawnBox(box);
+        fulfillmentCenter.SpawnBox(box.prefab);
+        
+        EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-box.price));
         DisableBoxSelectionButtons();
     }
 
     private void DisableBoxSelectionButtons()
     {
-        foreach (Button boxButton in boxButtons) boxButton.interactable = false;
+	    confirmButton.interactable = false;
     }
 
-    private void EnableBoxSelectionButtons(Event e)
+    private void EnableBoxSelectionButtons()
     {
-        foreach (Button boxButton in boxButtons) boxButton.interactable = true;
-        boxSelectionModels[boxSelectionIndex].SetActive(true);
+	    BoxSize box = boxSettings[boxSelectionIndex];
+		confirmButton.interactable = GameHandler.Instance.Money >= box.price;
+	    // box.preview.SetActive(true);
     }
 
+    private BoxSize CurrentBox()
+    {
+	    return boxSettings[boxSelectionIndex];
+    }
 }

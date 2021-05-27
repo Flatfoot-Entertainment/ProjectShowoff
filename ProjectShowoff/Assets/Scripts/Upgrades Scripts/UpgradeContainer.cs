@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -31,6 +32,8 @@ public class UpgradeContainer : MonoBehaviour
 				upgrade = new AddShip(100, sprite);
 				upgradeText.text = "Add Ship";
 				break;
+			default:
+				throw new ArgumentOutOfRangeException();
 		}
 		image.sprite = upgrade.Sprite;
 		levelText.text = upgrade.Level.ToString();
@@ -45,7 +48,6 @@ public class UpgradeContainer : MonoBehaviour
 
 	public void UpdateUpgrade() //such name very read
 	{
-		// TODO update buy button interactibility
 		if (GameHandler.Instance.Money < upgrade.Cost) return;
 		upgrade.IncreaseLevel();
 		upgrade.ApplyUpgrade();
@@ -53,5 +55,4 @@ public class UpgradeContainer : MonoBehaviour
 		levelText.text = upgrade.Level.ToString();
 		costText.text = upgrade.Cost.ToString();
 	}
-
 }
