@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1365152601253298826}
   - component: {fileID: 9078615091936199141}
   m_Layer: 5
-  m_Name: Right Button (1)
+  m_Name: Right Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 8284942716820654464}
   - component: {fileID: 4306884574834107971}
   m_Layer: 5
-  m_Name: Left Button (1)
+  m_Name: Left Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 980217707666006092}
   - component: {fileID: 7111765439430476797}
   m_Layer: 5
-  m_Name: ShipBox (1)
+  m_Name: ShipBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 7253998864817279196}
   - component: {fileID: 6381420637273587525}
   m_Layer: 5
-  m_Name: BoxImage (1)
+  m_Name: BoxImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
