@@ -18,11 +18,17 @@ public class Planet : MonoBehaviour
         set => scaler = value;
     }
 
+    public PlanetaryShipmentCenter PlanetaryShipmentCenter
+    {
+        get => planetaryShipmentCenter;
+        set => planetaryShipmentCenter = value;
+    }
 
     [SerializeField] private RectTransform hitMarker;
     [SerializeField] private CanvasScaler scaler;
     [SerializeField] private PlanetUI ui;
-    [SerializeField] public UnityEvent<Planet> OnClick;
+    [SerializeField] private PlanetaryShipmentCenter planetaryShipmentCenter;
+    //[SerializeField] public UnityEvent<Planet> OnClick;
     public Dictionary<ItemType, int> needs { get; private set; } = new Dictionary<ItemType, int>();
 
     private void Start()
@@ -75,7 +81,9 @@ public class Planet : MonoBehaviour
 
     private void OnMouseDown()
     {
-        OnClick?.Invoke(this);
+        //OnClick?.Invoke(this);
+        Debug.Log("this is piss");
+        planetaryShipmentCenter.OnPlanetClicked(this);
     }
 
     private void InitRandom()

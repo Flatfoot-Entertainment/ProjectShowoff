@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.Events;
 using UnityEngine.UI;
 using TMPro;
 
@@ -164,15 +165,9 @@ public class PlanetWindow : EditorWindow
     {
         planet.HitMarker = hitMarker;
         planet.Scaler = scaler;
-        if (planet)
-        {
-            Debug.Log("trying to add listener...");
-            planet.OnClick.AddListener((planet) =>
-                    {
-                        Debug.Log("aoijdbgroidkpg");
-                        planetCanvasComponents.GetComponent<PlanetaryShipmentCenter>().OnPlanetClicked(planet);
-                    });
-        }
+        planet.PlanetaryShipmentCenter = planetCanvasComponents.GetComponent<PlanetaryShipmentCenter>();
+
+        Debug.Log("trying to add listener...");
         //TODO setup the unity event from the Planet script
 
         GameObject uiContainer = Instantiate(planetUIContainer, ordersParent.position, Quaternion.identity, ordersParent);
