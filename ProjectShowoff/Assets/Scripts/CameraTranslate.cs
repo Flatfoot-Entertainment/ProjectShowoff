@@ -8,14 +8,12 @@ public class CameraTranslate : MonoBehaviour
 {
 	[SerializeField] private CinemachineBrain brain;
 	private CinemachineVirtualCamera lastCam;
-	[SerializeField] private CinemachineVirtualCamera planetVCam;
 	[SerializeField] private CinemachineVirtualCamera packagingVCam;
 	[SerializeField] private CinemachineVirtualCamera shippingVCam;
 	[SerializeField] private CameraMoveEvent.CameraState initialView;
 
 	private IEnumerable<CinemachineVirtualCamera> AllCams()
 	{
-		yield return planetVCam;
 		yield return packagingVCam;
 		yield return shippingVCam;
 	}
@@ -47,9 +45,6 @@ public class CameraTranslate : MonoBehaviour
 		CinemachineVirtualCamera newCam = null;
 		switch (newState)
 		{
-			case CameraMoveEvent.CameraState.Planets:
-				newCam = planetVCam;
-				break;
 			case CameraMoveEvent.CameraState.Packaging:
 				newCam = packagingVCam;
 				break;
