@@ -9,6 +9,8 @@ public class PlanetWindow : EditorWindow
 {
     private static GameObject objectCenter;
     private GameObject planetPrefab;
+
+    private GameObject planetCanvasComponents;
     private PlanetPrefabSettings planetPrefabSettings; //to replace the one prefab that its used rn
     private bool isPlanetScaleRandom = false;
     private int planetCount = 3;
@@ -65,6 +67,10 @@ public class PlanetWindow : EditorWindow
             EditorGUILayout.Space(25f);
             EditorGUILayout.LabelField("The UI container per planet (must be a prefab)");
             planetUIContainer = EditorGUILayout.ObjectField("Planet UI Container: ", planetUIContainer, typeof(GameObject), false) as GameObject;
+
+            EditorGUILayout.Space(25f);
+            EditorGUILayout.LabelField("The Planet Canvas components needed to be able to click on the planets (UI/PlanetUI/PlanetCanvasComponents");
+            planetCanvasComponents = EditorGUILayout.ObjectField("Planet Canvas component: ", planetCanvasComponents, typeof(GameObject), true) as GameObject;
 
             EditorGUILayout.Space(25f);
             EditorGUILayout.LabelField("The order UI container for the planets' UIs (The scene you are on/UI/PersistentUI/GameObject/Orders)");
@@ -158,7 +164,15 @@ public class PlanetWindow : EditorWindow
     {
         planet.HitMarker = hitMarker;
         planet.Scaler = scaler;
-
+        if (planet)
+        {
+            Debug.Log("trying to add listener...");
+            planet.OnClick.AddListener((planet) =>
+                    {
+                        Debug.Log("aoijdbgroidkpg");
+                        planetCanvasComponents.GetComponent<PlanetaryShipmentCenter>().OnPlanetClicked(planet);
+                    });
+        }
         //TODO setup the unity event from the Planet script
 
         GameObject uiContainer = Instantiate(planetUIContainer, ordersParent.position, Quaternion.identity, ordersParent);
@@ -178,6 +192,7 @@ public class PlanetWindow : EditorWindow
         planetUI.FuelText = fuelText;
         planetUI.MechanicalText = mechanicalText;
         planetUI.MedicineText = medicineText;
+
     }
 
     private void CreatePlanets()

@@ -22,7 +22,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private RectTransform hitMarker;
     [SerializeField] private CanvasScaler scaler;
     [SerializeField] private PlanetUI ui;
-    [SerializeField] private UnityEvent<Planet> OnClick;
+    [SerializeField] public UnityEvent<Planet> OnClick;
     public Dictionary<ItemType, int> needs { get; private set; } = new Dictionary<ItemType, int>();
 
     private void Start()
