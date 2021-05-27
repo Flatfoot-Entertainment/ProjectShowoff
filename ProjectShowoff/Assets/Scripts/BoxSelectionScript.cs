@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class BoxSelectionScript : MonoBehaviour
 {
-    [SerializeField] private Sprite[] boxImages;
-
-    [SerializeField] private Material transparentColor;
+	[SerializeField] private Material transparentColor;
 
     [SerializeField] private GameObject boxSelectionGroup;
     [SerializeField] private GameObject[] boxSelectionModels;
@@ -36,8 +34,8 @@ public class BoxSelectionScript : MonoBehaviour
     {
         int previousIndex = boxSelectionIndex;
         boxSelectionIndex += direction;
-        if (boxSelectionIndex < 0) boxSelectionIndex = boxImages.Length - 1;
-        else if (boxSelectionIndex >= boxImages.Length) boxSelectionIndex = 0;
+        boxSelectionIndex = boxSelectionIndex < 0 ? boxSelectionModels.Length - 1 : boxSelectionIndex;
+        boxSelectionIndex = boxSelectionIndex >= boxSelectionModels.Length ? 0 : boxSelectionIndex;
 
         if (previousIndex != boxSelectionIndex)
         {
