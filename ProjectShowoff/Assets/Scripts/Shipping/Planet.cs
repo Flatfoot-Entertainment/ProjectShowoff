@@ -81,8 +81,6 @@ public class Planet : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //OnClick?.Invoke(this);
-        Debug.Log("this is piss");
         planetaryShipmentCenter.OnPlanetClicked(this);
     }
 
