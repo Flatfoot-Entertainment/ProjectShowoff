@@ -20,7 +20,6 @@ public class BoxSelectionScript : MonoBehaviour
     private int boxSelectionIndex;
 
     [SerializeField] private Material previewMaterial;
-    [SerializeField] private GameObject boxSelectionGroup;
     [SerializeField] private FulfillmentCenter fulfillmentCenter;
 
     [SerializeField] private Button confirmButton;
