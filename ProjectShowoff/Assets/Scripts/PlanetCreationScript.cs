@@ -15,13 +15,6 @@ public class PlanetCreationScript : MonoBehaviour
     [SerializeField] private GameObject planetPrefab;
     [SerializeField] private Bounds volumeBounds;
 
-
-
-    [SerializeField] private TMP_Text foodText;
-    [SerializeField] private TMP_Text fuelText;
-    [SerializeField] private TMP_Text medicineText;
-    [SerializeField] private TMP_Text mechanicalText;
-
     [SerializeField] private RectTransform hitMarker;
     [SerializeField] private CanvasScaler scaler;
 
@@ -35,10 +28,7 @@ public class PlanetCreationScript : MonoBehaviour
     {
         GetComponent<BoxCollider>().enabled = false;
     }
-    private void OnEnable()
-    {
 
-    }
     private void OnDrawGizmos()
     {
         volumeBounds.center = GetComponent<BoxCollider>().bounds.center;
@@ -46,11 +36,6 @@ public class PlanetCreationScript : MonoBehaviour
         //transform.position = volumeBounds.center;
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(transform.position, 0.5f);
-    }
-
-    private void PlacePlanetPositions()
-    {
-
     }
     private void AddPlanet()
     {
@@ -68,8 +53,8 @@ public class PlanetCreationScript : MonoBehaviour
         {
             planet.transform.localScale = Vector3.one * uniformScale;
         }
-        GameObject uiContainer = Instantiate(planetUIContainer, ordersParent.position, Quaternion.identity, ordersParent);
-        uiContainer.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = planet.name;
+        SetupPlanetUI(planet.GetComponent<Planet>());
+        ConnectPlanetUI(transform.childCount - 1); //this can break so easily...
     }
 
     private void AddPlanets()
@@ -124,10 +109,29 @@ public class PlanetCreationScript : MonoBehaviour
         return randomPosition;
     }
 
-    private void SetupPlanetUI(Planet planet, PlanetUI planetUI)
+    private void SetupPlanetUI(Planet planet)
     {
         planet.HitMarker = hitMarker;
         planet.Scaler = scaler;
+
+
+        GameObject uiContainer = Instantiate(planetUIContainer, ordersParent.position, Quaternion.identity, ordersParent);
+        uiContainer.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = planet.name;
+    }
+
+    private void ConnectPlanetUI(int index)
+    {
+        PlanetUI planetUI = transform.GetChild(index).GetComponent<PlanetUI>();
+        //TODO jesus christ...
+        TextMeshProUGUI fuelText = ordersParent.GetChild(index).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI mechanicalText = ordersParent.GetChild(index).GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI medicineText = ordersParent.GetChild(index).GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI foodText = ordersParent.GetChild(index).GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>();
+
+        planetUI.FoodText = foodText;
+        planetUI.FuelText = fuelText;
+        planetUI.MechanicalText = mechanicalText;
+        planetUI.MedicineText = medicineText;
     }
 
     public void CreatePlanets()
