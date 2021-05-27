@@ -82,7 +82,7 @@ public class BoxSelectionScript : MonoBehaviour
 	    }
     }
 
-    private void ConfirmBox()
+    public void ConfirmBox()
     {
 	    BoxSize box = boxSettings[boxSelectionIndex];
 	    if (CurrentBox().price > GameHandler.Instance.Money) return;
