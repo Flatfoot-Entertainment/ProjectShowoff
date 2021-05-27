@@ -16,7 +16,8 @@ public enum GameState
 public enum RandomEvent
 {
     LightsOff,
-    Turbulence
+    Shake,
+    GravityRemove
 }
 
 public abstract class GameHandler : MonoBehaviour
@@ -62,7 +63,7 @@ public abstract class GameHandler : MonoBehaviour
         EventScript.Handler.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
         EventScript.Handler.Subscribe(EventType.ConveyorUpgrade, UpgradeConveyorBelt);
         moneyText.text = "Money: " + money;
-        Debug.Log("blablabla");
+        DoRandomEvent();
     }
 
     private void OnDestroy()
@@ -157,7 +158,34 @@ public abstract class GameHandler : MonoBehaviour
         else Debug.LogError("SpawnerController not found when upgrading conveyor belts");
     }
 
+    private void DoRandomEvent()
+    {
+        RandomEvent randomEvent = Extensions.RandomEnumValue<RandomEvent>();
+        switch (randomEvent)
+        {
+            case RandomEvent.LightsOff:
+                break;
+            case RandomEvent.Shake:
+                break;
+            case RandomEvent.GravityRemove:
+                break;
+        }
+    }
 
+    private void DoLightsOff()
+    {
+
+    }
+
+    private void DoShake()
+    {
+
+    }
+
+    private void DoGravityRemove()
+    {
+
+    }
 
     //TODO make into an event
     public void OnAddShip()

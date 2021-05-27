@@ -69,7 +69,7 @@ public class PlanetWindow : EditorWindow
             if (GUILayout.Button("Generate planet center"))
             {
                 //todo check if already exists
-                objectCenter = new GameObject("Object center", typeof(BoxCollider));
+                objectCenter = new GameObject("Object center", typeof(BoxCollider), typeof(PlanetToolScript));
             }
 
             EditorGUILayout.Space(25f);
