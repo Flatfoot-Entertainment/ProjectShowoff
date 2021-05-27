@@ -55,32 +55,26 @@ public abstract class GameHandler : MonoBehaviour
 		EventScript.Handler.Subscribe(EventType.ManageMoney, ManageMoney);
 		EventScript.Handler.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
 		EventScript.Handler.Subscribe(EventType.ConveyorUpgrade, UpgradeConveyorBelt);
-
-		//EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, OnUpgradeBought);
 		moneyText.text = "Money: " + money;
 	}
 
 	private void OnDestroy()
 	{
-
-		//EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnUpgradeBought);
 		OnDestroyCallback();
 	}
 
 	private void ManageMoney(Event e)
 	{
-		ManageMoneyEvent manageEvent = e as ManageMoneyEvent;
-		money += manageEvent.Amount;
+		if (!(e is ManageMoneyEvent moneyEvent)) return;
+		money += moneyEvent.Amount;
 		moneyText.text = "Money: " + money;
 	}
 
 	private void ManageUpgrade(Event e)
 	{
-		if (e is ManageUpgradeEvent upgradeEvent)
-		{
-			money -= upgradeEvent.Upgrade.Cost;
-			moneyText.text = "Money: " + money;
-		}
+		if (!(e is ManageUpgradeEvent upgradeEvent)) return;
+		money -= upgradeEvent.Upgrade.Cost;
+		moneyText.text = "Money: " + money;
 	}
 
 	protected virtual void OnDestroyCallback()
@@ -117,8 +111,7 @@ public abstract class GameHandler : MonoBehaviour
 	}
 	public void UpgradeConveyorBelt(Event e)
 	{
-		ConveyorUpgradeEvent upgrade = e as ConveyorUpgradeEvent;
-		if (upgrade == null) return;
+		if (!(e is ConveyorUpgradeEvent upgrade)) return;
 		int level = upgrade.Level;
 		//TODO into an event, this is horrible
 		SpawnerController spawnerController = GetComponent<SpawnerController>();

@@ -31,7 +31,7 @@ MonoBehaviour:
     - {fileID: 1366592270240369636, guid: dd002e302e30a454b86ce596968432a7, type: 3}
     - {fileID: 1603280094430692019, guid: 99d19fded46f7334c80bd20845445a8e, type: 3}
   fuelSettings:
-    type: 0
+    type: 3
     chance: 0.25
     chanceLowValue: 0.75
     lowValue: 25
@@ -48,7 +48,7 @@ MonoBehaviour:
     - {fileID: 2969503543021840880, guid: 2953bdc970e9b0540a689a97cca097a6, type: 3}
     - {fileID: 9068874700518143638, guid: f268943ec4cc6214b8b193413700706d, type: 3}
   mechanicalPartsSettings:
-    type: 0
+    type: 1
     chance: 0.25
     chanceLowValue: 0.75
     lowValue: 25
@@ -65,7 +65,7 @@ MonoBehaviour:
     - {fileID: 4129132757633139620, guid: 354a0a0fb888a904cb9a6fedd3d12dc7, type: 3}
     - {fileID: 235638728915453378, guid: 94c517f12529ae64eabf440149fa5575, type: 3}
   medicineSettings:
-    type: 0
+    type: 2
     chance: 0.25
     chanceLowValue: 0.75
     lowValue: 25
