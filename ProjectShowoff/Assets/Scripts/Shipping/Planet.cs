@@ -18,6 +18,7 @@ public class Planet : MonoBehaviour
         set => scaler = value;
     }
 
+
     [SerializeField] private RectTransform hitMarker;
     [SerializeField] private CanvasScaler scaler;
     [SerializeField] private PlanetUI ui;

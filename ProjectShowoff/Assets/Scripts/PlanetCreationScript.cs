@@ -114,6 +114,7 @@ public class PlanetCreationScript : MonoBehaviour
         planet.HitMarker = hitMarker;
         planet.Scaler = scaler;
 
+        //TODO setup the unity event from the Planet script
 
         GameObject uiContainer = Instantiate(planetUIContainer, ordersParent.position, Quaternion.identity, ordersParent);
         uiContainer.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = planet.name;
