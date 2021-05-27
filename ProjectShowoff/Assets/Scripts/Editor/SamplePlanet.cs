@@ -20,12 +20,12 @@ public class SamplePlanet : Editor
         //     EditorGUILayout.FloatField(serializedObject.FindProperty("minPlanetScale").floatValue);
         //     EditorGUILayout.FloatField(serializedObject.FindProperty("maxPlanetScale").floatValue);
         // }
-        if (GUILayout.Button("Generate"))
-        {
-            if (serializedObject.targetObject is PlanetCreationScript planetCreationScript)
-            {
-                planetCreationScript.CreatePlanets();
-            }
-        }
+        // if (GUILayout.Button("Generate"))
+        // {
+        //     if (serializedObject.targetObject is PlanetCreationScript planetCreationScript)
+        //     {
+        //         planetCreationScript.CreatePlanets();
+        //     }
+        // }
     }
 }
