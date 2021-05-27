@@ -15,6 +15,7 @@ public class ItemCreator : EditorWindow
 	private string selectedCollider = "";
 	
 	// TODO initial rotation
+	// TODO special properties
 
 	[MenuItem("Tooling/Item Creator")]
 	private static void ShowWindow()
