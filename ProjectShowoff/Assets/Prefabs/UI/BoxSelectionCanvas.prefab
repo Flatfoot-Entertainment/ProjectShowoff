@@ -723,7 +723,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6020857778769101214}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -6.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -814,8 +814,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e914768ca085488696a709892487d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  validPreview: {r: 0.028004408, g: 1, b: 0, a: 0.41960785}
-  invalidPreview: {r: 0.6603774, g: 0, b: 0, a: 0.34901962}
+  validPreview: {r: 0.39738068, g: 1, b: 0.3820755, a: 0.43137255}
+  invalidPreview: {r: 1, g: 0, b: 0, a: 0.5372549}
   boxSettings:
   - prefab: {fileID: 9028013331057377281, guid: e848e98a82a2efa40bc203b37dec12cb, type: 3}
     preview: {fileID: 6867721073626991547}
@@ -829,6 +829,7 @@ MonoBehaviour:
   previewMaterial: {fileID: 2100000, guid: 9753ff73068929d4a80bcbb7530819a3, type: 2}
   fulfillmentCenter: {fileID: 0}
   confirmButton: {fileID: 6381420637273587525}
+  boxCostText: {fileID: 6526570677363432943}
 --- !u!114 &6020857778769101208
 MonoBehaviour:
   m_ObjectHideFlags: 0
