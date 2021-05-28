@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ReadonlyHack : UnityEditor.AssetModificationProcessor
 {
-
 	static string[] OnWillSaveAssets(string[] paths)
 	{
 		List<string> saveable = new List<string>();
