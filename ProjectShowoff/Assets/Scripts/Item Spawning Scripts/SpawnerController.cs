@@ -6,7 +6,7 @@ public class SpawnerController : MonoBehaviour
 {
     // TODO has a bunch of Debug.Logs
 
-    public int ConveyorInitialSpeed => (int)conveyors[0].InitialSpeed;
+    public int ConveyorInitialSpeed = 2;
 
     [SerializeField] private List<ItemSpawner> spawners = new List<ItemSpawner>();
     [SerializeField] private List<ConveyorSetupScript> conveyors = new List<ConveyorSetupScript>();
@@ -120,10 +120,13 @@ public class SpawnerController : MonoBehaviour
 
     public void ChangeConveyorSpeed(int speed)
     {
+		Debug.Log("Number of conveyors: " + conveyors.Count);
         foreach (ConveyorSetupScript conveyor in conveyors)
         {
+            Debug.Log("Checking conveyorScript " + conveyor);
             foreach (SimpleConveyor simpleConveyor in conveyor.ConveyorScripts)
             {
+                Debug.Log("		Checking SimpleConveyor: " + simpleConveyor);
                 simpleConveyor.Speed = speed;
             }
         }

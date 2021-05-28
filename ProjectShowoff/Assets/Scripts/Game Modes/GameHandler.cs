@@ -43,6 +43,8 @@ public abstract class GameHandler : MonoBehaviour
     [SerializeField] private float lightsOffDuration, gravityRemoveDuration, conveyorOverloadDuration, conveyorSpeedUpValue;
     [SerializeField] private int randomEventOccurance;
 
+    [SerializeField] private bool randomEventFinished = true;
+
     [SerializeField] private SpawnerController spawnerController;
 
     [SerializeField] private Transform itemsSpawned;
@@ -84,9 +86,14 @@ public abstract class GameHandler : MonoBehaviour
         moneyText.text = "Money: " + money;
         itemsSpawned = GameObject.Find("Items Spawned").transform;
         spawnerController = GetComponent<SpawnerController>();
-        InvokeRepeating("DoRandomEvent", randomEventOccurance, randomEventOccurance);
     }
 
+
+    private void Update() {
+        if(randomEventFinished){
+            Invoke("DoRandomEvent", randomEventOccurance);
+        }
+    }
     private void OnDestroy()
     {
         OnDestroyCallback();
@@ -182,7 +189,9 @@ public abstract class GameHandler : MonoBehaviour
     //TODO turn the random events into classes
     private void DoRandomEvent()
     {
-        RandomEvent randomEvent = Extensions.RandomEnumValue<RandomEvent>();
+        RandomEvent randomEvent = RandomEvent.ConveyorOverload;
+        //Extensions.RandomEnumValue<RandomEvent>();
+        randomEventFinished = false;
         Debug.Log("random event runs now: " + randomEvent);
         switch (randomEvent)
         {
@@ -219,6 +228,7 @@ public abstract class GameHandler : MonoBehaviour
         }
         //todo remove magic values, maybe handle in CameraTranslate
         virtualCamera.transform.DOShakePosition(0.5f, 1, 2, 88, false, true);
+        randomEventFinished = true;
     }
 
 
@@ -237,6 +247,7 @@ public abstract class GameHandler : MonoBehaviour
         worldLight.SetActive(false);
         yield return new WaitForSeconds(duration);
         worldLight.SetActive(true);
+        randomEventFinished = true;
     }
 
     private IEnumerator GravityRemove(float duration)
@@ -244,6 +255,7 @@ public abstract class GameHandler : MonoBehaviour
         Physics.gravity = -Vector3.up;
         yield return new WaitForSeconds(duration);
         Physics.gravity = new Vector3(0f, -9.81f, 0f);
+        randomEventFinished = true;
     }
 
     private IEnumerator ConveyorOverload(float duration)
@@ -251,6 +263,7 @@ public abstract class GameHandler : MonoBehaviour
         spawnerController.ChangeConveyorSpeed((int)conveyorSpeedUpValue);
         yield return new WaitForSeconds(duration);
         spawnerController.ChangeConveyorSpeed(spawnerController.ConveyorInitialSpeed);
+        randomEventFinished = true;
     }
 
     private void ApplyRandomForce(Rigidbody rb)
