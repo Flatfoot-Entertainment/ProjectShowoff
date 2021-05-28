@@ -86,14 +86,9 @@ public abstract class GameHandler : MonoBehaviour
         moneyText.text = "Money: " + money;
         itemsSpawned = GameObject.Find("Items Spawned").transform;
         spawnerController = GetComponent<SpawnerController>();
+        StartCoroutine(DoRandomEvent());
     }
 
-
-    private void Update() {
-        if(randomEventFinished){
-            Invoke("DoRandomEvent", randomEventOccurance);
-        }
-    }
     private void OnDestroy()
     {
         OnDestroyCallback();
@@ -187,11 +182,10 @@ public abstract class GameHandler : MonoBehaviour
     }
 
     //TODO turn the random events into classes
-    private void DoRandomEvent()
+    private IEnumerator DoRandomEvent()
     {
-        RandomEvent randomEvent = RandomEvent.ConveyorOverload;
-        //Extensions.RandomEnumValue<RandomEvent>();
-        randomEventFinished = false;
+        yield return new WaitForSeconds(randomEventOccurance);
+        RandomEvent randomEvent = Extensions.RandomEnumValue<RandomEvent>();
         Debug.Log("random event runs now: " + randomEvent);
         switch (randomEvent)
         {
@@ -216,7 +210,7 @@ public abstract class GameHandler : MonoBehaviour
         StartCoroutine(LightsOff(duration));
     }
 
-    private void DoShake()
+    private IEnumerator DoShake()
     {
         foreach (Transform item in itemsSpawned)
         {
@@ -227,8 +221,8 @@ public abstract class GameHandler : MonoBehaviour
             }
         }
         //todo remove magic values, maybe handle in CameraTranslate
-        virtualCamera.transform.DOShakePosition(0.5f, 1, 2, 88, false, true);
-        randomEventFinished = true;
+        virtualCamera.transform.DOShakePosition(0.5f, 100, 10, 180, false, true);
+        yield return DoRandomEvent();
     }
 
 
@@ -247,7 +241,7 @@ public abstract class GameHandler : MonoBehaviour
         worldLight.SetActive(false);
         yield return new WaitForSeconds(duration);
         worldLight.SetActive(true);
-        randomEventFinished = true;
+        yield return DoRandomEvent();
     }
 
     private IEnumerator GravityRemove(float duration)
@@ -255,7 +249,7 @@ public abstract class GameHandler : MonoBehaviour
         Physics.gravity = -Vector3.up;
         yield return new WaitForSeconds(duration);
         Physics.gravity = new Vector3(0f, -9.81f, 0f);
-        randomEventFinished = true;
+        yield return DoRandomEvent();
     }
 
     private IEnumerator ConveyorOverload(float duration)
@@ -263,13 +257,13 @@ public abstract class GameHandler : MonoBehaviour
         spawnerController.ChangeConveyorSpeed((int)conveyorSpeedUpValue);
         yield return new WaitForSeconds(duration);
         spawnerController.ChangeConveyorSpeed(spawnerController.ConveyorInitialSpeed);
-        randomEventFinished = true;
+        yield return DoRandomEvent();
     }
 
     private void ApplyRandomForce(Rigidbody rb)
     {
-        Vector3 randomForce = new Vector3(Random.Range(minRandomShake, maxRandomShake), Random.Range(minRandomShake, maxRandomShake), Random.Range(minRandomShake, maxRandomShake));
-        rb.AddForce(randomForce, ForceMode.Impulse);
+        Vector3 rand = Random.onUnitSphere * Random.Range(minRandomShake, maxRandomShake);
+        rb.AddForce(rand, ForceMode.Impulse);
     }
 
     //TODO make into an event

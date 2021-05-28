@@ -120,13 +120,10 @@ public class SpawnerController : MonoBehaviour
 
     public void ChangeConveyorSpeed(int speed)
     {
-		Debug.Log("Number of conveyors: " + conveyors.Count);
         foreach (ConveyorSetupScript conveyor in conveyors)
         {
-            Debug.Log("Checking conveyorScript " + conveyor);
             foreach (SimpleConveyor simpleConveyor in conveyor.ConveyorScripts)
             {
-                Debug.Log("		Checking SimpleConveyor: " + simpleConveyor);
                 simpleConveyor.Speed = speed;
             }
         }
