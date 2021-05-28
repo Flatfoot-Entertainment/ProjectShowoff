@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
+using Cinemachine;
 
 //the base game class, don't even know what to put in here yet
 
@@ -17,6 +19,7 @@ public enum RandomEvent
 {
     LightsOff,
     Shake,
+    ConveyorOverload,
     GravityRemove
 }
 
@@ -26,9 +29,25 @@ public abstract class GameHandler : MonoBehaviour
     [SerializeField] private float money;
     [SerializeField] private GameState gameState;
 
+    [SerializeField] private GameObject worldLight;
+
     [SerializeField] private GameObject[] conveyorStopButtons;
 
     [SerializeField] private GameObject[] leftConveyorBelts, rightConveyorBelts;
+
+    [Header("Random event properties")]
+
+
+
+    [SerializeField] private float minRandomShake, maxRandomShake;
+    [SerializeField] private float lightsOffDuration, gravityRemoveDuration, conveyorOverloadDuration, conveyorSpeedUpValue;
+    [SerializeField] private int randomEventOccurance;
+
+    [SerializeField] private SpawnerController spawnerController;
+
+    [SerializeField] private Transform itemsSpawned;
+
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
     //TODO already 3 references of the fulfillment center in the project, make it one
     private FulfillmentCenter fulfillmentCenter;
@@ -63,7 +82,9 @@ public abstract class GameHandler : MonoBehaviour
         EventScript.Handler.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
         EventScript.Handler.Subscribe(EventType.ConveyorUpgrade, UpgradeConveyorBelt);
         moneyText.text = "Money: " + money;
-        DoRandomEvent();
+        itemsSpawned = GameObject.Find("Items Spawned").transform;
+        spawnerController = GetComponent<SpawnerController>();
+        InvokeRepeating("DoRandomEvent", randomEventOccurance, randomEventOccurance);
     }
 
     private void OnDestroy()
@@ -158,33 +179,84 @@ public abstract class GameHandler : MonoBehaviour
         else Debug.LogError("SpawnerController not found when upgrading conveyor belts");
     }
 
+    //TODO turn the random events into classes
     private void DoRandomEvent()
     {
         RandomEvent randomEvent = Extensions.RandomEnumValue<RandomEvent>();
+        Debug.Log("random event runs now: " + randomEvent);
         switch (randomEvent)
         {
             case RandomEvent.LightsOff:
+                DoLightsOff(lightsOffDuration);
                 break;
             case RandomEvent.Shake:
+                DoShake();
                 break;
             case RandomEvent.GravityRemove:
+                DoGravityRemove(gravityRemoveDuration);
+                break;
+            case RandomEvent.ConveyorOverload:
+                //todo for some reason it doesn't affect the upgraded conveyors
+                DoConveyorOverload(conveyorOverloadDuration);
                 break;
         }
     }
 
-    private void DoLightsOff()
+    private void DoLightsOff(float duration)
     {
-
+        StartCoroutine(LightsOff(duration));
     }
 
     private void DoShake()
     {
-
+        foreach (Transform item in itemsSpawned)
+        {
+            Rigidbody itemRb = item.GetComponent<Rigidbody>();
+            if (itemRb != null)
+            {
+                ApplyRandomForce(itemRb);
+            }
+        }
+        //todo remove magic values, maybe handle in CameraTranslate
+        virtualCamera.transform.DOShakePosition(0.5f, 1, 2, 88, false, true);
     }
 
-    private void DoGravityRemove()
-    {
 
+    private void DoGravityRemove(float duration)
+    {
+        StartCoroutine(GravityRemove(duration));
+    }
+
+    private void DoConveyorOverload(float duration)
+    {
+        StartCoroutine(ConveyorOverload(duration));
+    }
+
+    private IEnumerator LightsOff(float duration)
+    {
+        worldLight.SetActive(false);
+        yield return new WaitForSeconds(duration);
+        worldLight.SetActive(true);
+    }
+
+    private IEnumerator GravityRemove(float duration)
+    {
+        Physics.gravity = -Vector3.up;
+        yield return new WaitForSeconds(duration);
+        Physics.gravity = new Vector3(0f, -9.81f, 0f);
+    }
+
+    private IEnumerator ConveyorOverload(float duration)
+    {
+        spawnerController.ChangeConveyorSpeed((int)conveyorSpeedUpValue);
+        yield return new WaitForSeconds(duration);
+        spawnerController.ChangeConveyorSpeed(spawnerController.ConveyorInitialSpeed);
+    }
+
+    private void ApplyRandomForce(Rigidbody rb)
+    {
+        Vector3 randomForce = new Vector3(Random.Range(minRandomShake, maxRandomShake), Random.Range(minRandomShake, maxRandomShake), Random.Range(minRandomShake, maxRandomShake));
+        rb.AddForce(randomForce, ForceMode.Impulse);
     }
 
     //TODO make into an event
