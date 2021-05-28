@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 public static class Extensions
@@ -47,6 +48,11 @@ public static class Extensions
 	}
 
 	public static int LengthOf<T, U>(this Dictionary<T, List<U>> dict, T key)
+	{
+		return dict.ContainsKey(key) && dict[key] != null ? dict[key].Count : 0;
+	}
+
+	public static int LengthOf<T, U>(this ConcurrentDictionary<T, ConcurrentBag<U>> dict, T key)
 	{
 		return dict.ContainsKey(key) && dict[key] != null ? dict[key].Count : 0;
 	}
