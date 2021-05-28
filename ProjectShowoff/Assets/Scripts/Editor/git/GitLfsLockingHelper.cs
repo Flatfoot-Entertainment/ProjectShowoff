@@ -46,12 +46,22 @@ public class GitLfsLockingHelper
 
 	private static void CommandDispatcher(LockingMode mode)
 	{
+		if (Selection.count > 1)
+		{
+			EditorUtility.DisplayDialog("Not supported!",
+				"Locking/Unlocking multiple files at once is not supported (yet)!", "Ok");
+			return;
+		}
 		var (fullPath, subPath) = GetSelectedPath();
 		if (!PathIsDirectory(fullPath))
 		{
 			if (!File.Exists(fullPath))
 			{
 				EditorUtility.DisplayDialog("Does not exist!", "This file does not exist!", "Ok");
+			}
+			else if (!GitSettings.IsLockableExtension(Path.GetExtension(fullPath)))
+			{
+				EditorUtility.DisplayDialog("Not lockable!", "This file is not lockable by Git LFS!", "Ok");
 			}
 			else
 			{
