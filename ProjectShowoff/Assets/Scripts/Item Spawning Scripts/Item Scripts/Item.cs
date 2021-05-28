@@ -18,16 +18,12 @@ public class Item
     public int Price => price;
 
     //prefab to be instantiated in the factory
-    public GameObject ItemPrefab { get => itemPrefab; set => itemPrefab = value; }
-    public Material ItemMaterial { get => itemMaterial; set => itemMaterial = value; }
+    // public GameObject ItemPrefab { get => itemPrefab; set => itemPrefab = value; }
     //additional properties to add: sprite representation, change the isFragile to additional states?
     private readonly ItemType type;
     private readonly bool isFragile;
     private readonly int price;
-    private GameObject itemPrefab;
-
-    //probably temporary
-    private Material itemMaterial;
+    // private GameObject itemPrefab;
 
     public Item(ItemType pType, bool pIsFragile, int pPrice)
     {
