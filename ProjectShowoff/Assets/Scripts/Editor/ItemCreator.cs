@@ -5,6 +5,13 @@ using UnityEditor;
 using UnityEngine;
 public class ItemCreator : EditorWindow
 {
+	private enum ItemProperty
+	{
+		None,
+		Destructible,
+		Explosive
+	}
+	
     private ItemSpawningSettings settings;
     private ItemColliderSettings colliderSettings;
     private int objLayer;
@@ -13,6 +20,11 @@ public class ItemCreator : EditorWindow
     private ItemType itemType;
     private bool expensive;
     private string selectedCollider = "";
+    private ItemProperty property = ItemProperty.None;
+    private float breakForce = 0f;
+    private float explosionForce = 0f;
+    private float explosionRadius = 0f;
+    private GameObject breakableReplacement;
 
     // TODO initial rotation
     // TODO special properties
@@ -46,6 +58,24 @@ public class ItemCreator : EditorWindow
                 modelPrefab = EditorGUILayout.ObjectField("Model", modelPrefab, typeof(GameObject), false)
                     as GameObject;
                 itemType = (ItemType)EditorGUILayout.EnumPopup("Item Type", itemType);
+
+                property = (ItemProperty) EditorGUILayout.EnumPopup("Item Property", property);
+                if (property == ItemProperty.Destructible || property == ItemProperty.Explosive)
+                {
+	                breakableReplacement =
+		                EditorGUILayout.ObjectField("Replacement for broken object", breakableReplacement, typeof(GameObject), false) as GameObject;
+	                breakForce = EditorGUILayout.FloatField("Break Force", breakForce);
+	                if (breakForce < 0f) breakForce = 0f;
+
+	                if (property == ItemProperty.Explosive)
+	                {
+		                explosionForce = EditorGUILayout.FloatField("Explosion Force", explosionForce);
+		                if (explosionForce < 0f) explosionForce = 0f;
+		                explosionRadius = EditorGUILayout.FloatField("Explosion Radius", explosionRadius);
+		                if (explosionRadius < 0f) explosionRadius = 0f;
+	                }
+                }
+
                 expensive = EditorGUILayout.Toggle("Is Expensive", expensive);
 
                 string[] layers = UnityEditorInternal.InternalEditorUtility.layers;
@@ -135,6 +165,23 @@ public class ItemCreator : EditorWindow
         obj.AddComponent<LeanPooledRigidbody>();
         // Set the layer to the one requested
         obj.layer = objLayer;
+
+        obj.AddComponent<ItemScript>();
+
+        if (property == ItemProperty.Destructible)
+        {
+	        ItemPropertyHandler h = obj.AddComponent<ItemPropertyHandler>();
+	        h.maxForce = breakForce;
+	        h.replacedBy = breakableReplacement;
+        }
+        else if (property == ItemProperty.Explosive)
+        {
+	        ExplosiveItemPropertyHandler h = obj.AddComponent<ExplosiveItemPropertyHandler>();
+	        h.maxForce = breakForce;
+	        h.replacedBy = breakableReplacement;
+	        h.force = explosionForce;
+	        h.radius = explosionRadius;
+        }
 
         // Save the prepared object as a new prefab at the requested location
         GameObject saved = PrefabUtility.SaveAsPrefabAsset(obj, fileLocation, out bool success);

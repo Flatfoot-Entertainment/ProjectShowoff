@@ -14,46 +14,39 @@ public class ItemSpawningSettings : ScriptableObject
 		public int lowValue;
 		public float chanceHighValue;
 		public int highValue;
-		public List<GameObject> lowValuePrefabs;
-		public List<GameObject> highValuePrefabs;
+		public List<GameObject> lowValuePrefabs = new List<GameObject>();
+		public List<GameObject> highValuePrefabs = new List<GameObject>();
 
-		public Item GetRandom()
+		public GameObject GetRandom()
 		{
 			bool isLowValue = Random.Range(0f, chanceLowValue + chanceHighValue) < chanceLowValue;
 			int value = isLowValue
 				? lowValue
 				: highValue;
-			Item item = null;
-			switch (type)
+			Item item = type switch
 			{
-				case ItemType.Food:
-					item = new Food(value);
-					break;
-				case ItemType.MechanicalParts:
-					item = new MechanicalParts(value);
-					break;
-				case ItemType.Medicine:
-					item = new Medicine(value);
-					break;
-				case ItemType.Fuel:
-				default:
-					item = new Fuel(value);
-					break;
-			}
-			item.ItemPrefab = isLowValue ? lowValuePrefabs.Random() : highValuePrefabs.Random();
+				ItemType.Food => new Food(value),
+				ItemType.MechanicalParts => new MechanicalParts(value),
+				ItemType.Medicine => new Medicine(value),
+				_ => new Fuel(value)
+			};
+			GameObject prefab = isLowValue ? lowValuePrefabs.Random() : highValuePrefabs.Random();
+			ItemScript script = prefab.GetComponent<ItemScript>();
+			if (!script) Debug.LogError("WTF???");
+			script.contained = item;
 
-			return item;
+			return prefab;
 		}
 	}
 
 	public ItemTypeSettings FoodSettings => foodSettings;
-	[SerializeField] private ItemTypeSettings foodSettings;
+	[SerializeField] private ItemTypeSettings foodSettings = new ItemTypeSettings();
 	public ItemTypeSettings FuelSettings => fuelSettings;
-	[SerializeField] private ItemTypeSettings fuelSettings;
+	[SerializeField] private ItemTypeSettings fuelSettings = new ItemTypeSettings();
 	public ItemTypeSettings MechanicalPartsSettings => mechanicalPartsSettings;
-	[SerializeField] private ItemTypeSettings mechanicalPartsSettings;
+	[SerializeField] private ItemTypeSettings mechanicalPartsSettings = new ItemTypeSettings();
 	public ItemTypeSettings MedicineSettings => medicineSettings;
-	[SerializeField] private ItemTypeSettings medicineSettings;
+	[SerializeField] private ItemTypeSettings medicineSettings = new ItemTypeSettings();
 
 	public IEnumerable<ItemTypeSettings> AllSettings()
 	{

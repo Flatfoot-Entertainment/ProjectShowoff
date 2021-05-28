@@ -37,7 +37,8 @@ public static class Extensions
 
 	public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
 	{
-		return gameObject.GetComponent<T>() ?? gameObject.AddComponent<T>();
+		T comp = gameObject.GetComponent<T>();
+		return comp ? comp : gameObject.AddComponent<T>();
 	}
 
 	public static U ValueOr<T, U>(this Dictionary<T, U> dict, T key, U defaultValue)

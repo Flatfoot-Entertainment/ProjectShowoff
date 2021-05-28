@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class PercentageItemFactory : MonoBehaviour
 {
@@ -13,7 +10,7 @@ public class PercentageItemFactory : MonoBehaviour
 		settingsCopy = Instantiate(settings);
 	}
 
-	public Item CreateRandomItem()
+	public GameObject CreateRandomItem()
 	{
 		float randVal = Random.Range(0f, settings.GetWholePercentage());
 		float running = 0f;
