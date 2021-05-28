@@ -1,27 +1,48 @@
-﻿using System;
+﻿#if UNITY_EDITOR_WIN
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
-using System.Text;
 using Debug = UnityEngine.Debug;
 
 public class GitLfsLockingHelper
 {
-	private enum LockingMode
+	private enum OperationMode
 	{
 		Lock,
 		Unlock,
 		ForceUnlock
 	}
 
-	private static string GetCommand(LockingMode mode, string path)
+	private static string OperationFancyName(OperationMode mode)
 	{
 		return mode switch
 		{
-			LockingMode.Lock => $"/c git lfs lock \"{path}\"",
-			LockingMode.Unlock => $"/c git lfs unlock \"{path}\"",
-			LockingMode.ForceUnlock => $"/c git lfs unlock \"{path}\" --force",
+			OperationMode.Lock => "Lock",
+			OperationMode.Unlock => "Unlock",
+			OperationMode.ForceUnlock => "Force Unlock",
+			_ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+		};
+	}
+
+	private enum OperationResult
+	{
+		Ok,
+		DirectoriesNotSupported,
+		NotLockable,
+		ProcessFailedToStart,
+		Failed
+	}
+
+	private static string GetCommand(OperationMode mode, string path)
+	{
+		return mode switch
+		{
+			OperationMode.Lock => $"/c git lfs lock \"{path}\"",
+			OperationMode.Unlock => $"/c git lfs unlock \"{path}\"",
+			OperationMode.ForceUnlock => $"/c git lfs unlock \"{path}\" --force",
 			_ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
 		};
 	}
@@ -29,53 +50,106 @@ public class GitLfsLockingHelper
 	[MenuItem("Assets/Git LFS/Lock")]
 	private static void LockFile()
 	{
-		CommandDispatcher(LockingMode.Lock);
+		CommandDispatcher(OperationMode.Lock);
 	}
 
 	[MenuItem("Assets/Git LFS/Unlock")]
 	private static void UnlockFile()
 	{
-		CommandDispatcher(LockingMode.Unlock);
+		CommandDispatcher(OperationMode.Unlock);
 	}
 
 	[MenuItem("Assets/Git LFS/Force Unlock")]
 	private static void ForceUnlockFile()
 	{
-		CommandDispatcher(LockingMode.ForceUnlock);
+		CommandDispatcher(OperationMode.ForceUnlock);
 	}
 
-	private static void CommandDispatcher(LockingMode mode)
+	private static void CommandDispatcher(OperationMode mode)
 	{
-		if (Selection.count > 1)
+		Dictionary<OperationResult, List<string>> results = new Dictionary<OperationResult, List<string>>();
+		string[] paths = GetSelectedAssetPaths();
+		foreach (string path in paths)
 		{
-			EditorUtility.DisplayDialog("Not supported!",
-				"Locking/Unlocking multiple files at once is not supported (yet)!", "Ok");
-			return;
+			OperationResult res = OperateOnFile(path, mode);
+			if (!results.ContainsKey(res)) results[res] = new List<string>();
+			results[res].Add(path);
 		}
-		var (fullPath, subPath) = GetSelectedPath();
-		if (!PathIsDirectory(fullPath))
+		EditorUtility.DisplayDialog(
+			"Git LFS Operation Results",
+			$"Operation: {OperationFancyName(mode)}\n" +
+			$"Successful: {results.LengthOf(OperationResult.Ok)}\n" +
+			$"Failed: {results.LengthOf(OperationResult.Failed)}\n" +
+			$"Not lockable: {results.LengthOf(OperationResult.NotLockable)}\n" +
+			$"Directory (not supported): {results.LengthOf(OperationResult.DirectoriesNotSupported)}\n" +
+			$"Process failed to start: {results.LengthOf(OperationResult.ProcessFailedToStart)}\n\n" +
+			"For more information, view the console.", 
+			"Ok"
+		);
+
+		if (results.LengthOf(OperationResult.Ok) > 0)
 		{
-			if (!File.Exists(fullPath))
+			string msg = $"Successfully locked/unlocked {results.LengthOf(OperationResult.Ok)} files";
+			foreach (string path in results[OperationResult.Ok])
 			{
-				EditorUtility.DisplayDialog("Does not exist!", "This file does not exist!", "Ok");
+				msg += $"\n{path}";
 			}
-			else if (!GitSettings.IsLockableExtension(Path.GetExtension(fullPath)))
-			{
-				EditorUtility.DisplayDialog("Not lockable!", "This file is not lockable by Git LFS!", "Ok");
-			}
-			else
-			{
-				LfsFileHelper(mode, subPath);
-			}
+			Debug.Log(msg);
 		}
-		else
+
+		if (results.LengthOf(OperationResult.NotLockable) > 0)
 		{
-			EditorUtility.DisplayDialog("Not supported", "Currently locking directories is not supported!", "Ok");
+			string msg = $"{results.LengthOf(OperationResult.NotLockable)} files are not lockable (per extension)";
+			foreach (string path in results[OperationResult.NotLockable])
+			{
+				msg += $"\n{path}";
+			}
+
+			Debug.LogWarning(msg);
+		}
+
+		if (results.LengthOf(OperationResult.DirectoriesNotSupported) > 0)
+		{
+			string msg = $"Tried to lock/unlock {results.LengthOf(OperationResult.DirectoriesNotSupported)} directories, which are not supported";
+			foreach (string path in results[OperationResult.DirectoriesNotSupported])
+			{
+				msg += $"\n{path}";
+			}
+
+			Debug.LogWarning(msg);
+		}
+
+		if (results.LengthOf(OperationResult.Failed) > 0)
+		{
+			string msg = $"Failed to lock/unlock {results.LengthOf(OperationResult.Failed)} files. See previous output for more information";
+			foreach (string path in results[OperationResult.Failed])
+			{
+				msg += $"\n{path}";
+			}
+
+			Debug.LogError(msg);
+		}
+
+		if (results.LengthOf(OperationResult.ProcessFailedToStart) > 0)
+		{
+			string msg =
+				$"Failed to start \"git lfs\" process for {results.LengthOf(OperationResult.ProcessFailedToStart)} files.";
+			foreach (string path in results[OperationResult.ProcessFailedToStart])
+			{
+				msg += $"\n{path}";
+			}
+
+			Debug.LogError(msg);
 		}
 	}
 
-	private static void LfsFileHelper(LockingMode mode, string path)
+	private static OperationResult OperateOnFile(string path, OperationMode mode)
 	{
+		if (PathIsDirectory(GetFullAssetPath(path)))
+			return OperationResult.DirectoriesNotSupported;
+		if (!GitSettings.IsLockableExtension(Path.GetExtension(path)))
+			return OperationResult.NotLockable;
+		
 		var gitProc = new ProcessStartInfo
 		{
 			UseShellExecute = false,
@@ -87,38 +161,45 @@ public class GitLfsLockingHelper
 			RedirectStandardError = true,
 			CreateNoWindow = true
 		};
-		// So far only supported on windows
 
 		var proc = Process.Start(gitProc);
 		if (proc == null)
 		{
-			EditorUtility.DisplayDialog("Could not start process!", "", "Ok");
-			return;
+			return OperationResult.ProcessFailedToStart;
 		}
 
 		proc.WaitForExit();
 		if (proc.ExitCode != 0)
 		{
+			
 			string output = proc.StandardOutput.ReadToEnd();
 			string error = proc.StandardError.ReadToEnd();
-			string msgBox = "" + (error.Length > 0 ? $"Standard Error:\n{error}\n" : "")
+			string msg = "" + (error.Length > 0 ? $"Standard Error:\n{error}\n" : "")
 			                   + (output.Length > 0 ? $"Standard Output:\n{output}" : "");
-			EditorUtility.DisplayDialog($"Error (Exit code {proc.ExitCode}", msgBox, "Ok");
+			Debug.LogWarning($"Failed to lock {path}\nOutput:\n{msg}");
+			return OperationResult.Failed;
 		}
-		else
-		{
-			Debug.Log($"(Un-)Locked {path} successfully");
-		}
+
+		Debug.Log($"(Un-)Locked {path} successfully");
+		return OperationResult.Ok;
 	}
 
-	private static (string full, string part) GetSelectedPath()
+	private static string[] GetSelectedAssetPaths()
 	{
-		var selected = Selection.activeObject;
-		var path = AssetDatabase.GetAssetPath(selected);
+		string[] guids = Selection.assetGUIDs;
+		string[] ret = new string[guids.Length];
+		for (var i = 0; i < guids.Length; i++)
+		{
+			ret[i] = AssetDatabase.GUIDToAssetPath(guids[i]);
+		}
+
+		return ret;
+	}
+
+	private static string GetFullAssetPath(string path)
+	{
 		var fullPath = Directory.GetParent(Application.dataPath)?.FullName;
-		if (fullPath != null) return (Path.Combine(fullPath, path), path);
-		Debug.LogError($"{path} has no parent for some reason");
-		return (null, null);
+		return fullPath != null ? Path.Combine(fullPath, path) : null;
 	}
 
 	private static bool PathIsDirectory(string path)
@@ -126,3 +207,6 @@ public class GitLfsLockingHelper
 		return (File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory;
 	}
 }
+#else
+public class GitLfsLockingHelper {}
+#endif
