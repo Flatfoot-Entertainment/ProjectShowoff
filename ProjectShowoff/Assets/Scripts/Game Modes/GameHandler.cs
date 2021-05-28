@@ -222,6 +222,7 @@ public abstract class GameHandler : MonoBehaviour
         }
         //todo remove magic values, maybe handle in CameraTranslate
         virtualCamera.transform.DOShakePosition(0.5f, 100, 10, 180, false, true);
+        yield return new WaitForSeconds(0.1f);
         yield return DoRandomEvent();
     }
 

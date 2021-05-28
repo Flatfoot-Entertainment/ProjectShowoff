@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BoxSelectionScript : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class BoxSelectionScript : MonoBehaviour
     [SerializeField] private FulfillmentCenter fulfillmentCenter;
 
     [SerializeField] private Button confirmButton;
+
+    [SerializeField] private TextMeshProUGUI boxCostText;
     // private Button[] boxButtons;
 
     private void Start()
@@ -44,6 +47,7 @@ public class BoxSelectionScript : MonoBehaviour
         });
         EventScript.Handler.Subscribe(EventType.ManageMoney, _ => OnMoneyChange());
         OnMoneyChange();
+        boxCostText.text = CurrentBox().price.ToString();
     }
 
     public void ChangeImage(int direction)
@@ -60,6 +64,7 @@ public class BoxSelectionScript : MonoBehaviour
 
         boxSettings[boxSelectionIndex].preview.SetActive(true);
         OnMoneyChange();
+        boxCostText.text = CurrentBox().price.ToString();
     }
 
     public void ManageBoxConfirmation()
