@@ -20,7 +20,6 @@ public class BoxSelectionScript : MonoBehaviour
     private int boxSelectionIndex;
 
     [SerializeField] private Material previewMaterial;
-    [SerializeField] private GameObject boxSelectionGroup;
     [SerializeField] private FulfillmentCenter fulfillmentCenter;
 
     [SerializeField] private Button confirmButton;
@@ -83,7 +82,7 @@ public class BoxSelectionScript : MonoBehaviour
 	    }
     }
 
-    private void ConfirmBox()
+    public void ConfirmBox()
     {
 	    BoxSize box = boxSettings[boxSelectionIndex];
 	    if (CurrentBox().price > GameHandler.Instance.Money) return;
