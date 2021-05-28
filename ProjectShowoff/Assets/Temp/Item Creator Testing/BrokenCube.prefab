@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3835596610311478564}
   - component: {fileID: 1048683682344329142}
   - component: {fileID: -7874604816481504528}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: BrokenCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a59050945a47378630d6caebfbf501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 1
+  time: 15
