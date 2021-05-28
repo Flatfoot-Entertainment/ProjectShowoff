@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMODAssets/show off/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637577171345928049
+  lastModified: 637578027366849678
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -123,8 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Sound Effects/Metal
   guid: 25ae311814bede428b51c4f17e232436
-  Banks:
-  - {fileID: -8295734354292883451}
+  Banks: []
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -175,6 +174,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4077855708814446309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Heavy Metal
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Heavy Metal
+  guid: 25ae311814bede428b51c4f17e232436
+  Banks:
+  - {fileID: -8295734354292883451}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 10000
+  Length: 1820
 --- !u!114 &-3735150591796839425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,6 +261,29 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &-1251005416228025889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Light Metal
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Light Metal
+  guid: d1ee3cefa0b7b344816e7c025c2a3e85
+  Banks:
+  - {fileID: -8295734354292883451}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &-602843780159764088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +325,8 @@ MonoBehaviour:
   - {fileID: -7468932998657179198}
   - {fileID: -3735150591796839425}
   - {fileID: -7863125956989581940}
-  - {fileID: -5549767281781990401}
+  - {fileID: -4077855708814446309}
+  - {fileID: -1251005416228025889}
   EditorParameters:
   - {fileID: 3481363397155032009}
   - {fileID: -4453228812851761950}
@@ -291,7 +337,7 @@ MonoBehaviour:
   - {fileID: -8295734354292883451}
   StringsBanks:
   - {fileID: 924476399176111649}
-  stringsBankWriteTime: 637577171345957983
+  stringsBankWriteTime: 637578027366879587
   cacheVersion: 6
 --- !u!114 &924476399176111649
 MonoBehaviour:
@@ -308,11 +354,11 @@ MonoBehaviour:
   Path: FMODAssets/show off/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637577171345957983
+  lastModified: 637578027366879587
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1538
+    Value: 1586
   Exists: 1
 --- !u!114 &995343261419785617
 MonoBehaviour:
@@ -398,7 +444,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 4000
-  Length: 3000
+  Length: 3050
 --- !u!114 &3117856401405548482
 MonoBehaviour:
   m_ObjectHideFlags: 0
