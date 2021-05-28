@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
@@ -7,8 +8,43 @@ using Debug = UnityEngine.Debug;
 
 public class GitLfsLockingHelper
 {
+	private enum LockingMode
+	{
+		Lock,
+		Unlock,
+		ForceUnlock
+	}
+
+	private static string GetCommand(LockingMode mode, string path)
+	{
+		return mode switch
+		{
+			LockingMode.Lock => $"/c git lfs lock \"{path}\"",
+			LockingMode.Unlock => $"/c git lfs unlock \"{path}\"",
+			LockingMode.ForceUnlock => $"/c git lfs unlock \"{path}\" --force",
+			_ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+		};
+	}
+	
 	[MenuItem("Assets/Git LFS/Lock")]
 	private static void LockFile()
+	{
+		CommandDispatcher(LockingMode.Lock);
+	}
+
+	[MenuItem("Assets/Git LFS/Unlock")]
+	private static void UnlockFile()
+	{
+		CommandDispatcher(LockingMode.Unlock);
+	}
+
+	[MenuItem("Assets/Git LFS/Force Unlock")]
+	private static void ForceUnlockFile()
+	{
+		CommandDispatcher(LockingMode.ForceUnlock);
+	}
+
+	private static void CommandDispatcher(LockingMode mode)
 	{
 		var (fullPath, subPath) = GetSelectedPath();
 		if (!PathIsDirectory(fullPath))
@@ -19,7 +55,7 @@ public class GitLfsLockingHelper
 			}
 			else
 			{
-				LockFileHelper(subPath);
+				LfsFileHelper(mode, subPath);
 			}
 		}
 		else
@@ -28,14 +64,14 @@ public class GitLfsLockingHelper
 		}
 	}
 
-	private static void LockFileHelper(string path)
+	private static void LfsFileHelper(LockingMode mode, string path)
 	{
 		var gitProc = new ProcessStartInfo
 		{
 			UseShellExecute = false,
 			WorkingDirectory = Application.dataPath + "/../",
 			FileName = @"C:\Windows\System32\cmd.exe",
-			Arguments = $"/c git lfs lock \"{path}\"",
+			Arguments = GetCommand(mode, path),
 			WindowStyle = ProcessWindowStyle.Hidden,
 			RedirectStandardOutput = true,
 			RedirectStandardError = true,
@@ -61,89 +97,7 @@ public class GitLfsLockingHelper
 		}
 		else
 		{
-			Debug.Log($"Locked {path} successfully");
-		}
-	}
-
-	[MenuItem("Assets/Git LFS/Unlock")]
-	private static void UnlockFile()
-	{
-		var (fullPath, subPath) = GetSelectedPath();
-		if (!PathIsDirectory(fullPath))
-		{
-			if (!File.Exists(fullPath))
-			{
-				EditorUtility.DisplayDialog("Does not exist!", "This file does not exist!", "Ok");
-			}
-			else
-			{
-				UnlockFileHelper(subPath, false);
-			}
-		}
-		else
-		{
-			EditorUtility.DisplayDialog("Not supported", "Currently locking directories is not supported!", "Ok");
-		}
-	}
-
-	[MenuItem("Assets/Git LFS/Force Unlock")]
-	private static void ForceUnlockFile()
-	{
-		if (!EditorUtility.DisplayDialog("Dangerous operation", "Forcing a lock open is normally not a good idea! " +
-		                                                        "Only do it, if you know exactly what you are doing!", 
-			"I know the risks", "Cancel")) return;
-		var (fullPath, subPath) = GetSelectedPath();
-		if (!PathIsDirectory(fullPath))
-		{
-			if (!File.Exists(fullPath))
-			{
-				EditorUtility.DisplayDialog("Does not exist!", "This file does not exist!", "Ok");
-			}
-			else
-			{
-				UnlockFileHelper(subPath, true);
-			}
-		}
-		else
-		{
-			EditorUtility.DisplayDialog("Not supported", "Currently locking directories is not supported!", "Ok");
-		}
-	}
-
-	private static void UnlockFileHelper(string path, bool force)
-	{
-		var gitProc = new ProcessStartInfo
-		{
-			UseShellExecute = false,
-			WorkingDirectory = Application.dataPath + "/../",
-			FileName = @"C:\Windows\System32\cmd.exe",
-			Arguments = $"/c git lfs unlock \"{path}\"" + (force ? " --force" : ""),
-			WindowStyle = ProcessWindowStyle.Hidden,
-			RedirectStandardOutput = true,
-			RedirectStandardError = true,
-			CreateNoWindow = true
-		};
-		// So far only supported on windows
-
-		var proc = Process.Start(gitProc);
-		if (proc == null)
-		{
-			EditorUtility.DisplayDialog("Could not start process!", "", "Ok");
-			return;
-		}
-
-		proc.WaitForExit();
-		if (proc.ExitCode != 0)
-		{
-			string output = proc.StandardOutput.ReadToEnd();
-			string error = proc.StandardError.ReadToEnd();
-			string msgBox = "" + (error.Length > 0 ? $"Standard Error:\n{error}\n" : "")
-			                   + (output.Length > 0 ? $"Standard Output:\n{output}" : "");
-			EditorUtility.DisplayDialog($"Error (Exit code {proc.ExitCode})", msgBox, "Ok");
-		}
-		else
-		{
-			Debug.Log($"Unlocked {path} successfully");
+			Debug.Log($"(Un-)Locked {path} successfully");
 		}
 	}
 
