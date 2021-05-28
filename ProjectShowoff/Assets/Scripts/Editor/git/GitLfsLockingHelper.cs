@@ -6,9 +6,13 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 using Debug = UnityEngine.Debug;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 public class GitLfsLockingHelper
 {
+	private static readonly string DataPath = Application.dataPath;
+	
 	private enum OperationMode
 	{
 		Lock,
@@ -67,14 +71,26 @@ public class GitLfsLockingHelper
 
 	private static void CommandDispatcher(OperationMode mode)
 	{
-		Dictionary<OperationResult, List<string>> results = new Dictionary<OperationResult, List<string>>();
+		ConcurrentDictionary<OperationResult, ConcurrentBag<string>> results =
+			new ConcurrentDictionary<OperationResult, ConcurrentBag<string>>();
+		// Dictionary<OperationResult, List<string>> results = new Dictionary<OperationResult, List<string>>();
 		string[] paths = GetSelectedAssetPaths();
+
+		List<Action> operations = new List<Action>();
+
 		foreach (string path in paths)
 		{
-			OperationResult res = OperateOnFile(path, mode);
-			if (!results.ContainsKey(res)) results[res] = new List<string>();
-			results[res].Add(path);
+			string fullPath = GetFullAssetPath(path);
+			operations.Add(() =>
+			{
+				OperationResult res = OperateOnFile(path, mode, fullPath);
+				if (!results.ContainsKey(res)) results[res] = new ConcurrentBag<string>();
+				results[res].Add(path);
+			});
 		}
+		
+		Parallel.Invoke(operations.ToArray());
+
 		EditorUtility.DisplayDialog(
 			"Git LFS Operation Results",
 			$"Operation: {OperationFancyName(mode)}\n" +
@@ -143,9 +159,9 @@ public class GitLfsLockingHelper
 		}
 	}
 
-	private static OperationResult OperateOnFile(string path, OperationMode mode)
+	private static OperationResult OperateOnFile(string path, OperationMode mode, string fullPath)
 	{
-		if (PathIsDirectory(GetFullAssetPath(path)))
+		if (PathIsDirectory(fullPath))
 			return OperationResult.DirectoriesNotSupported;
 		if (!GitSettings.IsLockableExtension(Path.GetExtension(path)))
 			return OperationResult.NotLockable;
@@ -153,7 +169,7 @@ public class GitLfsLockingHelper
 		var gitProc = new ProcessStartInfo
 		{
 			UseShellExecute = false,
-			WorkingDirectory = Application.dataPath + "/../",
+			WorkingDirectory = DataPath + "/../",
 			FileName = @"C:\Windows\System32\cmd.exe",
 			Arguments = GetCommand(mode, path),
 			WindowStyle = ProcessWindowStyle.Hidden,
@@ -198,7 +214,7 @@ public class GitLfsLockingHelper
 
 	private static string GetFullAssetPath(string path)
 	{
-		var fullPath = Directory.GetParent(Application.dataPath)?.FullName;
+		var fullPath = Directory.GetParent(DataPath)?.FullName;
 		return fullPath != null ? Path.Combine(fullPath, path) : null;
 	}
 
