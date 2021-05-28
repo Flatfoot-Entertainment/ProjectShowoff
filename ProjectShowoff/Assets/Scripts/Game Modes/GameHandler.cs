@@ -29,7 +29,7 @@ public abstract class GameHandler : MonoBehaviour
     [SerializeField] private float money;
     [SerializeField] private GameState gameState;
 
-    [SerializeField] private GameObject worldLight;
+    [SerializeField] private GameObject worldLight, pointLight;
 
     [SerializeField] private GameObject[] conveyorStopButtons;
 
@@ -37,14 +37,9 @@ public abstract class GameHandler : MonoBehaviour
 
     [Header("Random event properties")]
 
-
-
     [SerializeField] private float minRandomShake, maxRandomShake;
     [SerializeField] private float lightsOffDuration, gravityRemoveDuration, conveyorOverloadDuration, conveyorSpeedUpValue;
     [SerializeField] private int randomEventOccurance;
-
-    [SerializeField] private bool randomEventFinished = true;
-
     [SerializeField] private SpawnerController spawnerController;
 
     [SerializeField] private Transform itemsSpawned;
@@ -240,8 +235,10 @@ public abstract class GameHandler : MonoBehaviour
     private IEnumerator LightsOff(float duration)
     {
         worldLight.SetActive(false);
+        pointLight.SetActive(true);
         yield return new WaitForSeconds(duration);
         worldLight.SetActive(true);
+        pointLight.SetActive(false);
         yield return DoRandomEvent();
     }
 
