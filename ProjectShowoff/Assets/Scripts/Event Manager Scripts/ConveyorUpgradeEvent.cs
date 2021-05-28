@@ -11,5 +11,4 @@ public class ConveyorUpgradeEvent : Event
 	{
 		level = pLevel;
 	}
-
 }
