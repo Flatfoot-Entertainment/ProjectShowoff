@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{d7120a00-2af7-43e8-9409-cc08e94013ad}">
+		<property name="assetPath">
+			<value>Plastic Container 1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.44419501133786848</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{9da63076-1ecf-4833-acb1-d821e85766b2}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -15,10 +15,33 @@ MonoBehaviour:
   Path: FMODAssets/show off/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637578027366849678
+  lastModified: 637580664723431658
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &-7911921872830988812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Plastic Container
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Plastic Container
+  guid: 224ff5c24d44c14fb6ad947da38ecc51
+  Banks:
+  - {fileID: -8295734354292883451}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 10000
+  Length: 2000
 --- !u!114 &-7863125956989581940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +305,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 10000
   Length: 2000
 --- !u!114 &-602843780159764088
 MonoBehaviour:
@@ -327,6 +350,7 @@ MonoBehaviour:
   - {fileID: -7863125956989581940}
   - {fileID: -4077855708814446309}
   - {fileID: -1251005416228025889}
+  - {fileID: -7911921872830988812}
   EditorParameters:
   - {fileID: 3481363397155032009}
   - {fileID: -4453228812851761950}
@@ -337,7 +361,7 @@ MonoBehaviour:
   - {fileID: -8295734354292883451}
   StringsBanks:
   - {fileID: 924476399176111649}
-  stringsBankWriteTime: 637578027366879587
+  stringsBankWriteTime: 637580664723461595
   cacheVersion: 6
 --- !u!114 &924476399176111649
 MonoBehaviour:
@@ -354,11 +378,11 @@ MonoBehaviour:
   Path: FMODAssets/show off/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637578027366879587
+  lastModified: 637580664723461595
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1586
+    Value: 1634
   Exists: 1
 --- !u!114 &995343261419785617
 MonoBehaviour:

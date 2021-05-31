@@ -156,7 +156,7 @@
 			<value>1</value>
 		</property>
 		<property name="soundSize">
-			<value>10</value>
+			<value>18</value>
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{ce0b698d-f20e-4afe-949f-d01ab85c7c0c}" />
