@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2094907628644768443}
   - component: {fileID: -7237219809883774358}
   - component: {fileID: 836405684323008688}
+  - component: {fileID: 4148809554787346788}
   m_Layer: 31
   m_Name: Flat Cube medicine
   m_TagString: Untagged
@@ -123,5 +124,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a47bac80a21a18b4b91b990df1cb4e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4148809554787346788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966525279682749082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e20dafe6c4b9d04bbbe4678eb1d4c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
