@@ -13,6 +13,10 @@ public class UpgradeContainer : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI costText;
 	[SerializeField] private Button buyButton;
 
+	[SerializeField] private string levelFormat = "Lv {0}";
+	[SerializeField] private string costFormat = "{0}";
+	[SerializeField] private string allStagesBoughtText = "DONE";
+
 	private bool doneUpgrading;
 
 	private Upgrade upgrade;
@@ -29,9 +33,9 @@ public class UpgradeContainer : MonoBehaviour
 			_ => throw new ArgumentOutOfRangeException()
 		};
 
-		image.sprite = OwnUpgrades()[0].upgradeImage;
-		levelText.text = upgrade.Level.ToString();
-		costText.text = upgrade.Cost.ToString();
+		// TODO pretty crusty to rely on an array with more than one element
+		
+		UpdateUI(OwnUpgrades()[0].upgradeImage);
 		buyButton.interactable = true;
 	}
 
@@ -64,9 +68,14 @@ public class UpgradeContainer : MonoBehaviour
 		upgrade.IncreaseLevel(newLevel.price);
 		upgrade.ApplyUpgrade();
 		
-		levelText.text = $"Lv {upgrade.Level.ToString()}";
-		costText.text = doneUpgrading ? "DONE" : upgrade.Cost.ToString();
-		image.sprite = newLevel.upgradeImage;
+		UpdateUI(newLevel.upgradeImage);
+	}
+
+	private void UpdateUI(Sprite img)
+	{
+		levelText.text = string.Format(levelFormat, upgrade.Level.ToString());
+		costText.text = doneUpgrading ? allStagesBoughtText : string.Format(costFormat, upgrade.Cost.ToString());
+		image.sprite = img;
 	}
 
 	private List<UpgradeSettings.UpgradeLevel> OwnUpgrades()
