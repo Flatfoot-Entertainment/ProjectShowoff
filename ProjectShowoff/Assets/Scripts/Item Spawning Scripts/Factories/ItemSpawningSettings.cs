@@ -34,7 +34,7 @@ public class ItemSpawningSettings : ScriptableObject
 			ItemScript script = prefab.GetComponent<ItemScript>();
 			if (!script) Debug.LogError("WTF???");
 			script.contained = item;
-
+			Debug.Log($"script.contained == null => {script.contained == null}");
 			return prefab;
 		}
 	}

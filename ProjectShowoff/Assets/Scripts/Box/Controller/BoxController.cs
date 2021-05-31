@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT : IBoxData<Contained>
@@ -23,7 +24,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		lid.OnExitCallback += LidExit;
 		lid.OnEnterCallback += LidEnter;
-		body.OnContentsUpdated += UpdateShippable;
+		body.OnContentsUpdated += OnBoxContentsUpdated;
 		UpdateShippable();
 	}
 
@@ -52,7 +53,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		lid.OnExitCallback -= LidExit;
 		lid.OnEnterCallback -= LidEnter;
-		body.OnContentsUpdated -= UpdateShippable;
+		body.OnContentsUpdated -= OnBoxContentsUpdated;
 		// Purge contents
 		PurgeContents();
 	}
@@ -82,6 +83,13 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 			contained.Remove(subject.gameObject);
 			OnObjectRemoved();
 		}
+		UpdateShippable();
+	}
+
+	private void OnBoxContentsUpdated()
+	{
+		var toRemove = contained.Where(o => !body.Has(o)).ToList();
+		foreach (var o in toRemove) contained.Remove(o);
 		UpdateShippable();
 	}
 
