@@ -108,7 +108,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: ebc969c7d8d67a74bbe8c4de46b9a58e, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: ad6733f3c7b84a44d806748974d63288, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 21300000, guid: e68800a0f21400440b5ab6b7dacd38bb, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: d51729c98e5107448ad4b0707bcbe804, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -595,8 +595,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 50
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b5471696bbad1cf4787ddf5e65b86828, type: 2}
+  m_sharedMaterial: {fileID: 3897634772854715015, guid: b5471696bbad1cf4787ddf5e65b86828, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.85
+  m_fontSize: 0.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -767,10 +767,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: f0cb94e61a1320f43947ff496987eb33, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: 8cdc75b3b7075b840b52b0934d3e7c2d, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 8bb935cd06f6c1d4e8cbd22098fac6b4, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: f0cb94e61a1320f43947ff496987eb33, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 95c55c1b6fd6dd9448734b15346beb77, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: 905646eedae0a0f4eac958b874bae1f7, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: e9eaca829437dbb4fb8e2dead34979a6, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -902,7 +902,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: 509ce08159c783c429239ef51e3ec755, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 9782d6f9b20c82d43b3034858c4bb3c4, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 21300000, guid: e68800a0f21400440b5ab6b7dacd38bb, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 743c6b77fcb19b447b9cdee71e3ecba5, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1086,19 +1086,20 @@ MonoBehaviour:
   - prefab: {fileID: 9028013331057377281, guid: e848e98a82a2efa40bc203b37dec12cb, type: 3}
     preview: {fileID: 6867721073626991547}
     price: 25
-    button: {fileID: 5390542187451905358}
+    button: {fileID: 6381420637273587525}
   - prefab: {fileID: 9028013331057377281, guid: da264550324dc9b4f8abdd6f3df3f045, type: 3}
     preview: {fileID: 6867721073647191915}
     price: 50
-    button: {fileID: 830811901936357590}
+    button: {fileID: 6972666238237267561}
   - prefab: {fileID: 9028013331057377281, guid: 789e2a6ee1407d840aa0d5deb01ffde7, type: 3}
     preview: {fileID: 6867721074922127410}
     price: 75
-    button: {fileID: 2681864902144253829}
+    button: {fileID: 4208737375695780844}
   previewMaterial: {fileID: 2100000, guid: 9753ff73068929d4a80bcbb7530819a3, type: 2}
   fulfillmentCenter: {fileID: 0}
-  confirmButton: {fileID: 6381420637273587525}
-  selectionButtons: []
+  selectionButtons:
+  - {fileID: 4306884574834107971}
+  - {fileID: 9078615091936199141}
   boxCostText: {fileID: 6526570677363432943}
 --- !u!114 &6020857778769101208
 MonoBehaviour:
