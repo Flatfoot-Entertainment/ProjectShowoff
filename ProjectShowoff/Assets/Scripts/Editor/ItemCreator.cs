@@ -25,6 +25,7 @@ public class ItemCreator : EditorWindow
     private float explosionForce = 0f;
     private float explosionRadius = 0f;
     private GameObject breakableReplacement;
+    private Vector3 startingRotation;
 
     // TODO initial rotation
     // TODO special properties
@@ -75,6 +76,8 @@ public class ItemCreator : EditorWindow
 		                if (explosionRadius < 0f) explosionRadius = 0f;
 	                }
                 }
+
+                startingRotation = EditorGUILayout.Vector3Field("Starting Rotation", startingRotation);
 
                 expensive = EditorGUILayout.Toggle("Is Expensive", expensive);
 
@@ -163,6 +166,9 @@ public class ItemCreator : EditorWindow
         obj.AddComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
         // Add a LeanPooledRigidBody to work correctly with LeanPool
         obj.AddComponent<LeanPooledRigidbody>();
+
+        ItemRotationScript rotationScript = obj.AddComponent<ItemRotationScript>();
+        rotationScript.boxRotation = startingRotation;
         // Set the layer to the one requested
         obj.layer = objLayer;
 
