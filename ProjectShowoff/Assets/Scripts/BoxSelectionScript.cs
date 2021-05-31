@@ -15,8 +15,7 @@ public class BoxSelectionScript : MonoBehaviour
 		public GameObject prefab;
 		public GameObject preview;
 		public int price;
-        public Sprite spriteEnabled;
-        public Sprite spriteDisabled;
+        public GameObject button;
 	}
 
 	[SerializeField] private BoxSize[] boxSettings;
@@ -35,11 +34,12 @@ public class BoxSelectionScript : MonoBehaviour
         foreach (BoxSize box in boxSettings)
         {
             box.preview.GetComponentInChildren<MeshRenderer>().material = previewMaterial;
+            box.button.SetActive(false);
         }
         fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
         boxSelectionIndex = 0;
         CurrentBox().preview.SetActive(true);
-        ChangeBoxSprite(CurrentBox());
+        CurrentBox().button.SetActive(true);
         EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, _ =>
         {
 	        BoxSize box = boxSettings[boxSelectionIndex];
@@ -61,12 +61,13 @@ public class BoxSelectionScript : MonoBehaviour
         if (previousIndex != boxSelectionIndex)
         {
 	        boxSettings[previousIndex].preview.SetActive(false);
+            boxSettings[previousIndex].button.SetActive(false);
         }
 
         boxSettings[boxSelectionIndex].preview.SetActive(true);
+        boxSettings[boxSelectionIndex].button.SetActive(true);
         OnMoneyChange();
         boxCostText.text = CurrentBox().price.ToString();
-        ChangeBoxSprite(CurrentBox());
     }
     private void OnMoneyChange()
     {
@@ -114,13 +115,5 @@ public class BoxSelectionScript : MonoBehaviour
     private BoxSize CurrentBox()
     {
 	    return boxSettings[boxSelectionIndex];
-    }
-
-    private void ChangeBoxSprite(BoxSize selectedBox){
-        SpriteState buttonSpriteState = confirmButton.spriteState;
-        if(selectedBox.spriteDisabled != null){
-        buttonSpriteState.disabledSprite = selectedBox.spriteDisabled;
-        }
-        confirmButton.GetComponent<Image>().sprite = selectedBox.spriteEnabled;
     }
 }
