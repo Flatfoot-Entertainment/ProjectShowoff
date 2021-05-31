@@ -15,7 +15,7 @@ public class BoxSelectionScript : MonoBehaviour
 		public GameObject prefab;
 		public GameObject preview;
 		public int price;
-        public GameObject button;
+		public Button button;
 	}
 
 	[SerializeField] private BoxSize[] boxSettings;
@@ -24,7 +24,6 @@ public class BoxSelectionScript : MonoBehaviour
 	[SerializeField] private Material previewMaterial;
 	[SerializeField] private FulfillmentCenter fulfillmentCenter;
 
-	[SerializeField] private Button confirmButton;
 	[SerializeField] private List<Button> selectionButtons = new List<Button>();
 
 	[SerializeField] private TextMeshProUGUI boxCostText;
@@ -37,65 +36,61 @@ public class BoxSelectionScript : MonoBehaviour
 		foreach (BoxSize box in boxSettings)
 		{
 			box.preview.GetComponentInChildren<MeshRenderer>().material = previewMaterial;
-            CurrentBox().button.SetActive(false);
+			box.button.gameObject.SetActive(false);
 		}
 		
 		fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
 		boxSelectionIndex = 0;
+		
 		CurrentBox().preview.SetActive(true);
+		CurrentBox().button.gameObject.SetActive(true);
+		
 		EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, _ =>
 		{
 			CurrentBox().preview.SetActive(true);
 			SetSelectionButtonsInteractable(true);
-			confirmButton.interactable = CanBuyBox;
+			SetConfirmButtonsInteractable(CanBuyBox);
 			previewMaterial.color = PreviewColor;
 		});
 		EventScript.Handler.Subscribe(EventType.ManageMoney, _ => OnMoneyChange());
 		OnMoneyChange();
 		boxCostText.text = CurrentBox().price.ToString();
 	}
-    public void ChangeBox(int direction)
-    {
-        int previousIndex = boxSelectionIndex;
-        boxSelectionIndex += direction;
-        boxSelectionIndex = boxSelectionIndex < 0 ? boxSettings.Length - 1 : boxSelectionIndex;
-        boxSelectionIndex = boxSelectionIndex >= boxSettings.Length ? 0 : boxSelectionIndex;
+	public void ChangeBox(int direction)
+	{
+		int previousIndex = boxSelectionIndex;
+		boxSelectionIndex += direction;
+		boxSelectionIndex = boxSelectionIndex < 0 ? boxSettings.Length - 1 : boxSelectionIndex;
+		boxSelectionIndex = boxSelectionIndex >= boxSettings.Length ? 0 : boxSelectionIndex;
 
-        if (previousIndex != boxSelectionIndex)
-        {
-	        boxSettings[previousIndex].preview.SetActive(false);
-            boxSettings[previousIndex].button.SetActive(false);
-        }
+		if (previousIndex != boxSelectionIndex)
+		{
+			boxSettings[previousIndex].preview.SetActive(false);
+			boxSettings[previousIndex].button.gameObject.SetActive(false);
+		}
 
-        boxSettings[boxSelectionIndex].preview.SetActive(true);
-        boxSettings[boxSelectionIndex].button.SetActive(true);
-        OnMoneyChange();
-        boxCostText.text = CurrentBox().price.ToString();
-    }
-    private void OnMoneyChange()
-    {
-	    BoxSize box = boxSettings[boxSelectionIndex];
-	    if (box.price > GameHandler.Instance.Money)
-	    {
-		    previewMaterial.color = invalidPreview;
-		    confirmButton.interactable = false;
-	    }
-	    else
-	    {
-		    previewMaterial.color = validPreview;
-	    }
-    }
+		boxSettings[boxSelectionIndex].preview.SetActive(true);
+		boxSettings[boxSelectionIndex].button.gameObject.SetActive(true);
+		OnMoneyChange();
+		boxCostText.text = CurrentBox().price.ToString();
+	}
+	
+	private void OnMoneyChange()
+	{
+		SetConfirmButtonsInteractable(CanBuyBox);
+		previewMaterial.color = PreviewColor;
+	}
 
 	public void ConfirmBox()
 	{
 		if (!CanBuyBox) return;
-		
+
 		CurrentBox().preview.SetActive(false);
 		
 		fulfillmentCenter.SpawnBox(CurrentBox().prefab);
 		
 		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-CurrentBox().price));
-		confirmButton.interactable = false;
+		SetConfirmButtonsInteractable(false);
 		SetSelectionButtonsInteractable(false);
 	}
 
@@ -107,5 +102,10 @@ public class BoxSelectionScript : MonoBehaviour
 	private BoxSize CurrentBox()
 	{
 		return boxSettings[boxSelectionIndex];
+	}
+
+	private void SetConfirmButtonsInteractable(bool val)
+	{
+		foreach (var setting in boxSettings) setting.button.interactable = val;
 	}
 }
