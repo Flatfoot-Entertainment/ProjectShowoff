@@ -49,7 +49,7 @@ public class UpgradeContainer : MonoBehaviour
 			buyButton.interactable = false;
 			return;
 		}
-		
+
 		if (GameHandler.Instance.Money < upgrade.Cost) return;
 		
 		var newLevel = OwnUpgrades()[upgrade.Level + 1];
@@ -64,7 +64,7 @@ public class UpgradeContainer : MonoBehaviour
 		upgrade.IncreaseLevel(newLevel.price);
 		upgrade.ApplyUpgrade();
 		
-		levelText.text = upgrade.Level.ToString();
+		levelText.text = $"Lv {upgrade.Level.ToString()}";
 		costText.text = doneUpgrading ? "DONE" : upgrade.Cost.ToString();
 		image.sprite = newLevel.upgradeImage;
 	}
