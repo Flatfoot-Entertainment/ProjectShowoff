@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMODAssets/show off/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637580664723431658
+  lastModified: 637580754981834932
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -351,6 +351,7 @@ MonoBehaviour:
   - {fileID: -4077855708814446309}
   - {fileID: -1251005416228025889}
   - {fileID: -7911921872830988812}
+  - {fileID: 3961557932837330203}
   EditorParameters:
   - {fileID: 3481363397155032009}
   - {fileID: -4453228812851761950}
@@ -361,7 +362,7 @@ MonoBehaviour:
   - {fileID: -8295734354292883451}
   StringsBanks:
   - {fileID: 924476399176111649}
-  stringsBankWriteTime: 637580664723461595
+  stringsBankWriteTime: 637580754981854886
   cacheVersion: 6
 --- !u!114 &924476399176111649
 MonoBehaviour:
@@ -378,11 +379,11 @@ MonoBehaviour:
   Path: FMODAssets/show off/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637580664723461595
+  lastModified: 637580754981854886
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1634
+    Value: 1688
   Exists: 1
 --- !u!114 &995343261419785617
 MonoBehaviour:
@@ -534,6 +535,29 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 112000
+--- !u!114 &3961557932837330203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Flat Metal With Plastic
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Flat Metal With Plastic
+  guid: 37d4ed0c2c978d4c94a3052abfec342b
+  Banks:
+  - {fileID: -8295734354292883451}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 10000
+  Length: 2000
 --- !u!114 &8419646311382352794
 MonoBehaviour:
   m_ObjectHideFlags: 0
