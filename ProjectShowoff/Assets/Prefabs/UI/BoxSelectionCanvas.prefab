@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a184fff5ca14708479dae30e0212239c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8407f99b880ba854a9880267b2fbf972, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -105,8 +105,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 21300000, guid: a4f4fbc40b1e11844a6c3f7243e57aeb, type: 3}
+    m_HighlightedSprite: {fileID: 21300000, guid: ebc969c7d8d67a74bbe8c4de46b9a58e, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: ad6733f3c7b84a44d806748974d63288, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 21300000, guid: e68800a0f21400440b5ab6b7dacd38bb, type: 3}
   m_AnimationTriggers:
@@ -501,7 +501,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: b622912bede708742ac628db7d45fac3, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: a4f4fbc40b1e11844a6c3f7243e57aeb, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 21300000, guid: e68800a0f21400440b5ab6b7dacd38bb, type: 3}
@@ -1086,18 +1086,19 @@ MonoBehaviour:
   - prefab: {fileID: 9028013331057377281, guid: e848e98a82a2efa40bc203b37dec12cb, type: 3}
     preview: {fileID: 6867721073626991547}
     price: 25
-    button: {fileID: 0}
+    button: {fileID: 5390542187451905358}
   - prefab: {fileID: 9028013331057377281, guid: da264550324dc9b4f8abdd6f3df3f045, type: 3}
     preview: {fileID: 6867721073647191915}
     price: 50
-    button: {fileID: 0}
+    button: {fileID: 830811901936357590}
   - prefab: {fileID: 9028013331057377281, guid: 789e2a6ee1407d840aa0d5deb01ffde7, type: 3}
     preview: {fileID: 6867721074922127410}
     price: 75
-    button: {fileID: 0}
+    button: {fileID: 2681864902144253829}
   previewMaterial: {fileID: 2100000, guid: 9753ff73068929d4a80bcbb7530819a3, type: 2}
   fulfillmentCenter: {fileID: 0}
   confirmButton: {fileID: 6381420637273587525}
+  selectionButtons: []
   boxCostText: {fileID: 6526570677363432943}
 --- !u!114 &6020857778769101208
 MonoBehaviour:
