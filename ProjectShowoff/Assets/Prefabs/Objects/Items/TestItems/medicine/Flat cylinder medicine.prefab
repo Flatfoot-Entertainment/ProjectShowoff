@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8592424231540287971}
   - component: {fileID: 7699363327986659357}
   - component: {fileID: 2472652647799056038}
+  - component: {fileID: 3865337105234420607}
   m_Layer: 31
   m_Name: Flat cylinder medicine
   m_TagString: Untagged
@@ -139,3 +140,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e20dafe6c4b9d04bbbe4678eb1d4c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3865337105234420607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4988637857723419859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59e44a271f74de4a8ab904c09908e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxRotation: {x: 0, y: 0, z: 0}

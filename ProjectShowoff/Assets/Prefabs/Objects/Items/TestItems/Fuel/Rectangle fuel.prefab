@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4066625887013468233}
   - component: {fileID: 7414663669467062871}
   - component: {fileID: 6541871684174349577}
+  - component: {fileID: 3701390537428255881}
   m_Layer: 31
   m_Name: Rectangle fuel
   m_TagString: Untagged
@@ -138,3 +139,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e20dafe6c4b9d04bbbe4678eb1d4c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3701390537428255881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499760956479969837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59e44a271f74de4a8ab904c09908e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxRotation: {x: 0, y: 0, z: 0}

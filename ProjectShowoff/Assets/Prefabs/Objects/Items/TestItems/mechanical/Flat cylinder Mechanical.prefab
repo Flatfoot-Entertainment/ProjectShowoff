@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9107072474039528228}
   - component: {fileID: 5031378544927557870}
   - component: {fileID: -4869830130792989988}
+  - component: {fileID: 5763818630252313980}
   m_Layer: 31
   m_Name: Flat cylinder Mechanical
   m_TagString: Untagged
@@ -139,3 +140,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e20dafe6c4b9d04bbbe4678eb1d4c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5763818630252313980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7475187060627849344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59e44a271f74de4a8ab904c09908e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxRotation: {x: 0, y: 0, z: 0}
