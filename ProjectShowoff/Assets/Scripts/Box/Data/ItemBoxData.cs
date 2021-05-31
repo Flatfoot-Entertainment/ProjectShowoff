@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public enum BoxType
 {
@@ -39,6 +40,8 @@ public class ItemBoxData : IBoxData<Item>
 
 	public void AddToBox(Item contained)
 	{
+		Debug.Log($"FUCK {boxContents != null}");
+		Debug.Log($"ME {contained != null}");
 		if (!boxContents.ContainsKey(contained.Type))
 			boxContents.Add(contained.Type, contained.Value);
 		else
