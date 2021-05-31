@@ -15,6 +15,8 @@ public class BoxSelectionScript : MonoBehaviour
 		public GameObject prefab;
 		public GameObject preview;
 		public int price;
+        public Sprite spriteEnabled;
+        public Sprite spriteDisabled;
 	}
 
 	[SerializeField] private BoxSize[] boxSettings;
@@ -34,11 +36,10 @@ public class BoxSelectionScript : MonoBehaviour
         {
             box.preview.GetComponentInChildren<MeshRenderer>().material = previewMaterial;
         }
-        //EventScript.Instance.EventManager.Subscribe(EventType.ManageBoxSelect, ConfirmBox);
-        // boxButtons = boxSelectionGroup.GetComponentsInChildren<Button>();
         fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
         boxSelectionIndex = 0;
         CurrentBox().preview.SetActive(true);
+        ChangeBoxSprite(CurrentBox());
         EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, _ =>
         {
 	        BoxSize box = boxSettings[boxSelectionIndex];
@@ -50,7 +51,7 @@ public class BoxSelectionScript : MonoBehaviour
         boxCostText.text = CurrentBox().price.ToString();
     }
 
-    public void ChangeImage(int direction)
+    public void ChangeBox(int direction)
     {
         int previousIndex = boxSelectionIndex;
         boxSelectionIndex += direction;
@@ -65,12 +66,8 @@ public class BoxSelectionScript : MonoBehaviour
         boxSettings[boxSelectionIndex].preview.SetActive(true);
         OnMoneyChange();
         boxCostText.text = CurrentBox().price.ToString();
+        ChangeBoxSprite(CurrentBox());
     }
-
-    public void ManageBoxConfirmation()
-    {
-    }
-
     private void OnMoneyChange()
     {
 	    BoxSize box = boxSettings[boxSelectionIndex];
@@ -117,5 +114,13 @@ public class BoxSelectionScript : MonoBehaviour
     private BoxSize CurrentBox()
     {
 	    return boxSettings[boxSelectionIndex];
+    }
+
+    private void ChangeBoxSprite(BoxSize selectedBox){
+        SpriteState buttonSpriteState = confirmButton.spriteState;
+        if(selectedBox.spriteDisabled != null){
+        buttonSpriteState.disabledSprite = selectedBox.spriteDisabled;
+        }
+        confirmButton.GetComponent<Image>().sprite = selectedBox.spriteEnabled;
     }
 }
