@@ -19,38 +19,41 @@ public class BoxSelectionScript : MonoBehaviour
 	}
 
 	[SerializeField] private BoxSize[] boxSettings;
-    private int boxSelectionIndex;
+	private int boxSelectionIndex;
 
-    [SerializeField] private Material previewMaterial;
-    [SerializeField] private FulfillmentCenter fulfillmentCenter;
+	[SerializeField] private Material previewMaterial;
+	[SerializeField] private FulfillmentCenter fulfillmentCenter;
 
-    [SerializeField] private Button confirmButton;
+	[SerializeField] private Button confirmButton;
+	[SerializeField] private List<Button> selectionButtons = new List<Button>();
 
-    [SerializeField] private TextMeshProUGUI boxCostText;
-    // private Button[] boxButtons;
+	[SerializeField] private TextMeshProUGUI boxCostText;
 
-    private void Start()
-    {
-        foreach (BoxSize box in boxSettings)
-        {
-            box.preview.GetComponentInChildren<MeshRenderer>().material = previewMaterial;
-            box.button.SetActive(false);
-        }
-        fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
-        boxSelectionIndex = 0;
-        CurrentBox().preview.SetActive(true);
-        CurrentBox().button.SetActive(true);
-        EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, _ =>
-        {
-	        BoxSize box = boxSettings[boxSelectionIndex];
-	        box.preview.SetActive(true);
-	        EnableBoxSelectionButtons();
-        });
-        EventScript.Handler.Subscribe(EventType.ManageMoney, _ => OnMoneyChange());
-        OnMoneyChange();
-        boxCostText.text = CurrentBox().price.ToString();
-    }
+	private bool CanBuyBox => CurrentBox() != null && GameHandler.Instance.Money >= CurrentBox().price;
+	private Color PreviewColor => CanBuyBox ? validPreview : invalidPreview;
 
+	private void Start()
+	{
+		foreach (BoxSize box in boxSettings)
+		{
+			box.preview.GetComponentInChildren<MeshRenderer>().material = previewMaterial;
+            CurrentBox().button.SetActive(false);
+		}
+		
+		fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
+		boxSelectionIndex = 0;
+		CurrentBox().preview.SetActive(true);
+		EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, _ =>
+		{
+			CurrentBox().preview.SetActive(true);
+			SetSelectionButtonsInteractable(true);
+			confirmButton.interactable = CanBuyBox;
+			previewMaterial.color = PreviewColor;
+		});
+		EventScript.Handler.Subscribe(EventType.ManageMoney, _ => OnMoneyChange());
+		OnMoneyChange();
+		boxCostText.text = CurrentBox().price.ToString();
+	}
     public void ChangeBox(int direction)
     {
         int previousIndex = boxSelectionIndex;
@@ -76,44 +79,33 @@ public class BoxSelectionScript : MonoBehaviour
 	    {
 		    previewMaterial.color = invalidPreview;
 		    confirmButton.interactable = false;
-		    DisableBoxSelectionButtons();
 	    }
 	    else
 	    {
-		    EnableBoxSelectionButtons(); // The event is not needed
 		    previewMaterial.color = validPreview;
 	    }
     }
 
-    public void ConfirmBox()
-    {
-	    BoxSize box = boxSettings[boxSelectionIndex];
-	    if (CurrentBox().price > GameHandler.Instance.Money) return;
-        //TODO finish
-        //ManageBoxSelectEvent boxSelectEvent = e as ManageBoxSelectEvent;
-        //check if anything in threshold, if yes dont confirm, if no confirm
-        CurrentBox().preview.SetActive(false);
-        //rly not the best way but eh, probably turn to an event later on
-        fulfillmentCenter.SpawnBox(box.prefab);
-        
-        EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-box.price));
-        DisableBoxSelectionButtons();
-    }
+	public void ConfirmBox()
+	{
+		if (!CanBuyBox) return;
+		
+		CurrentBox().preview.SetActive(false);
+		
+		fulfillmentCenter.SpawnBox(CurrentBox().prefab);
+		
+		EventScript.Handler.BroadcastEvent(new ManageMoneyEvent(-CurrentBox().price));
+		confirmButton.interactable = false;
+		SetSelectionButtonsInteractable(false);
+	}
 
-    private void DisableBoxSelectionButtons()
-    {
-	    confirmButton.interactable = false;
-    }
+	private void SetSelectionButtonsInteractable(bool val)
+	{
+		foreach (Button button in selectionButtons) button.interactable = val;
+	}
 
-    private void EnableBoxSelectionButtons()
-    {
-	    BoxSize box = boxSettings[boxSelectionIndex];
-		confirmButton.interactable = GameHandler.Instance.Money >= box.price;
-	    // box.preview.SetActive(true);
-    }
-
-    private BoxSize CurrentBox()
-    {
-	    return boxSettings[boxSelectionIndex];
-    }
+	private BoxSize CurrentBox()
+	{
+		return boxSettings[boxSelectionIndex];
+	}
 }

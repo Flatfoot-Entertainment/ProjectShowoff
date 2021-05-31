@@ -27,8 +27,8 @@ MonoBehaviour:
     price: 300
   stopButtonLevels:
   - buyable: 1
-    upgradeImage: {fileID: 21300000, guid: c2be58b83614359488702aa18f5331f7, type: 3}
+    upgradeImage: {fileID: 21300000, guid: f89d66a3c1e0acc44bd97d4b895884b4, type: 3}
     price: 400
   - buyable: 0
-    upgradeImage: {fileID: 21300000, guid: 78ed472d61e183a4394eb443ec52b73d, type: 3}
+    upgradeImage: {fileID: 21300000, guid: dd4696eaac0e0fe4386f8bc7a84df075, type: 3}
     price: 0
