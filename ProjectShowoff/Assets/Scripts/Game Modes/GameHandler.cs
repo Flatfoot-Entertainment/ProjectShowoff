@@ -26,7 +26,7 @@ public enum RandomEvent
 public abstract class GameHandler : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI moneyText;
-    [SerializeField] private float money;
+    [SerializeField] private int money;
     [SerializeField] private GameState gameState;
 
     [SerializeField] private GameObject worldLight, pointLight;
@@ -46,12 +46,11 @@ public abstract class GameHandler : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
-    //TODO already 3 references of the fulfillment center in the project, make it one
-    private FulfillmentCenter fulfillmentCenter;
+    [SerializeField] private string moneyTextFormat = "¤{0}";
 
     public static GameHandler Instance;
 
-    public float Money
+    public int Money
     {
         get => money;
         set => money = value;
@@ -69,7 +68,6 @@ public abstract class GameHandler : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(Instance);
         }
-        fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
     }
 
     // Start is called before the first frame update
@@ -78,7 +76,7 @@ public abstract class GameHandler : MonoBehaviour
         EventScript.Handler.Subscribe(EventType.ManageMoney, ManageMoney);
         EventScript.Handler.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
         EventScript.Handler.Subscribe(EventType.ConveyorUpgrade, UpgradeConveyorBelt);
-        moneyText.text = "Money: " + money;
+        moneyText.text = string.Format(moneyTextFormat, money.ToString());
         itemsSpawned = GameObject.Find("Items Spawned").transform;
         spawnerController = GetComponent<SpawnerController>();
         StartCoroutine(DoRandomEvent());
@@ -93,14 +91,14 @@ public abstract class GameHandler : MonoBehaviour
     {
         if (!(e is ManageMoneyEvent moneyEvent)) return;
         money += moneyEvent.Amount;
-        moneyText.text = "Money: " + money;
+        moneyText.text = string.Format(moneyTextFormat, money.ToString());
     }
 
     private void ManageUpgrade(Event e)
     {
         if (!(e is ManageUpgradeEvent upgradeEvent)) return;
         money -= upgradeEvent.Upgrade.Cost;
-        moneyText.text = "Money: " + money;
+        moneyText.text = string.Format(moneyTextFormat, money.ToString());
     }
 
     protected virtual void OnDestroyCallback()
