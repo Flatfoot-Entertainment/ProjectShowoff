@@ -15,6 +15,7 @@ public class BoxSelectionScript : MonoBehaviour
 		public GameObject prefab;
 		public GameObject preview;
 		public int price;
+        public GameObject button;
 	}
 
 	[SerializeField] private BoxSize[] boxSettings;
@@ -33,12 +34,12 @@ public class BoxSelectionScript : MonoBehaviour
         foreach (BoxSize box in boxSettings)
         {
             box.preview.GetComponentInChildren<MeshRenderer>().material = previewMaterial;
+            box.button.SetActive(false);
         }
-        //EventScript.Instance.EventManager.Subscribe(EventType.ManageBoxSelect, ConfirmBox);
-        // boxButtons = boxSelectionGroup.GetComponentsInChildren<Button>();
         fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
         boxSelectionIndex = 0;
         CurrentBox().preview.SetActive(true);
+        CurrentBox().button.SetActive(true);
         EventScript.Handler.Subscribe(EventType.BoxConveyorPlace, _ =>
         {
 	        BoxSize box = boxSettings[boxSelectionIndex];
@@ -50,7 +51,7 @@ public class BoxSelectionScript : MonoBehaviour
         boxCostText.text = CurrentBox().price.ToString();
     }
 
-    public void ChangeImage(int direction)
+    public void ChangeBox(int direction)
     {
         int previousIndex = boxSelectionIndex;
         boxSelectionIndex += direction;
@@ -60,17 +61,14 @@ public class BoxSelectionScript : MonoBehaviour
         if (previousIndex != boxSelectionIndex)
         {
 	        boxSettings[previousIndex].preview.SetActive(false);
+            boxSettings[previousIndex].button.SetActive(false);
         }
 
         boxSettings[boxSelectionIndex].preview.SetActive(true);
+        boxSettings[boxSelectionIndex].button.SetActive(true);
         OnMoneyChange();
         boxCostText.text = CurrentBox().price.ToString();
     }
-
-    public void ManageBoxConfirmation()
-    {
-    }
-
     private void OnMoneyChange()
     {
 	    BoxSize box = boxSettings[boxSelectionIndex];
