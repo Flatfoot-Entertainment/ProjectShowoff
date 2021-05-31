@@ -247,4 +247,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59e44a271f74de4a8ab904c09908e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxRotation: {x: 0, y: 0, z: 0}
+  boxRotation: {x: -90, y: 0, z: 0}
