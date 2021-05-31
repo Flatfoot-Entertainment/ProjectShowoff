@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 public static class Extensions
@@ -43,8 +44,17 @@ public static class Extensions
 
 	public static U ValueOr<T, U>(this Dictionary<T, U> dict, T key, U defaultValue)
 	{
-		if (dict.ContainsKey(key)) return dict[key];
-		else return defaultValue;
+		return dict.ContainsKey(key) ? dict[key] : defaultValue;
+	}
+
+	public static int LengthOf<T, U>(this Dictionary<T, List<U>> dict, T key)
+	{
+		return dict.ContainsKey(key) && dict[key] != null ? dict[key].Count : 0;
+	}
+
+	public static int LengthOf<T, U>(this ConcurrentDictionary<T, ConcurrentBag<U>> dict, T key)
+	{
+		return dict.ContainsKey(key) && dict[key] != null ? dict[key].Count : 0;
 	}
 
 	public static void SetX(this Vector3 v, float val)
