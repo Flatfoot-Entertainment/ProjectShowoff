@@ -25,6 +25,7 @@ public class PlanetWindow : EditorWindow
 
     private GameObject planetUIContainer;
     private Transform ordersParent;
+    private Vector2 scrollPos;
 
     private Bounds volumeBounds;
 
@@ -36,7 +37,7 @@ public class PlanetWindow : EditorWindow
         // GameObject center = new GameObject("Planet Center", typeof(BoxCollider));
         // objectCenter = center;
         // Debug.Log("hi");
-
+        
     }
 
     private void Awake()
@@ -46,6 +47,9 @@ public class PlanetWindow : EditorWindow
 
     private void OnGUI()
     {
+        
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, false, false);
+        
         //planetPrefabSettings = EditorGUILayout.ObjectField("Planet Prefab Settings", planetPrefabSettings, typeof(PlanetPrefabSettings), false) as PlanetPrefabSettings;
         planetPrefab = EditorGUILayout.ObjectField("Planet Prefab", planetPrefab, typeof(GameObject), false) as GameObject;
         if (planetPrefab)
@@ -167,6 +171,7 @@ public class PlanetWindow : EditorWindow
                 }
             }
         }
+        EditorGUILayout.EndScrollView();
     }
 
     private void OnInspectorUpdate()

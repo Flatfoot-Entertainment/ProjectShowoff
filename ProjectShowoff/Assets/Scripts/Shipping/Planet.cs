@@ -37,7 +37,7 @@ public class Planet : MonoBehaviour
     //[SerializeField] public UnityEvent<Planet> OnClick;
     public Dictionary<ItemType, int> needs { get; private set; } = new Dictionary<ItemType, int>();
 
-    private void Start()
+    private void Awake()
     {
         // For now randomly create planet properties
         InitRandom();

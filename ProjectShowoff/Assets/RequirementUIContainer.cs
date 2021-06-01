@@ -6,16 +6,15 @@ using TMPro;
 
 public class RequirementUIContainer : MonoBehaviour
 {
+    
+
     [SerializeField] private Sprite foodSprite, mechanicalPartsSprite, fuelSprite, medicineSprite;
     [SerializeField] private Image requirementImage;
     [SerializeField] private TextMeshProUGUI amountText;
 
     [SerializeField] private ItemType type;
     [SerializeField] private int amount;
-    private void Start() {
-        requirementImage = GetComponentInChildren<Image>();
-        amountText = GetComponentInChildren<TextMeshProUGUI>();
-    }
+
 
     public void SetupRequirementContainer(ItemType itemType, int itemAmount){
         Sprite requirementSprite = null;
@@ -35,11 +34,13 @@ public class RequirementUIContainer : MonoBehaviour
         }
         type = itemType;
         amount = itemAmount;
-        requirementImage.sprite = requirementSprite;
+        if(requirementSprite != null){
+            requirementImage.sprite = requirementSprite;
+        }
         amountText.text = itemAmount.ToString();
     }
 
-    public void UpdateAmount(int amountDifference){
-        amount -= amountDifference;
+    public void UpdateAmount(int amount){
+        amountText.text = amount.ToString();
     } 
 }

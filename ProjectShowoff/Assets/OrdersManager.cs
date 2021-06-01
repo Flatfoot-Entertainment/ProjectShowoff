@@ -20,6 +20,7 @@ public class OrdersManager : MonoBehaviour
     }
 
     private void AddOrder(Planet planet){
+        Debug.Log("needs count in ordersmanagerscript: " + planet.needs.Count);
         GameObject orderUIContainer = Instantiate(orderUIContainerPrefab, Vector3.zero, Quaternion.identity, ordersContainer);
         OrderUIContainer orderUIScript = orderUIContainer.GetComponent<OrderUIContainer>();
         orderUIScript.SetupContainer(planet);

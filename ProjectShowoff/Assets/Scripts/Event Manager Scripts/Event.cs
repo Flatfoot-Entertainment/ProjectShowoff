@@ -10,6 +10,7 @@ public enum EventType
     ManageTime,
     ManageConveyors,
     ManageBoxSelect,
+    ManagePlanetRequirement,
     ConveyorUpgrade,
     ConveyorStopButtonUpgrade,
     AddShip,
