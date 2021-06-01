@@ -4,9 +4,6 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using Cinemachine;
-
-//the base game class, don't even know what to put in here yet
-
 public enum GameState
 {
     PackageView,
@@ -50,6 +47,8 @@ public abstract class GameHandler : MonoBehaviour
 
     public static GameHandler Instance;
 
+    private RandomEvent? previousRandomEvent = null;
+    private RandomEvent randomEvent;
     public int Money
     {
         get => money;
@@ -175,18 +174,22 @@ public abstract class GameHandler : MonoBehaviour
     }
 
     //TODO turn the random events into classes
+    //TODO setting previous random event is in EVERY.COROUTINE.BELOW.
     private IEnumerator DoRandomEvent()
     {
         yield return new WaitForSeconds(randomEventOccurance);
-        RandomEvent randomEvent = Extensions.RandomEnumValue<RandomEvent>();
+        //TODO a way that the random events dont repeat...
+        randomEvent = Extensions.RandomEnumValue<RandomEvent>();
+        //RandomEvent randomEvent = RandomEvent.Shake;
         Debug.Log("random event runs now: " + randomEvent);
+        Debug.Log("previous random event: " + previousRandomEvent);
         switch (randomEvent)
         {
             case RandomEvent.LightsOff:
                 DoLightsOff(lightsOffDuration);
                 break;
             case RandomEvent.Shake:
-                DoShake();
+                StartCoroutine(DoShake());
                 break;
             case RandomEvent.GravityRemove:
                 DoGravityRemove(gravityRemoveDuration);
@@ -197,6 +200,7 @@ public abstract class GameHandler : MonoBehaviour
                 break;
         }
     }
+
 
     private void DoLightsOff(float duration)
     {
@@ -214,8 +218,8 @@ public abstract class GameHandler : MonoBehaviour
             }
         }
         //todo remove magic values, maybe handle in CameraTranslate
-        virtualCamera.transform.DOShakePosition(0.5f, 100, 10, 180, false, true);
-        yield return new WaitForSeconds(0.1f);
+        virtualCamera.transform.DOShakePosition(0.2f, 1, 3, 90, false, true);
+        previousRandomEvent = randomEvent;
         yield return DoRandomEvent();
     }
 
@@ -237,6 +241,7 @@ public abstract class GameHandler : MonoBehaviour
         yield return new WaitForSeconds(duration);
         worldLight.SetActive(true);
         pointLight.SetActive(false);
+        previousRandomEvent = randomEvent;
         yield return DoRandomEvent();
     }
 
@@ -245,6 +250,7 @@ public abstract class GameHandler : MonoBehaviour
         Physics.gravity = -Vector3.up;
         yield return new WaitForSeconds(duration);
         Physics.gravity = new Vector3(0f, -9.81f, 0f);
+        previousRandomEvent = randomEvent;
         yield return DoRandomEvent();
     }
 
@@ -253,6 +259,7 @@ public abstract class GameHandler : MonoBehaviour
         spawnerController.ChangeConveyorSpeed((int)conveyorSpeedUpValue);
         yield return new WaitForSeconds(duration);
         spawnerController.ChangeConveyorSpeed(spawnerController.ConveyorInitialSpeed);
+        previousRandomEvent = randomEvent;
         yield return DoRandomEvent();
     }
 
