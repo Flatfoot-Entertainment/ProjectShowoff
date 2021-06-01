@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{6d16703a-a7b8-448f-b0bd-14ebc5e6642e}">
+		<property name="assetPath">
+			<value>Hover.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.75</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{9da63076-1ecf-4833-acb1-d821e85766b2}</destination>
+		</relationship>
+	</object>
+</objects>

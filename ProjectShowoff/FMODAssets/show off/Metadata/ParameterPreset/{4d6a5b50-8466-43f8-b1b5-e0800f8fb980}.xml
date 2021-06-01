@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{4d6a5b50-8466-43f8-b1b5-e0800f8fb980}">
+		<property name="name">
+			<value>Hangar</value>
+		</property>
+		<relationship name="folder">
+			<destination>{df68a594-4adb-4921-a185-ce845177107c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ef2cd0d4-21ee-4425-a809-6b8c51af9816}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ef2cd0d4-21ee-4425-a809-6b8c51af9816}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>
