@@ -28,8 +28,13 @@ public class BoxSelectionScript : MonoBehaviour
 
 	[SerializeField] private TextMeshProUGUI boxCostText;
 
-	private bool CanBuyBox => CurrentBox() != null && GameHandler.Instance.Money >= CurrentBox().price;
-	private Color PreviewColor => CanBuyBox ? validPreview : invalidPreview;
+	private bool CanBuyBox => 
+		CurrentBox() != null &&
+		GameHandler.Instance.Money >= CurrentBox().price;
+
+	private bool CanSpawnBox => CanBuyBox && spaceIsFree;
+	private Color PreviewColor => CanSpawnBox ? validPreview : invalidPreview;
+	private bool spaceIsFree = false;
 
 	private void Start()
 	{
@@ -77,6 +82,19 @@ public class BoxSelectionScript : MonoBehaviour
 	
 	private void OnMoneyChange()
 	{
+		SetConfirmButtonsInteractable(CanBuyBox);
+		previewMaterial.color = PreviewColor;
+	}
+
+	private void Update()
+	{
+		if (!CanBuyBox) return;
+		
+		var saved = fulfillmentCenter.SpaceIsFree();
+		if (saved == spaceIsFree) return;
+		spaceIsFree = saved;
+		
+		SetSelectionButtonsInteractable(true);
 		SetConfirmButtonsInteractable(CanBuyBox);
 		previewMaterial.color = PreviewColor;
 	}
