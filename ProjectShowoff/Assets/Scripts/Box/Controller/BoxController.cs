@@ -6,8 +6,10 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 {
 	private BoxLid<Contained> lid;
 	private BoxBody body;
+	private BoxOverfillIndicator indicator;
 	public abstract BoxT Box { get; protected set; }
 	protected List<GameObject> contained = new List<GameObject>();
+	
 
 	public bool Shippable { get; private set; }
 
@@ -15,6 +17,7 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 	{
 		lid = GetComponentInChildren<BoxLid<Contained>>();
 		body = GetComponentInChildren<BoxBody>();
+		indicator = GetComponentInChildren<BoxOverfillIndicator>();
 		OnAwake();
 	}
 
@@ -43,10 +46,12 @@ public abstract class BoxController<BoxT, Contained> : MonoBehaviour where BoxT 
 			if (body.Has(s.gameObject))
 			{
 				Shippable = false;
+				indicator.ChangeState(Shippable);
 				return;
 			}
 		}
 		Shippable = contained.Count > 0;
+		indicator.ChangeState(Shippable);
 	}
 
 	private void OnDestroy()
