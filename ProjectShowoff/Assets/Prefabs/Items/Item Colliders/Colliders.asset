@@ -30,5 +30,9 @@ MonoBehaviour:
       Value: {fileID: 5298300245060821783, guid: 06abdaaa844019548b7433c9f7fd9fac, type: 3}
     - Key: Energycon
       Value: {fileID: 3190650359469270156, guid: 81b4a8e01e008d341ad1c045c02deaf4, type: 3}
+    - Key: Mechanical part_Rotor
+      Value: {fileID: 5298300245060821783, guid: 06abdaaa844019548b7433c9f7fd9fac, type: 3}
   complexColliderPrefabs:
-    array: []
+    array:
+    - Key: 
+      Value: {fileID: 0}
