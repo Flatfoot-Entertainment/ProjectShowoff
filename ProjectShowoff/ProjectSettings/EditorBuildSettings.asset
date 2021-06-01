@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/VerticalSliceTobias.unity
-    guid: e2acc0d5573664949aafab921afd01e8
+    path: Assets/Scenes/Daan Scene Assets/Daan Scene.unity
+    guid: 0083adaecf2933c4d91ce7d1a493041b
   m_configObjects: {}

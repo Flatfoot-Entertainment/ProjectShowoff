@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{9236ebed-73bd-4350-9d56-58eb21094d10}">
+		<property name="name">
+			<value>Emergency</value>
+		</property>
+		<relationship name="folder">
+			<destination>{df68a594-4adb-4921-a185-ce845177107c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{ef654781-88f2-4889-b284-8488214083ba}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{ef654781-88f2-4889-b284-8488214083ba}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>
