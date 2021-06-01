@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442134a1d3bf4109b9d5a69b11996f74, type: 3}
+  m_Name: Colliders
+  m_EditorClassIdentifier: 
+  simpleColliderPrefabs:
+    array:
+    - Key: flat cube
+      Value: {fileID: 3074731605154760997, guid: 272ba1f8f4672a149a73f1fb8e18579e, type: 3}
+    - Key: Fuel Cube
+      Value: {fileID: 269366038484480801, guid: 978cfc92e716f39409a06d848de2197e, type: 3}
+    - Key: Food Flat Cylinder
+      Value: {fileID: 8009966050850466075, guid: 18692e8091c164540b7e7f0e4c729d91, type: 3}
+    - Key: Fuze Case
+      Value: {fileID: 9012414348389964035, guid: 8a9a64bc2c2f2a644888b092e3234507, type: 3}
+    - Key: Fuel Cylinder
+      Value: {fileID: 927758230288478694, guid: f1df4415b62ea0e46b6bcc8af07aa193, type: 3}
+    - Key: RotaryParts
+      Value: {fileID: 2576532757450200335, guid: a5fe9e119179e904aa34b04cb2cb3dab, type: 3}
+    - Key: Rotor Part
+      Value: {fileID: 5298300245060821783, guid: 06abdaaa844019548b7433c9f7fd9fac, type: 3}
+    - Key: Energycon
+      Value: {fileID: 3190650359469270156, guid: 81b4a8e01e008d341ad1c045c02deaf4, type: 3}
+  complexColliderPrefabs:
+    array: []
