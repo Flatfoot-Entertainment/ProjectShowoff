@@ -19,27 +19,24 @@ public abstract class Upgrade
     public UpgradeType Type => type;
     public int Level => level;
     public int Cost => cost;
-    public Sprite Sprite => sprite;
 
     private readonly UpgradeType type;
     private int level;
     private int cost;
-    private Sprite sprite;
 
-    public Upgrade(UpgradeType pType, int pCost, Sprite pSprite)
+    public Upgrade(UpgradeType pType, int pCost)
     {
         level = 0;
         type = pType;
         cost = pCost;
-        sprite = pSprite;
     }
 
     public abstract void ApplyUpgrade();
 
-    public virtual void IncreaseLevel()
+    public virtual void IncreaseLevel(int newCost)
     {
         level++;
-        cost *= level;
+        cost = newCost;
     }
 
 }

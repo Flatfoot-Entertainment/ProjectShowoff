@@ -1,34 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangeUIScript : MonoBehaviour
 {
-    // TODO use the event handler for all of this
-    [SerializeField] private GameObject[] packagingOnlyGameObjects;
-    [SerializeField] private GameObject[] planetsOnlyGameObjects;
+	[SerializeField] private CameraMoveEvent.CameraState stateA;
+	[SerializeField] private CameraMoveEvent.CameraState stateB;
+	// TODO use the event handler for all of this
+	[SerializeField] private GameObject[] stateAGameObjects;
+	[SerializeField] private GameObject[] stateBGameObjects;
+	private void Start()
+	{
+		EventScript.Handler.Subscribe(EventType.CameraMove, (e) =>
+		{
+			OnCamMove(((CameraMoveEvent)e).NewState);
+		});
+	}
 
-    private void Start()
-    {
-        EventScript.Handler.Subscribe(EventType.CameraMove, (e) =>
-        {
-            OnCamMove(((CameraMoveEvent)e).NewState);
-        });
-    }
+	private void OnCamMove(CameraMoveEvent.CameraState newState)
+	{
+		if (newState == stateA)
+		{
+			foreach (GameObject gO in stateBGameObjects) gO.SetActive(false);
+			foreach (GameObject gO in stateAGameObjects) gO.SetActive(true);
+		}
+		else if (newState == stateB)
+		{
+			foreach (GameObject gO in stateBGameObjects) gO.SetActive(true);
+			foreach (GameObject gO in stateAGameObjects) gO.SetActive(false);
+		}
+	}
 
-    private void OnCamMove(CameraMoveEvent.CameraState newState)
-    {
-        switch (newState)
-        {
-            case CameraMoveEvent.CameraState.Planets:
-                foreach (GameObject gO in packagingOnlyGameObjects) gO.SetActive(false);
-                foreach (GameObject gO in planetsOnlyGameObjects) gO.SetActive(true);
-                break;
-            case CameraMoveEvent.CameraState.Packaging:
-            case CameraMoveEvent.CameraState.Shipping:
-                foreach (GameObject gO in packagingOnlyGameObjects) gO.SetActive(true);
-                foreach (GameObject gO in planetsOnlyGameObjects) gO.SetActive(false);
-                break;
-        }
-    }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ConveyorStop : Upgrade
 {
-	public ConveyorStop(int pCost, Sprite pSprite) : base(UpgradeType.ConveyorStop, pCost, pSprite)
+	public ConveyorStop(int pCost) : base(UpgradeType.ConveyorStop, pCost)
 	{
 
 	}
@@ -16,11 +16,11 @@ public class ConveyorStop : Upgrade
 		GameHandler.Instance.EnableConveyorButton();
 	}
 
-	public override void IncreaseLevel()
+	public override void IncreaseLevel(int cost)
 	{
 		if (Level < 1)
 		{
-			base.IncreaseLevel();
+			base.IncreaseLevel(cost);
 		}
 	}
 }

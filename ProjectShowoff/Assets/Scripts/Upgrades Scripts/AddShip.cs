@@ -6,17 +6,17 @@ using UnityEngine.UI;
 //TBD what this upgrade will actually be
 public class AddShip : Upgrade
 {
-	public AddShip(int pCost, Sprite pSprite) : base(UpgradeType.ShipQuantity, pCost, pSprite)
+	public AddShip(int pCost) : base(UpgradeType.ShipQuantity, pCost)
 	{
 
 	}
 
 
-	public override void IncreaseLevel()
+	public override void IncreaseLevel(int cost)
 	{
 		if (Level <= 2)
 		{
-			base.IncreaseLevel();
+			base.IncreaseLevel(cost);
 		}
 	}
 	public override void ApplyUpgrade()

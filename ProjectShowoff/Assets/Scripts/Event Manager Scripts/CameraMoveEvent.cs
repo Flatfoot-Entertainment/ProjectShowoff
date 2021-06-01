@@ -3,7 +3,6 @@ public class CameraMoveEvent : Event
 {
 	public enum CameraState
 	{
-		Planets,
 		Packaging,
 		Shipping
 	}

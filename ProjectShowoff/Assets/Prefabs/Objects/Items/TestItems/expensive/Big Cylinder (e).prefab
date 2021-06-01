@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: -8033710626040781368}
   - component: {fileID: -9132725681645778567}
   - component: {fileID: -5781953151595962605}
+  - component: {fileID: -6053807611927537788}
+  - component: {fileID: 6276677674048259693}
   m_Layer: 31
   m_Name: Big Cylinder (e)
   m_TagString: Untagged
@@ -126,3 +128,28 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &-6053807611927537788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366592270240369636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e20dafe6c4b9d04bbbe4678eb1d4c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6276677674048259693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366592270240369636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59e44a271f74de4a8ab904c09908e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxRotation: {x: 0, y: 0, z: 0}

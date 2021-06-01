@@ -2,165 +2,269 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
+using Cinemachine;
 
 //the base game class, don't even know what to put in here yet
 
 public enum GameState
 {
-	PackageView,
-	Paused,
-	Upgrade,
-	PlanetView
+    PackageView,
+    Paused,
+    Upgrade,
+    PlanetView
+}
+
+public enum RandomEvent
+{
+    LightsOff,
+    Shake,
+    ConveyorOverload,
+    GravityRemove
 }
 
 public abstract class GameHandler : MonoBehaviour
 {
-	[SerializeField] private TextMeshProUGUI moneyText;
-	[SerializeField] private float money;
-	[SerializeField] private GameState gameState;
+    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private int money;
+    [SerializeField] private GameState gameState;
 
-	[SerializeField] private GameObject[] conveyorStopButtons;
+    [SerializeField] private GameObject worldLight, pointLight;
 
-	[SerializeField] private GameObject[] leftConveyorBelts, rightConveyorBelts;
+    [SerializeField] private GameObject[] conveyorStopButtons;
 
-	//TODO already 3 references of the fulfillment center in the project, make it one
-	private FulfillmentCenter fulfillmentCenter;
+    [SerializeField] private GameObject[] leftConveyorBelts, rightConveyorBelts;
 
-	public static GameHandler Instance;
+    [Header("Random event properties")]
 
-	public float Money
-	{
-		get => money;
-		set => money = value;
-	}
-	//TODO use event queue to decouple game modes from game events
+    [SerializeField] private float minRandomShake, maxRandomShake;
+    [SerializeField] private float lightsOffDuration, gravityRemoveDuration, conveyorOverloadDuration, conveyorSpeedUpValue;
+    [SerializeField] private int randomEventOccurance;
+    [SerializeField] private SpawnerController spawnerController;
 
-	private void Awake()
-	{
-		if (Instance != null)
-		{
-			Destroy(gameObject);
-		}
-		else
-		{
-			Instance = this;
-			DontDestroyOnLoad(Instance);
-		}
-		fulfillmentCenter = FindObjectOfType<FulfillmentCenter>();
-	}
+    [SerializeField] private Transform itemsSpawned;
 
-	// Start is called before the first frame update
-	protected virtual void Start()
-	{
-		EventScript.Handler.Subscribe(EventType.ManageMoney, ManageMoney);
-		EventScript.Handler.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
-		EventScript.Handler.Subscribe(EventType.ConveyorUpgrade, UpgradeConveyorBelt);
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
-		//EventScript.Instance.EventQueue.Subscribe(EventType.ManageMoney, OnUpgradeBought);
-		moneyText.text = "Money: " + money;
-	}
+    [SerializeField] private string moneyTextFormat = "¤{0}";
 
-	private void OnDestroy()
-	{
+    public static GameHandler Instance;
 
-		//EventScript.Instance.EventQueue.UnSubscribe(EventType.ManageMoney, OnUpgradeBought);
-		OnDestroyCallback();
-	}
+    public int Money
+    {
+        get => money;
+        set => money = value;
+    }
+    //TODO use event queue to decouple game modes from game events
 
-	private void ManageMoney(Event e)
-	{
-		ManageMoneyEvent manageEvent = e as ManageMoneyEvent;
-		money += manageEvent.Amount;
-		moneyText.text = "Money: " + money;
-	}
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+    }
 
-	private void ManageUpgrade(Event e)
-	{
-		if (e is ManageUpgradeEvent upgradeEvent)
-		{
-			money -= upgradeEvent.Upgrade.Cost;
-			moneyText.text = "Money: " + money;
-		}
-	}
+    // Start is called before the first frame update
+    protected virtual void Start()
+    {
+        EventScript.Handler.Subscribe(EventType.ManageMoney, ManageMoney);
+        EventScript.Handler.Subscribe(EventType.ManageUpgrade, OnUpgradeBought);
+        EventScript.Handler.Subscribe(EventType.ConveyorUpgrade, UpgradeConveyorBelt);
+        moneyText.text = string.Format(moneyTextFormat, money.ToString());
+        itemsSpawned = GameObject.Find("Items Spawned").transform;
+        spawnerController = GetComponent<SpawnerController>();
+        StartCoroutine(DoRandomEvent());
+    }
 
-	protected virtual void OnDestroyCallback()
-	{
-		EventScript.Handler.Unsubscribe(EventType.ManageMoney, OnBoxSent);
-		EventScript.Handler.Unsubscribe(EventType.ManageMoney, OnBoxDelivered);
-		EventScript.Handler.Unsubscribe(EventType.ManageUpgrade, OnUpgradeBought);
-		EventScript.Handler.Unsubscribe(EventType.ConveyorUpgrade, UpgradeConveyorBelt);
-	}
+    private void OnDestroy()
+    {
+        OnDestroyCallback();
+    }
 
-	protected virtual void OnBoxDelivered(Event e)
-	{
-		ManageMoney(e);
-	}
+    private void ManageMoney(Event e)
+    {
+        if (!(e is ManageMoneyEvent moneyEvent)) return;
+        money += moneyEvent.Amount;
+        moneyText.text = string.Format(moneyTextFormat, money.ToString());
+    }
 
-	protected virtual void OnBoxSent(Event e)
-	{
-		ManageMoney(e);
-	}
+    private void ManageUpgrade(Event e)
+    {
+        if (!(e is ManageUpgradeEvent upgradeEvent)) return;
+        money -= upgradeEvent.Upgrade.Cost;
+        moneyText.text = string.Format(moneyTextFormat, money.ToString());
+    }
 
-	protected virtual void OnUpgradeBought(Event e)
-	{
-		ManageUpgrade(e);
-	}
+    protected virtual void OnDestroyCallback()
+    {
+        EventScript.Handler.Unsubscribe(EventType.ManageMoney, OnBoxSent);
+        EventScript.Handler.Unsubscribe(EventType.ManageMoney, OnBoxDelivered);
+        EventScript.Handler.Unsubscribe(EventType.ManageUpgrade, OnUpgradeBought);
+        EventScript.Handler.Unsubscribe(EventType.ConveyorUpgrade, UpgradeConveyorBelt);
+    }
 
+    protected virtual void OnBoxDelivered(Event e)
+    {
+        ManageMoney(e);
+    }
 
-	//pls refactor into smth else
-	public void EnableConveyorButton()
-	{
-		foreach (GameObject conveyorButton in conveyorStopButtons)
-		{
-			conveyorButton.SetActive(true);
-		}
-	}
-	public void UpgradeConveyorBelt(Event e)
-	{
-		ConveyorUpgradeEvent upgrade = e as ConveyorUpgradeEvent;
-		if (upgrade == null) return;
-		int level = upgrade.Level;
-		//TODO into an event, this is horrible
-		SpawnerController spawnerController = GetComponent<SpawnerController>();
-		if (spawnerController)
-		{
-			switch (level)
-			{
-				case 1:
-					rightConveyorBelts[0].SetActive(true);
-					spawnerController.AddSpawner(rightConveyorBelts[0].GetComponentInChildren<ItemSpawner>());
-					spawnerController.AddConveyor(rightConveyorBelts[0].GetComponentInChildren<ConveyorSetupScript>());
-					break;
-				case 2:
-					spawnerController.RemoveConveyorAt(0);
-					spawnerController.RemoveSpawnerAt(0);
-					leftConveyorBelts[0].SetActive(false);
+    protected virtual void OnBoxSent(Event e)
+    {
+        ManageMoney(e);
+    }
 
-					leftConveyorBelts[1].SetActive(true);
-					spawnerController.AddSpawners(leftConveyorBelts[1].GetComponentsInChildren<ItemSpawner>());
-					spawnerController.AddConveyor(leftConveyorBelts[1].GetComponentInChildren<ConveyorSetupScript>());
-					break;
-				case 3:
-					spawnerController.RemoveConveyorAt(0);
-					spawnerController.RemoveSpawnerAt(0);
-					rightConveyorBelts[0].SetActive(false);
-
-					rightConveyorBelts[1].SetActive(true);
-					spawnerController.AddSpawners(rightConveyorBelts[1].GetComponentsInChildren<ItemSpawner>());
-					spawnerController.AddConveyor(rightConveyorBelts[1].GetComponentInChildren<ConveyorSetupScript>());
-					break;
-				default:
-					Debug.Log("dis level not exist");
-					break;
-			}
-		}
-		else Debug.LogError("SpawnerController not found when upgrading conveyor belts");
-	}
+    protected virtual void OnUpgradeBought(Event e)
+    {
+        ManageUpgrade(e);
+    }
 
 
-	//TODO make into an event
-	public void OnAddShip()
-	{
-		fulfillmentCenter.AddShip();
-	}
+    //pls refactor into smth else
+    public void EnableConveyorButton()
+    {
+        foreach (GameObject conveyorButton in conveyorStopButtons)
+        {
+            conveyorButton.SetActive(true);
+        }
+    }
+    public void UpgradeConveyorBelt(Event e)
+    {
+        if (!(e is ConveyorUpgradeEvent upgrade)) return;
+        int level = upgrade.Level;
+        //TODO into an event, this is horrible
+        SpawnerController spawnerController = GetComponent<SpawnerController>();
+        if (spawnerController)
+        {
+            switch (level)
+            {
+                case 1:
+                    rightConveyorBelts[0].SetActive(true);
+                    spawnerController.AddSpawner(rightConveyorBelts[0].GetComponentInChildren<ItemSpawner>());
+                    spawnerController.AddConveyor(rightConveyorBelts[0].GetComponentInChildren<ConveyorSetupScript>());
+                    break;
+                case 2:
+                    spawnerController.RemoveConveyorAt(0);
+                    spawnerController.RemoveSpawnerAt(0);
+                    leftConveyorBelts[0].SetActive(false);
+
+                    leftConveyorBelts[1].SetActive(true);
+                    spawnerController.AddSpawners(leftConveyorBelts[1].GetComponentsInChildren<ItemSpawner>());
+                    spawnerController.AddConveyor(leftConveyorBelts[1].GetComponentInChildren<ConveyorSetupScript>());
+                    break;
+                case 3:
+                    spawnerController.RemoveConveyorAt(0);
+                    spawnerController.RemoveSpawnerAt(0);
+                    rightConveyorBelts[0].SetActive(false);
+
+                    rightConveyorBelts[1].SetActive(true);
+                    spawnerController.AddSpawners(rightConveyorBelts[1].GetComponentsInChildren<ItemSpawner>());
+                    spawnerController.AddConveyor(rightConveyorBelts[1].GetComponentInChildren<ConveyorSetupScript>());
+                    break;
+                default:
+                    Debug.Log("dis level not exist");
+                    break;
+            }
+        }
+        else Debug.LogError("SpawnerController not found when upgrading conveyor belts");
+    }
+
+    //TODO turn the random events into classes
+    private IEnumerator DoRandomEvent()
+    {
+        yield return new WaitForSeconds(randomEventOccurance);
+        RandomEvent randomEvent = Extensions.RandomEnumValue<RandomEvent>();
+        Debug.Log("random event runs now: " + randomEvent);
+        switch (randomEvent)
+        {
+            case RandomEvent.LightsOff:
+                DoLightsOff(lightsOffDuration);
+                break;
+            case RandomEvent.Shake:
+                DoShake();
+                break;
+            case RandomEvent.GravityRemove:
+                DoGravityRemove(gravityRemoveDuration);
+                break;
+            case RandomEvent.ConveyorOverload:
+                //todo for some reason it doesn't affect the upgraded conveyors
+                DoConveyorOverload(conveyorOverloadDuration);
+                break;
+        }
+    }
+
+    private void DoLightsOff(float duration)
+    {
+        StartCoroutine(LightsOff(duration));
+    }
+
+    private IEnumerator DoShake()
+    {
+        foreach (Transform item in itemsSpawned)
+        {
+            Rigidbody itemRb = item.GetComponent<Rigidbody>();
+            if (itemRb != null)
+            {
+                ApplyRandomForce(itemRb);
+            }
+        }
+        //todo remove magic values, maybe handle in CameraTranslate
+        virtualCamera.transform.DOShakePosition(0.5f, 100, 10, 180, false, true);
+        yield return new WaitForSeconds(0.1f);
+        yield return DoRandomEvent();
+    }
+
+
+    private void DoGravityRemove(float duration)
+    {
+        StartCoroutine(GravityRemove(duration));
+    }
+
+    private void DoConveyorOverload(float duration)
+    {
+        StartCoroutine(ConveyorOverload(duration));
+    }
+
+    private IEnumerator LightsOff(float duration)
+    {
+        worldLight.SetActive(false);
+        pointLight.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        worldLight.SetActive(true);
+        pointLight.SetActive(false);
+        yield return DoRandomEvent();
+    }
+
+    private IEnumerator GravityRemove(float duration)
+    {
+        Physics.gravity = -Vector3.up;
+        yield return new WaitForSeconds(duration);
+        Physics.gravity = new Vector3(0f, -9.81f, 0f);
+        yield return DoRandomEvent();
+    }
+
+    private IEnumerator ConveyorOverload(float duration)
+    {
+        spawnerController.ChangeConveyorSpeed((int)conveyorSpeedUpValue);
+        yield return new WaitForSeconds(duration);
+        spawnerController.ChangeConveyorSpeed(spawnerController.ConveyorInitialSpeed);
+        yield return DoRandomEvent();
+    }
+
+    private void ApplyRandomForce(Rigidbody rb)
+    {
+        Vector3 rand = Random.onUnitSphere * Random.Range(minRandomShake, maxRandomShake);
+        rb.AddForce(rand, ForceMode.Impulse);
+    }
+
+    //TODO make into an event
+    public void OnAddShip()
+    {
+        // fulfillmentCenter.AddShip();
+    }
 }

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6614852455447248166}
   - component: {fileID: -3196523260451788756}
   - component: {fileID: 3616971643667435086}
+  - component: {fileID: -4740951039499031645}
+  - component: {fileID: -4172294070507453501}
   m_Layer: 31
   m_Name: Flat Cube Mechanical
   m_TagString: Untagged
@@ -125,3 +127,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47bac80a21a18b4b91b990df1cb4e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4740951039499031645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407871048936973009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e20dafe6c4b9d04bbbe4678eb1d4c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4172294070507453501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407871048936973009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59e44a271f74de4a8ab904c09908e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxRotation: {x: 0, y: 0, z: 0}

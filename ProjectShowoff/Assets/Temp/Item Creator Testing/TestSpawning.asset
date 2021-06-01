@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e926043240ae1b4da1a0b485f8c4372, type: 3}
+  m_Name: TestSpawning
+  m_EditorClassIdentifier: 
+  foodSettings:
+    type: 0
+    chance: 0
+    chanceLowValue: 0
+    lowValue: 0
+    chanceHighValue: 0
+    highValue: 0
+    lowValuePrefabs:
+    - {fileID: 8231213894509408584, guid: 003bd1e2fa005df4eb0f048cf82ca768, type: 3}
+    - {fileID: 2372338174943268852, guid: 92d7bf82417b35647bbabf58a0553d35, type: 3}
+    highValuePrefabs:
+    - {fileID: 2372338174943268852, guid: 92d7bf82417b35647bbabf58a0553d35, type: 3}
+    - {fileID: 8231213894509408584, guid: 003bd1e2fa005df4eb0f048cf82ca768, type: 3}
+  fuelSettings:
+    type: 3
+    chance: 0
+    chanceLowValue: 0
+    lowValue: 0
+    chanceHighValue: 0
+    highValue: 0
+    lowValuePrefabs:
+    - {fileID: 5754005385849642719, guid: 7357ee273a1c85942818ca7e4cc8788d, type: 3}
+    - {fileID: 3827423843251958476, guid: 6512688c9841eb442a39fee522228306, type: 3}
+    highValuePrefabs:
+    - {fileID: 3827423843251958476, guid: 6512688c9841eb442a39fee522228306, type: 3}
+    - {fileID: 5754005385849642719, guid: 7357ee273a1c85942818ca7e4cc8788d, type: 3}
+  mechanicalPartsSettings:
+    type: 1
+    chance: 0
+    chanceLowValue: 0
+    lowValue: 0
+    chanceHighValue: 0
+    highValue: 0
+    lowValuePrefabs:
+    - {fileID: 4363861296156367006, guid: 4829340895e441a4fb4c621e858f72fa, type: 3}
+    - {fileID: 2058504238599994695, guid: 3cce1413b4cc1ef47960e607a7dd9e72, type: 3}
+    highValuePrefabs:
+    - {fileID: 5255865694976578227, guid: 3be0c2b849bb67a489db8104c0f67228, type: 3}
+    - {fileID: 8749639212801340773, guid: 8314791d2d57c2542822b63cc401eed9, type: 3}
+  medicineSettings:
+    type: 2
+    chance: 0
+    chanceLowValue: 0
+    lowValue: 0
+    chanceHighValue: 0
+    highValue: 0
+    lowValuePrefabs:
+    - {fileID: 8749639212801340773, guid: 8314791d2d57c2542822b63cc401eed9, type: 3}
+    - {fileID: 5255865694976578227, guid: 3be0c2b849bb67a489db8104c0f67228, type: 3}
+    highValuePrefabs:
+    - {fileID: 4363861296156367006, guid: 4829340895e441a4fb4c621e858f72fa, type: 3}
+    - {fileID: 2058504238599994695, guid: 3cce1413b4cc1ef47960e607a7dd9e72, type: 3}

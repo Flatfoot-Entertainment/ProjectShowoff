@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 954563153683438099}
   - component: {fileID: 3470087501069434147}
   - component: {fileID: 7956827167550968833}
+  - component: {fileID: 3974094568527366923}
+  - component: {fileID: 1057229793310412727}
   m_Layer: 31
   m_Name: Rectangle medicine
   m_TagString: Untagged
@@ -125,3 +127,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47bac80a21a18b4b91b990df1cb4e7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3974094568527366923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7172471159513578706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e20dafe6c4b9d04bbbe4678eb1d4c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1057229793310412727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7172471159513578706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c59e44a271f74de4a8ab904c09908e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxRotation: {x: 0, y: 0, z: 0}

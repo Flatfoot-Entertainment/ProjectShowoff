@@ -21,6 +21,7 @@ public class SpringlessGrabber : MonoBehaviour
 
 	// The thing being hooked
 	private Rigidbody target;
+	private ItemRotationScript targetRotationScript;
 	// The constraints of the target rigidbody the moment it was hooked
 	private RigidbodyConstraints oldTargetConstraints;
 	// Flag to set, if the hook should unhook at the end of the next FixedUpdate call
@@ -45,13 +46,14 @@ public class SpringlessGrabber : MonoBehaviour
 	public void Hook(Rigidbody hooked)
 	{
 		target = hooked;
+		targetRotationScript = target.GetComponent<ItemRotationScript>();
 
 		// Make RB kinematic and ignore collisions -> needed for hook
 		target.isKinematic = true;
 		target.detectCollisions = false;
 
 		// Set variables to default
-		lastRot = Quaternion.identity;
+		lastRot = Quaternion.Euler(targetRotationScript.boxRotation);
 		shouldUnhook = false;
 
 		// Save old constraints and add a rotation constraint
@@ -59,7 +61,7 @@ public class SpringlessGrabber : MonoBehaviour
 		target.constraints = oldTargetConstraints | RigidbodyConstraints.FreezeRotation;
 
 		// Start a tween to the initial rotation
-		target.DORotate(Vector3.zero, rotationResetTime).SetEase(rotationResetEasingMode);
+		target.DORotate(lastRot.eulerAngles, rotationResetTime).SetEase(rotationResetEasingMode);
 	}
 
 	private void Update()
@@ -70,6 +72,7 @@ public class SpringlessGrabber : MonoBehaviour
 			target.DORotate(
 				lastRot.eulerAngles, rotationTime
 			).SetEase(rotationEasingMode);
+			targetRotationScript.boxRotation = lastRot.eulerAngles;
 		}
 	}
 
@@ -111,6 +114,7 @@ public class SpringlessGrabber : MonoBehaviour
 
 		// Reset all the values
 		target = null;
+		targetRotationScript = null;
 		shouldUnhook = false;
 	}
 

@@ -1,5 +1,18 @@
 {
   "dependencies": {
+    "com.beetlecircus.serializabledictionary": {
+      "version": "0.1.2-preview.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://office.rain-games.com:4873"
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
     "com.unity.cinemachine": {
       "version": "2.6.4",
       "depth": 0,
