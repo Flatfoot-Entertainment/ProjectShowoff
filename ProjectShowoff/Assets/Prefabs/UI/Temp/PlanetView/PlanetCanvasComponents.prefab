@@ -168,10 +168,10 @@ RectTransform:
   m_Father: {fileID: 9171509384099728594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -899.99994, y: 480.05728}
-  m_SizeDelta: {x: 120, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 553, y: 151.613}
+  m_SizeDelta: {x: 143.82, y: 151.613}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5588942708638558324
 CanvasRenderer:
@@ -201,8 +201,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: a96450b9491654847b0e8594a382b32f, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -230,7 +230,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -240,10 +240,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: de499e2447f2cdc4eb1a0c4542391d7c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: b88b7b59d93bba44b8c32e56cb4edabe, type: 3}
+    m_SelectedSprite: {fileID: 21300000, guid: de499e2447f2cdc4eb1a0c4542391d7c, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 34c0f27f69d863c40b09c4eba5c15a9c, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -663,10 +663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4474721f563cab4ab96f9d3f08d87f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipSpawnPos: {fileID: 0}
-  shipPrefab: {fileID: 3152827672254393281, guid: 4c008d59da98d084896cde94df4e8184, type: 3}
-  ui: {fileID: 5139096004201549249}
-  fulfillmentCenter: {fileID: 0}
+  ship: {fileID: 0}
+  shipButton: {fileID: 5588942708638558314}
 --- !u!114 &5139096004201549249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,5 +677,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f285d4f6365e3409cdbc7a3c0a44c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonParent: {fileID: 5588942709495699983}
-  buttonPrefab: {fileID: 5588942709783868354}

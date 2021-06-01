@@ -1,11 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlanetaryShipmentCenter : MonoBehaviour
 {
 	private Planet selectedPlanet;
 	[SerializeField] private ShipComponents ship;
+	[SerializeField] private Button shipButton;
+
+	private void Start()
+	{
+		ship.Ship.OnArrival += OnShipReturned;
+		shipButton.interactable = true;
+	}
 
 	public void DeliverSelected()
 	{
@@ -15,6 +21,7 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 		// Instantiate a ship
 		ship.LoadingHandler.Ship();
 		ship.Ship.DeliverTo(selectedPlanet);
+		shipButton.interactable = false;
 
 		selectedPlanet.Deselect();
 
@@ -27,9 +34,15 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 		selectedPlanet = planet;
 		selectedPlanet.Select();
 	}
+	
 	public void DeselectPlanet()
 	{
 		if (selectedPlanet) selectedPlanet.Deselect();
 		selectedPlanet = null;
+	}
+
+	private void OnShipReturned()
+	{
+		shipButton.interactable = true;
 	}
 }
