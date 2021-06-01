@@ -19,6 +19,11 @@ public class ShipLoadingHandler : MonoBehaviour
 		box = new ContainerData();
 	}
 
+	public bool IsEmpty()
+	{
+		return box.Contents.Count <= 0;
+	}
+
 	private void OnCollisionEnter(Collision other)
 	{
 		var comp = other.gameObject.GetComponent<ItemBoxScript>();
