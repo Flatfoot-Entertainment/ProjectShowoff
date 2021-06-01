@@ -38,7 +38,7 @@ public class Ship : MonoBehaviour
 		target = planet;
 		sequence = DOTween.Sequence();
 		sequence.Append(transform.DOLookAt(target.transform.position, turnTime).SetEase(turnEase));
-		sequence.Insert(0f, (transform.DOMove(target.transform.position, travelTime).SetEase(travelEase)));
+		sequence.Insert(0f, transform.DOMove(target.transform.position, travelTime).SetEase(travelEase));
 		sequence.Insert(travelTime - scaleTime, transform.DOScale(startScale * scaleFactor, scaleTime).SetEase(scaleOutEase));
 	}
 
@@ -62,7 +62,7 @@ public class Ship : MonoBehaviour
 		sequence.Append(transform.DOMove(startPos, travelTime).SetEase(travelEase));
 		sequence.Insert(turnTime, transform.DOScale(startScale, scaleTime).SetEase(scaleInEase));
 		sequence.Insert(travelTime, transform.DORotate(startRotation, turnTime).SetEase(turnEase));
-		yield return new WaitWhile(() => { return sequence.IsActive() && sequence.IsPlaying(); });
+		yield return new WaitWhile(() => sequence.IsActive() && sequence.IsPlaying());
 		OnArrival?.Invoke();
 	}
 

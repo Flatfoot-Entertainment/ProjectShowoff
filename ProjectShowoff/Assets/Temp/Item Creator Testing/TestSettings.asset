@@ -18,5 +18,5 @@ MonoBehaviour:
       Value: {fileID: 960121011489615649, guid: 28e703efd1c140342b5c2c9bd19a5bfc, type: 3}
   complexColliderPrefabs:
     array:
-    - Key: kubus
+    - Key: hello world
       Value: {fileID: 960121011489615649, guid: 28e703efd1c140342b5c2c9bd19a5bfc, type: 3}

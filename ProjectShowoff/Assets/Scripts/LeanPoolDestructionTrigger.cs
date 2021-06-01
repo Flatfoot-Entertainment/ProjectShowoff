@@ -12,7 +12,11 @@ public class LeanPoolDestructionTrigger : MonoBehaviour
     {
         if (destructionLayer.Contains(other.gameObject.layer))
         {
-            Lean.Pool.LeanPool.Despawn(other.gameObject);
+	        var comp = other.GetComponent<ItemScript>();
+	        if (!comp)
+				comp = other.GetComponentInParent<ItemScript>();
+	        if (comp)
+		        Lean.Pool.LeanPool.Despawn(comp.gameObject);
         }
     }
 }
