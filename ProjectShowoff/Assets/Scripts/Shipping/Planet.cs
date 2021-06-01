@@ -24,6 +24,12 @@ public class Planet : MonoBehaviour
         set => planetaryShipmentCenter = value;
     }
 
+    public Sprite PlanetImage {
+        get => planetImage;
+        set => planetImage = value;
+    }
+
+    [SerializeField] private Sprite planetImage;
     [SerializeField] private RectTransform hitMarker;
     [SerializeField] private CanvasScaler scaler;
     [SerializeField] private PlanetUI ui;
