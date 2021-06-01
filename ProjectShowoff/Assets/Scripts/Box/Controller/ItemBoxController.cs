@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ItemBoxController : BoxController<ItemBoxData, Item>
 {
-	public AnimationClip ClosingAnimation => closingAnimation;
-
 	[SerializeField] private ShippableItemBox shippableBoxPrefab;
 	[SerializeField] private AnimationClip closingAnimation;
 
@@ -28,10 +26,10 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 		foreach (GameObject gO in contained) Lean.Pool.LeanPool.Despawn(gO);
 	}
 
-	public ShippableItemBox Ship()
+	private void Ship()
 	{
 		// Create a new shippable variant
-		var shippable = Instantiate<ShippableItemBox>(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
+		var shippable = Instantiate(shippableBoxPrefab, transform.position, transform.rotation, transform.parent);
 
 		// Move box to shippable instance
 		shippable.Init(Box);
@@ -40,7 +38,6 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 		// Enable shippable and destroy self
 		shippable.gameObject.SetActive(true);
 		Destroy(gameObject);
-		return shippable;
 	}
 
 	public void Close()
@@ -55,7 +52,7 @@ public class ItemBoxController : BoxController<ItemBoxData, Item>
 		else
 		{
 			boxAnimator.SetBool("isClosing", true);
-			yield return new WaitForSeconds(ClosingAnimation.length);
+			yield return new WaitForSeconds(closingAnimation.length);
 			Ship();
 		}
 	}

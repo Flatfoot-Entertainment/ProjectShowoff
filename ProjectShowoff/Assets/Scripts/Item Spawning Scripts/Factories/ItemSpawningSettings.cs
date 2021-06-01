@@ -32,7 +32,6 @@ public class ItemSpawningSettings : ScriptableObject
 			};
 			GameObject prefab = isLowValue ? lowValuePrefabs.Random() : highValuePrefabs.Random();
 			ItemScript script = prefab.GetComponent<ItemScript>();
-			if (!script) Debug.LogError("WTF???");
 			script.contained = item;
 			return prefab;
 		}
