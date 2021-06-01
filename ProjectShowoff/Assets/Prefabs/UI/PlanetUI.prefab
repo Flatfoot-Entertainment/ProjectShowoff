@@ -278,7 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3030101845978768935}
   m_Layer: 5
-  m_Name: PlanetUI 1
+  m_Name: PlanetUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -722,54 +722,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558314, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_Transition
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558314, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_SpriteState.m_PressedSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b88b7b59d93bba44b8c32e56cb4edabe, type: 3}
-    - target: {fileID: 5588942708638558314, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5587125304680990688}
-    - target: {fileID: 5588942708638558314, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DeliverSelected
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558315, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558315, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558315, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 143.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558315, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 151.613
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558315, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 553
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558315, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 151.613
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558325, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5588942708638558325, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a96450b9491654847b0e8594a382b32f, type: 3}
     - target: {fileID: 5588942709495699980, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
       propertyPath: m_Name
       value: ButtonGroup
@@ -893,14 +845,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 9171509384099728594, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
   m_PrefabInstance: {fileID: 4247093119893448458}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5587125304680990688 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8609123733293654250, guid: 1e930c7f533cba446bd32151d0d15d46, type: 3}
-  m_PrefabInstance: {fileID: 4247093119893448458}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4474721f563cab4ab96f9d3f08d87f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
