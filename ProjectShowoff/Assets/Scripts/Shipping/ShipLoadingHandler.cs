@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Ship))]
 public class ShipLoadingHandler : MonoBehaviour
 {
+	public event System.Action OnContentsChanged;
 	private Ship ship;
 	private ContainerData box;
 
@@ -30,6 +31,7 @@ public class ShipLoadingHandler : MonoBehaviour
 		if (comp)
 		{
 			box.AddToBox(comp.contained);
+			OnContentsChanged?.Invoke();
 			Destroy(other.gameObject);
 		}
 	}
@@ -48,5 +50,6 @@ public class ShipLoadingHandler : MonoBehaviour
 		enabled = true;
 		ship.enabled = false;
 		box = new ContainerData();
+		OnContentsChanged?.Invoke();
 	}
 }
