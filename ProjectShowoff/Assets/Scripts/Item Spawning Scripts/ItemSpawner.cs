@@ -32,7 +32,7 @@ public class ItemSpawner : MonoBehaviour
 		var rot = itemRotationScript ? itemRotationScript.boxRotation : Vector3.zero;
 		
 		//instantiates the item, sets material and adds the item script needed for info
-		GameObject spawnedItemObject = LeanPool.Spawn(item, transform.position, Quaternion.Euler(rot));
+		GameObject spawnedItemObject = LeanPool.Spawn(item, transform.position, Quaternion.Euler(rot), itemsSpawned);
 		spawnedItemObject.GetComponent<ItemScript>().contained = contained;
 		//since we're using pooling, objects get reused and velocity carries over - this makes sure it doesn't
 		spawnedItemObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
