@@ -7,6 +7,8 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	[SerializeField] private ShipComponents ship;
 	[SerializeField] private Button shipButton;
 
+	private bool inShipment = false;
+
 	private void Start()
 	{
 		ship.Ship.OnArrival += OnShipReturned;
@@ -27,10 +29,14 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 		selectedPlanet.Deselect();
 
 		selectedPlanet = null;
+		
+		inShipment = true;
 	}
 
 	public void OnPlanetClicked(Planet planet)
 	{
+		// Only allow selecting a planet, if you can actually ship stuff
+		if (inShipment || ship.LoadingHandler.IsEmpty()) return;
 		if (selectedPlanet) selectedPlanet.Deselect();
 		selectedPlanet = planet;
 		selectedPlanet.Select();
@@ -45,5 +51,6 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	private void OnShipReturned()
 	{
 		shipButton.interactable = true;
+		inShipment = false;
 	}
 }
