@@ -10,7 +10,8 @@ public class PlanetaryShipmentCenter : MonoBehaviour
 	private void Start()
 	{
 		ship.Ship.OnArrival += OnShipReturned;
-		shipButton.interactable = true;
+		ship.LoadingHandler.OnContentsChanged += () => shipButton.interactable = !ship.LoadingHandler.IsEmpty();
+		shipButton.interactable = !ship.LoadingHandler.IsEmpty();
 	}
 
 	public void DeliverSelected()
